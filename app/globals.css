@@ -2,17 +2,24 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
+/* :root {
 }
 
 @media (prefers-color-scheme: dark) {
 }
 
 body {
-}
+} */
 
 @layer utilities {
   .text-balance {
     text-wrap: balance;
   }
+}
+
+@font-face {
+  font-family: 'S-CoreDream';
+  src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
 }
