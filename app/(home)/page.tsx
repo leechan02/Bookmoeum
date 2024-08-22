@@ -13,7 +13,8 @@ interface BestsellerResponse {
 }
 
 async function getBestseller(): Promise<BestsellerResponse> {
-  const response = await fetch('/api/getBestseller');
+  // const response = await fetch('/api/getBestseller');
+  const response = await fetch('/data/bestseller');
 
   if (!response.ok) {
     throw new Error("서버에서 데이터를 가져오지 못했습니다.");
