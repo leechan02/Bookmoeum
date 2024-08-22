@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
 import "../styles/globals.css";
-
-const inter = Inter({ subsets: ["latin"] });
+import Nav from "@/components/Navigation/Nav";
 
 export const metadata: Metadata = {
   title: "책모음",
@@ -15,8 +13,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="ko">
-      <body className={inter.className}>{children}</body>
+    <html lang='ko'>
+      <body>
+        <Nav />
+        {children}
+      </body>
     </html>
   );
 }

@@ -27,7 +27,10 @@ const config: Config = {
       },
     },
     fontFamily: {
-      sans: ["S-CoreDream", "sans-serif"],
+      'light': ['S-CoreDream-3Light', 'sans-serif'],
+      'regular': ['S-CoreDream-4Regular', 'sans-serif'],
+      'medium': ['S-CoreDream-6Medium', 'sans-serif'],
+      'bold': ['S-CoreDream-7Bold', 'sans-serif'],
     },
   },
   plugins: [],

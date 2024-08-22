@@ -2,14 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
-/* :root {
-}
-
-@media (prefers-color-scheme: dark) {
-}
-
 body {
-} */
+  font-family: 'S-CoreDream-4Regular', sans-serif;
+}
 
 @layer utilities {
   .text-balance {
@@ -17,9 +12,49 @@ body {
   }
 }
 
+/* light */
 @font-face {
-  font-family: 'S-CoreDream';
-  src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream.woff') format('woff');
+  font-family: 'S-CoreDream-3Light';
+  src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-3Light.woff') format('woff');
   font-weight: normal;
   font-style: normal;
+}
+
+/* regular */
+@font-face {
+  font-family: 'S-CoreDream-4Regular';
+  src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-4Regular.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* medium */
+@font-face {
+  font-family: 'S-CoreDream-5Medium';
+  src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-5Medium.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* bold */
+@font-face {
+  font-family: 'S-CoreDream-6Bold';
+  src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-6Bold.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@layer utilities {
+  .font-light {
+    font-family: 'S-CoreDream-3Light', sans-serif;
+  }
+  .font-regular {
+    font-family: 'S-CoreDream-4Regular', sans-serif;
+  }
+  .font-medium {
+    font-family: 'S-CoreDream-5Medium', sans-serif;
+  }
+  .font-bold {
+    font-family: 'S-CoreDream-6Bold', sans-serif;
+  }
 }
