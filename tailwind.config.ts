@@ -7,10 +7,27 @@ const config: Config = {
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
-    extend: {
-      fontFamily: {
-        sans: ['S-CoreDream', 'sans-serif'],
-      }
+    colors: {
+      transparent: "transparent",
+      primary: "#353535",
+      secondary: "#ededed",
+      white: "#ffffff",
+      black: "#000000",
+      grey: {
+        50: "#ededed",
+        100: "#c7c7c7",
+        200: "#acacac",
+        300: "#868686",
+        400: "#6e6e6e",
+        500: "#4a4a4a",
+        600: "#434343",
+        700: "#353535",
+        800: "#292929",
+        900: "#1f1f1f",
+      },
+    },
+    fontFamily: {
+      sans: ["S-CoreDream", "sans-serif"],
     },
   },
   plugins: [],

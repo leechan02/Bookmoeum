@@ -27,12 +27,12 @@ export default function SearchBar({
   const handleSearch = () => {
     if (!query.trim()) return;
     onSearch(query);
-  }
+  };
 
   return (
     <form
       onSubmit={handleSubmit}
-      className='w-[584px] h-[60px] flex items-center px-6 py-4 bg-gray-100 rounded-full'
+      className='w-[584px] h-[60px] flex items-center px-6 py-4 rounded-full bg-secondary opacity-70'
     >
       <input
         type='text'
@@ -42,7 +42,7 @@ export default function SearchBar({
         className='w-full h-full bg-transparent outline-none'
       />
       <button onClick={handleSearch}>
-        <FiSearch className='w-6 h-6' />
+        <FiSearch className='w-6 h-6 text-primary' />
       </button>
     </form>
   );
