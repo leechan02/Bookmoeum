@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "../styles/globals.css";
 import Nav from "@/components/Navigation/Nav";
 import Footer from "@/components/Footer";
+import SearchBar from "@/components/Input/SearchBar";
 
 export const metadata: Metadata = {
   title: "책모음",

@@ -1,3 +1,7 @@
+"use client";
+
+import SearchBar from "@/components/Input/SearchBar";
+
 export default function Home() {
   return (
     <header className='flex flex-col justify-center items-center gap-8 py-28'>
@@ -13,7 +17,8 @@ export default function Home() {
           읽고 싶은 책이 어디에 있는지 한눈에 확인하세요.
         </div>
       </div>
-      <div className="w-[584px] h-[60px] py-4 px-6"></div>
+      {/* <div className="w-[584px] h-[60px] py-4 px-6"></div> */}
+      <SearchBar onSearch={(query) => console.log(query)} />
     </header>
   );
 }

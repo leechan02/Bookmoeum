@@ -41,7 +41,7 @@ export default function SearchBar({
         placeholder={placeholder}
         className='w-full h-full bg-transparent outline-none'
       />
-      <button onClick={handleSearch}>
+      <button>
         <FiSearch className='w-6 h-6 text-primary' />
       </button>
     </form>
