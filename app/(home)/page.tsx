@@ -13,6 +13,7 @@ export default function Home() {
           읽고 싶은 책이 어디에 있는지 한눈에 확인하세요.
         </div>
       </div>
+      <div className="w-[584px] h-[60px] py-4 px-6"></div>
     </header>
   );
 }
