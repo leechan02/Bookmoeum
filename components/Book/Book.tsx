@@ -20,10 +20,10 @@ export default function Book({
 
   return (
     <div
-      className='flex justify-center items-center'
+      className='flex-none justify-center items-center inline-flex'
       style={{ width: `${width}px`, height: `${height}px` }}
     >
-      <img src={imageUrl} alt='Book Cover' className='w-full h-full' />
+      <img src={imageUrl} alt='Book Cover' className='w-full h-full rounded-lg' />
     </div>
   );
 }

@@ -1,6 +1,8 @@
 "use client";
 
+import Book from "@/components/Book/Book";
 import SearchBar from "@/components/Input/SearchBar";
+import { useEffect, useState } from "react";
 
 interface Book {
   title: string;
@@ -14,7 +16,7 @@ interface BestsellerResponse {
 
 async function getBestseller(): Promise<BestsellerResponse> {
   // const response = await fetch('/api/getBestseller');
-  const response = await fetch('/data/bestseller');
+  const response = await fetch('/data/bestseller.json');
 
   if (!response.ok) {
     throw new Error("서버에서 데이터를 가져오지 못했습니다.");
@@ -27,14 +29,28 @@ async function getBestseller(): Promise<BestsellerResponse> {
 async function handleClick(query: string): Promise<void> {
   try {
     console.log(`검색어: ${query}`);
-    const data = await getBestseller();
-    console.log(data);
   } catch (error) {
     console.error(error);
   }
 }
 
 export default function Home(): JSX.Element {
+  const [bookCover, setBookCover] = useState<string[]>([]);
+
+  useEffect(() => {
+    async function fetchBestseller() {
+      try {
+        const { item } = await getBestseller();
+        console.log(item);
+        setBookCover(item.map((book) => book.cover));
+      } catch (error) {
+        console.error(error);
+      }
+    }
+
+    fetchBestseller();
+  }, []);
+
   return (
     <>
       <header className='flex flex-col justify-center items-center gap-8 py-28'>
@@ -57,7 +73,13 @@ export default function Home(): JSX.Element {
         {/* <div className="w-[584px] h-[60px] py-4 px-6"></div> */}
         <SearchBar onSearch={handleClick} />
       </header>
-      <section className='py-28'></section>
+      <section className='py-28'>
+        <div className='flex gap-4 items-end justify-start overflow-hidden'>
+            {bookCover.map((cover, index) => (
+              <Book key={index} imageUrl={cover} width={120} />
+            ))}
+        </div>
+      </section>
     </>
   );
 }
