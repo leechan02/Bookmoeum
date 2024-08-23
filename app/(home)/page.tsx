@@ -6,13 +6,13 @@ import MoveBooks from "./_components/MoveBooks";
 export default function Home(): JSX.Element {
   return (
     <>
-      <header className='flex flex-col justify-center items-center gap-8 py-14'>
+      <header className='flex flex-col justify-center items-center gap-8 pt-14 pb-6'>
         <img
           src='/LogoIcon.svg'
           alt='logo Icon'
           className='w-24 h-24 text-primary'
         />
-        <div className='flex flex-col gap-5 justify-center items-center'>
+        <div className='flex flex-col gap-6 justify-center items-center'>
           <div className='text-center text-5xl font-bold text-primary leading-[72px]'>
             여러 사이트를 돌아다닐 필요없이
             <br />
@@ -24,7 +24,7 @@ export default function Home(): JSX.Element {
           </div>
         </div>
       </header>
-      <div className='flex justify-center items-center'>
+      <div className='flex justify-center items-center pt-4 pb-14 sticky top-0'>
         <SearchBar onSearch={(query) => console.log(query)} />
       </div>
       <MoveBooks />
