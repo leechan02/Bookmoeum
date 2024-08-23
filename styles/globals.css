@@ -58,3 +58,30 @@ body {
     font-family: 'S-CoreDream-6Bold', sans-serif;
   }
 }
+
+/* Book slider animation */
+@keyframes bookSlideLeft {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+@keyframes bookSlideRight {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+.animate-bookSlideLeft {
+  animation: bookSlideLeft 60s linear infinite;
+}
+
+.animate-bookSlideRight {
+  animation: bookSlideRight 60s linear infinite;
+}

@@ -1,4 +1,5 @@
 import Book from "@/components/Book/Book";
+import BookSlider from "@/components/Book/BookSlider";
 import { useEffect, useState } from "react";
 
 interface Book {
@@ -41,12 +42,9 @@ export default function MoveBooks() {
   }, []);
 
   return (
-    <section className='py-28'>
-      <div className='flex gap-4 items-end justify-start overflow-hidden'>
-        {bookCover.map((cover, index) => (
-          <Book key={index} imageUrl={cover} width={120} />
-        ))}
-      </div>
+    <section className='py-28 flex-col gap-8 overflow-hidden'>
+      <BookSlider bookCover={bookCover} />
+      <BookSlider bookCover={bookCover} reverse />
     </section>
   );
 }
