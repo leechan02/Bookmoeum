@@ -24,9 +24,11 @@ export default function Home(): JSX.Element {
           </div>
         </div>
       </header>
-      <div className='flex justify-center items-center pt-4 pb-14 sticky top-0'>
+      <div className='flex justify-center items-center pt-4 pb-14 sticky top-0 z-50'>
         <SearchBar onSearch={(query) => console.log(query)} />
       </div>
+      <MoveBooks />
+      <MoveBooks />
       <MoveBooks />
     </>
   );
