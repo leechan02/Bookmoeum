@@ -28,8 +28,6 @@ export default function Home(): JSX.Element {
         <SearchBar onSearch={(query) => console.log(query)} />
       </div>
       <MoveBooks />
-      <MoveBooks />
-      <MoveBooks />
     </>
   );
 }
