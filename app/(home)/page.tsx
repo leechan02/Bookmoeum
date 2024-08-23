@@ -2,8 +2,16 @@
 
 import SearchBar from "@/components/Input/SearchBar";
 import MoveBooks from "./_components/MoveBooks";
+import { useRouter } from "next/navigation";
 
 export default function Home(): JSX.Element {
+  const router = useRouter();
+
+  const handleSearch = (query: string) => {
+    console.log(query);
+    router.push(`/search`);
+  };
+
   return (
     <>
       <header className='flex flex-col justify-center items-center gap-8 pt-14 pb-6'>
@@ -25,7 +33,7 @@ export default function Home(): JSX.Element {
         </div>
       </header>
       <div className='flex justify-center items-center pt-4 pb-14 sticky top-0 z-50'>
-        <SearchBar onSearch={(query) => console.log(query)} />
+        <SearchBar onSearch={handleSearch} />
       </div>
       <MoveBooks />
     </>
