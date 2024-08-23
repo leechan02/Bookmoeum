@@ -9,7 +9,7 @@ export default function Home(): JSX.Element {
 
   const handleSearch = (query: string) => {
     console.log(query);
-    router.push(`/search`);
+    router.push(`/search?query=${query}`);
   };
 
   return (
