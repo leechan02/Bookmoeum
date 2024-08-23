@@ -3,18 +3,10 @@
 import SearchBar from "@/components/Input/SearchBar";
 import MoveBooks from "./_components/MoveBooks";
 
-async function handleClick(query: string): Promise<void> {
-  try {
-    console.log(`검색어: ${query}`);
-  } catch (error) {
-    console.error(error);
-  }
-}
-
 export default function Home(): JSX.Element {
   return (
     <>
-      <header className='flex flex-col justify-center items-center gap-8 py-28'>
+      <header className='flex flex-col justify-center items-center gap-8 py-14'>
         <img
           src='/LogoIcon.svg'
           alt='logo Icon'
@@ -31,9 +23,10 @@ export default function Home(): JSX.Element {
             읽고 싶은 책이 어디에 있는지 한눈에 확인하세요.
           </div>
         </div>
-        {/* <div className="w-[584px] h-[60px] py-4 px-6"></div> */}
-        <SearchBar onSearch={handleClick} />
       </header>
+      <div className='flex justify-center items-center'>
+        <SearchBar onSearch={(query) => console.log(query)} />
+      </div>
       <MoveBooks />
     </>
   );
