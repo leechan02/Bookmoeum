@@ -15,8 +15,10 @@ export default function BookSlider({
 
   return (
     <div
-      className={`flex gap-4 items-end justify-${reverse ? "end" : "start"} ${
-        reverse ? "animate-bookSlideRight" : "animate-bookSlideLeft"
+      className={`flex gap-4 items-end ${
+        reverse
+          ? " justify-end animate-bookSlideRight"
+          : " justify-start animate-bookSlideLeft"
       }`}
     >
       {extendedBookList.map((cover, index) => (
