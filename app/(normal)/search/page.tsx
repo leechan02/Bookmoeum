@@ -1,6 +1,7 @@
 "use client";
 
 import { useSearchParams } from "next/navigation";
+import SearchTabs from "./_components/SearchTabs";
 
 export default function SearchPage(): JSX.Element {
   const searchParams = useSearchParams();
@@ -10,6 +11,7 @@ export default function SearchPage(): JSX.Element {
     <>
     <div className="flex-col justify-center items-center px-28 py-8 gap-8">
       <div className="font-bold text-3xl text-primary">{query}</div>
+      <SearchTabs />
     </div>
     </>
   );

@@ -16,7 +16,7 @@ export default function SearchTabs() {
   };
 
   return (
-    <div className='flex justify-start items-center gap-4'>
+    <div className='flex justify-start items-start gap-4'>
       {tabs.map((tab) => (
         <TabItem
           key={tab.label}

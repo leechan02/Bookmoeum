@@ -13,17 +13,17 @@ export default function TabItem({
 }: TabItemProps) {
   return (
     <div
-      className={`border-b-2 cursor-pointer ${
-        isActive ? "border-b-secondary" : "border-b-primary"
+      className={`cursor-pointer flex items-center justify-center py-2 gap-2 ${
+        isActive ? "border-b-primary border-b-2" : ""
       }`}
       onClick={onClick}
     >
       <Icon
-        className={`w-6 h-6 ${isActive ? "text-secondary" : "text-primary"}`}
+        className={`w-6 h-6 ${isActive ? "text-primary" : "text-secondary"}`}
       />
       <div
         className={`font-medium text-base ${
-          isActive ? "text-secondary" : "text-primary"
+          isActive ? "text-primary" : "text-secondary"
         }`}
       >
         {label}
