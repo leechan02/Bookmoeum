@@ -1,5 +1,3 @@
-import { FiBook, FiBox, FiHome } from "react-icons/fi";
-
 interface WhereInfoProps {
   count: number | string;
   label: string;
