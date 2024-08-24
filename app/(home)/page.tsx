@@ -15,7 +15,7 @@ export default function Home(): JSX.Element {
 
   return (
     <>
-      <header className='flex flex-col justify-center items-center gap-8 pt-14 pb-6'>
+      <section className='flex flex-col justify-center items-center gap-8 pt-14 pb-6'>
         <img
           src='/LogoIcon.svg'
           alt='logo Icon'
@@ -32,7 +32,7 @@ export default function Home(): JSX.Element {
             읽고 싶은 책이 어디에 있는지 한눈에 확인하세요.
           </div>
         </div>
-      </header>
+      </section>
       <div className='flex justify-center items-center pt-4 pb-14 sticky top-0 z-50'>
         <SearchBar onSearch={handleSearch} />
       </div>
