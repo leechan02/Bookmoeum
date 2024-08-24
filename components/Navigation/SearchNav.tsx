@@ -13,7 +13,7 @@ export default function SearchNav() {
   };
 
   return (
-    <div className='sticky top-0 h-[92px] flex px-8 py-4 justify-between items-center'>
+    <div className='sticky top-0 h-[92px] flex px-28 py-4 justify-between items-center'>
       <Link href='/'>
         <img src='/Logo.svg' alt='logo' />
       </Link>

@@ -1,6 +1,5 @@
 "use client";
 
-import SearchBar from "@/components/Input/SearchBar";
 import { useSearchParams } from "next/navigation";
 
 export default function SearchPage(): JSX.Element {
@@ -9,7 +8,9 @@ export default function SearchPage(): JSX.Element {
 
   return (
     <>
+    <div className="flex-col justify-center items-center px-28 py-8 gap-8">
       <div className="font-bold text-3xl text-primary">{query}</div>
+    </div>
     </>
   );
 }

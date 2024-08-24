@@ -2,7 +2,7 @@ import Link from "next/link";
 
 export default function Nav() {
   return (
-    <div className='sticky top-0 h-[92px] flex px-8 py-4 justify-start items-center gap-6'>
+    <div className='sticky top-0 h-[92px] flex px-28 py-4 justify-start items-center gap-6'>
       <Link href='/' className="flex grow shrink basis-0">
         <img src='/Logo.svg' alt='logo' />
       </Link>
