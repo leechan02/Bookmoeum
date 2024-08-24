@@ -3,6 +3,7 @@
 import SearchBar from "@/components/Input/SearchBar";
 import MoveBooks from "./_components/MoveBooks";
 import { useRouter } from "next/navigation";
+import WhereSection from "./_components/WhereSection";
 
 export default function Home(): JSX.Element {
   const router = useRouter();
@@ -36,6 +37,7 @@ export default function Home(): JSX.Element {
         <SearchBar onSearch={handleSearch} />
       </div>
       <MoveBooks />
+      <WhereSection />
     </>
   );
 }
