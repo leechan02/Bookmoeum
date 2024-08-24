@@ -3,8 +3,8 @@ import WhereInfo from "./WhereInfo";
 
 export default function WhereSection() {
   return (
-    <div className='flex justify-center items-center py-60'>
-      <div className='flex-col justify-center items-center gap-6 inline-flex'>
+    <div className='h-screen flex justify-center items-center'>
+      <div className='grid place-items-center gap-6'>
         <div className='text-primary text-sm font-medium'>
           책을 찾아볼 수 있는 곳
         </div>
