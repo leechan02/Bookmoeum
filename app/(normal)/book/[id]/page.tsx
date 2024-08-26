@@ -2,6 +2,7 @@
 
 import Book from "@/components/Book/Book";
 import Chip from "@/components/Chips/Chip";
+import BookStoreIcon from "@/components/Icon/BookStoreIcon";
 import { useEffect, useState } from "react";
 
 interface BookDetailParams {
@@ -71,6 +72,7 @@ export default function BookDetail({ params }: BookDetailParams) {
               <Chip label={bookData.pubDate} />
             </div>
           </div>
+          <BookStoreIcon imageUrl='/IconAladdin.svg' width={48} />
         </div>
       </div>
     </div>
