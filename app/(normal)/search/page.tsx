@@ -51,6 +51,11 @@ export default function SearchPage(): JSX.Element {
           <div className='font-bold text-3xl text-primary'>{query}</div>
           <SearchTabs />
           {isLoading ? (
+            <div>검색결과...</div>
+          ) : (
+            <div> 검색결과 {totalResults}</div>
+          )}
+          {isLoading ? (
             <div>로딩 중...</div>
           ) : (
             <div>

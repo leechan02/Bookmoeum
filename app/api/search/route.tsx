@@ -5,6 +5,7 @@ const TTBKey = process.env.NEXT_PUBLIC_ALADDIN_API_KEY;
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
   const query = searchParams.get("query");
+  const start = searchParams.get("start") || "1";
 
   if (!query) {
     return new Response("검색어를 입력해주세요", { status: 400 });
@@ -12,7 +13,7 @@ export async function GET(request: Request) {
 
   const apiUrl = `http://www.aladin.co.kr/ttb/api/ItemSearch.aspx?ttbkey=${TTBKey}&Query=${encodeURIComponent(
     query
-  )}&QueryType=Keyword&SearchTarget=Book&output=js&Version=20131101
+  )}&QueryType=Keyword&SearchTarget=Book&output=js&Version=20131101&Start=${start}&MaxResults=10
 `;
 
   try {
