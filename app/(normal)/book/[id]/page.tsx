@@ -125,14 +125,14 @@ export default function BookDetail({ params }: BookDetailParams) {
           </div>
           <div className='inline-flex justify-start items-center gap-4 px-1'>
             <div className='inline-flex justify-start items-center gap-1'>
-              <span className='text-sm font-light text-primary'>
+              <span className='text-sm font-medium text-primary'>
                 {bookData.processedAuthor}
               </span>
               <span className='text-sm font-light text-grey-200'>저</span>
             </div>
             {bookData.translator && (
               <div className='inline-flex justify-start items-center gap-1'>
-                <span className='text-sm font-light text-primary'>
+                <span className='text-sm font-medium text-primary'>
                   {bookData.translator}
                 </span>
                 <span className='text-sm font-light text-grey-200'>역</span>
