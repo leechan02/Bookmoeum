@@ -1,0 +1,76 @@
+{
+  "version": "20131101",
+  "logo": "http://image.aladin.co.kr/img/header/2011/aladin_logo_new.gif",
+  "title": "알라딘 상품정보 - 우정 도둑",
+  "link": "https://www.aladin.co.kr/shop/wproduct.aspx?ItemId=316792382&amp;partner=openAPI",
+  "pubDate": "Mon, 26 Aug 2024 09:58:16 GMT",
+  "totalResults": 1,
+  "startIndex": 1,
+  "itemsPerPage": 1,
+  "query": "isbn13=9791130699691",
+  "searchCategoryId": 0,
+  "searchCategoryName": "",
+  "item": [
+      {
+          "title": "우정 도둑 - 삶의 궤도를 넓혀준 글, 고독, 연결의 기록",
+          "link": "http://www.aladin.co.kr/shop/wproduct.aspx?ItemId=316792382&amp;partner=openAPI&amp;start=api",
+          "author": "유지혜 (지은이)",
+          "pubDate": "2023-05-17",
+          "description": "『쉬운 천국』, 『미워하는 미워하는 미워하는 마음 없이』로 유일무이한 이십대 작가의 탄생을 알렸던 유지혜 작가가 단단하게 균형 잡힌 삼십대의 이야기로 돌아왔다. 결핍을 간절히 채우고 싶었던 끝에 그 답을 우정에서 찾은 과정을 기록한 에세이 『우정 도둑』이 놀에서 출간되었다.",
+          "isbn": "K832833783",
+          "isbn13": "9791130699691",
+          "itemId": 316792382,
+          "priceSales": 15300,
+          "priceStandard": 17000,
+          "mallType": "BOOK",
+          "stockStatus": "",
+          "mileage": 850,
+          "cover": "https://image.aladin.co.kr/product/31679/23/cover200/k832833783_1.jpg",
+          "categoryId": 51371,
+          "categoryName": "국내도서>에세이>한국에세이",
+          "publisher": "놀",
+          "salesPoint": 7049,
+          "adult": false,
+          "fixedPrice": true,
+          "customerReviewRank": 9,
+          "subInfo": {
+              "ebookList": [
+                  {
+                      "itemId": 320227306,
+                      "isbn": "E432531146",
+                      "isbn13": "9791130643779",
+                      "priceSales": 18000,
+                      "link": "https://www.aladin.co.kr/shop/wproduct.aspx?ItemId=320227306&amp;partner=openAPI"
+                  },
+                  {
+                      "itemId": 316948942,
+                      "isbn": "E042531129",
+                      "isbn13": "9791130642802",
+                      "priceSales": 11900,
+                      "link": "https://www.aladin.co.kr/shop/wproduct.aspx?ItemId=316948942&amp;partner=openAPI"
+                  }
+              ],
+              "usedList": {
+                  "aladinUsed": {
+                      "itemCount": 0,
+                      "minPrice": 0,
+                      "link": "https://www.aladin.co.kr/shop/UsedShop/wuseditemall.aspx?ItemId=316792382&amp;TabType=2&amp;partner=openAPI"
+                  },
+                  "userUsed": {
+                      "itemCount": 27,
+                      "minPrice": 6000,
+                      "link": "https://www.aladin.co.kr/shop/UsedShop/wuseditemall.aspx?ItemId=316792382&amp;TabType=1&amp;partner=openAPI"
+                  },
+                  "spaceUsed": {
+                      "itemCount": 15,
+                      "minPrice": 10000,
+                      "link": "https://www.aladin.co.kr/shop/UsedShop/wuseditemall.aspx?ItemId=316792382&amp;TabType=3&amp;partner=openAPI"
+                  }
+              },
+              "subTitle": "삶의 궤도를 넓혀준 글, 고독, 연결의 기록",
+              "originalTitle": "",
+              "itemPage": 348
+          }
+      }
+  ]
+}

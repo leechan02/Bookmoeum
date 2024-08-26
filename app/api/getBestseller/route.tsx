@@ -3,7 +3,7 @@ import { NextResponse } from "next/server";
 export async function GET() {
   try {
     const response = await fetch(
-      `http://www.aladin.co.kr/ttb/api/ItemList.aspx?ttbkey=${process.env.NEXT_PUBLIC_ALADDIN_API_KEY}&QueryType=Bestseller&SearchTarget=Book&MaxResults=20&Cover=Big&Version=20131101&output=js`
+      `http://www.aladin.co.kr/ttb/api/ItemList.aspx?ttbkey=${process.env.ALADDIN_API_KEY}&QueryType=Bestseller&SearchTarget=Book&MaxResults=20&Cover=Big&Version=20131101&output=js`
     );
 
     if (!response.ok) {

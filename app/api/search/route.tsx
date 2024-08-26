@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 
-const TTBKey = process.env.NEXT_PUBLIC_ALADDIN_API_KEY;
+const TTBKey = process.env.ALADDIN_API_KEY;
 
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
