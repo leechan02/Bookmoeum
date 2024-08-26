@@ -1,10 +1,6 @@
+import { SearchResult } from "@/app/(normal)/search/page";
 import BookDescription from "./BookDescription";
-
-interface SearchResult {
-  title: string;
-  author: string;
-  cover: string;
-}
+import Link from "next/link";
 
 interface BookListProps {
   searchResults: SearchResult[];
@@ -22,11 +18,13 @@ export default function BookList({
           key={index}
           ref={index === searchResults.length - 1 ? lastResultElementRef : null}
         >
-          <BookDescription
-            title={result.title}
-            author={result.author}
-            imageUrl={result.cover}
-          />
+          <Link href={`/book/${result.isbn13}`}>
+            <BookDescription
+              title={result.title}
+              author={result.author}
+              imageUrl={result.cover}
+            />
+          </Link>
         </div>
       ))}
     </div>

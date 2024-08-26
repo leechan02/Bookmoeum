@@ -5,10 +5,11 @@ import SearchTabs from "./_components/SearchTabs";
 import { useCallback, useEffect, useRef, useState } from "react";
 import BookList from "@/components/Book/BookList";
 
-interface SearchResult {
+export interface SearchResult {
   title: string;
   author: string;
   cover: string;
+  isbn13: string;
 }
 
 export default function SearchPage(): JSX.Element {
@@ -48,6 +49,7 @@ export default function SearchPage(): JSX.Element {
         throw new Error("API 요청 실패");
       }
       const data = await response.json();
+      console.log(data);
       setSearchResults((prevResults) => [...prevResults, ...data.item]);
       setTotalResults(data.totalResults);
       setHasMore(searchResults.length + data.item.length < data.totalResults);
