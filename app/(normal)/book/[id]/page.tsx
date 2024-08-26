@@ -28,8 +28,40 @@ interface BookData {
   }>;
 }
 
+interface ProcessedBookData extends BookData {
+  processedTitle: string;
+  processedAuthor: string;
+  translator: string;
+}
+
+const processTitle = (title: string): string => {
+  const specialChars = ["(", "-", ":", "·"];
+  for (let char of specialChars) {
+    const index = title.indexOf(char);
+    if (index !== -1) {
+      return title.substring(0, index).trim();
+    }
+  }
+  return title.trim();
+};
+
+const processAuthorAndTranslator = (
+  author: string
+): { author: string; translator: string } => {
+  const authorMatch = author.match(/(.*?)\s*\(지은이\)/);
+  const translatorMatch = author.match(/\(지은이\)(.*?)\(옮긴이\)/);
+
+  const trimSpecialChars = (str: string) => 
+    str.replace(/^[^a-zA-Z가-힣]+|[^a-zA-Z가-힣]+$/g, '').trim();
+
+  return {
+    author: authorMatch ? trimSpecialChars(authorMatch[1]) : trimSpecialChars(author),
+    translator: translatorMatch ? trimSpecialChars(translatorMatch[1]) : "",
+  };
+};
+
 export default function BookDetail({ params }: BookDetailParams) {
-  const [bookData, setBookData] = useState<BookData | null>(null);
+  const [bookData, setBookData] = useState<ProcessedBookData | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -42,8 +74,19 @@ export default function BookDetail({ params }: BookDetailParams) {
           throw new Error("Failed to fetch book data");
         }
         const data = await response.json();
-        console.log(data.item[0]);
-        setBookData(data.item[0]);
+        const rawBookData = data.item[0];
+
+        console.log(rawBookData);
+        const { author, translator } = processAuthorAndTranslator(
+          rawBookData.author
+        );
+
+        setBookData({
+          ...rawBookData,
+          processedTitle: processTitle(rawBookData.title),
+          processedAuthor: author,
+          translator: translator,
+        });
       } catch (err) {
         setError("Error fetching book data");
         console.error(err);
@@ -60,24 +103,20 @@ export default function BookDetail({ params }: BookDetailParams) {
   if (!bookData) return <div>No book data found</div>;
 
   return (
-    <div className=''>
-      <div>
+    <div className='flex justify-center items-center py-14'>
+      <div className='flex justify-center items-start gap-40'>
         <Book imageUrl={bookData.cover} width={240} />
         <div>
+          <div>{bookData.processedTitle}</div>
           <div>
-            <div>{bookData.title}</div>
-            <div>
-              <div>{bookData.author}</div>
-            </div>
-            <div>
-              <Chip label={bookData.publisher} />
-              <Chip label={bookData.categoryName} />
-              <Chip label={bookData.pubDate} />
-            </div>
+            <div>{bookData.processedAuthor}</div>
+            {bookData.translator && <div>{bookData.translator}</div>}
           </div>
-          <BookStoreIcon imageUrl='/IconAladdin.svg' width={48} />
-          <ButtonIcon iconSize={48} iconColor='white' bgColor='primary' Icon={FiPlus} />
-          <Button Icon={FiBook} label='내 서재에 담기' />
+          <div>
+            <Chip label={bookData.publisher} />
+            <Chip label={bookData.categoryName} />
+            <Chip label={bookData.pubDate} />
+          </div>
         </div>
       </div>
     </div>
