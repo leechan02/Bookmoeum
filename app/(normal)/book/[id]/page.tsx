@@ -1,11 +1,12 @@
 "use client";
 
 import Book from "@/components/Book/Book";
+import Button from "@/components/Button/Button";
 import Chip from "@/components/Chips/Chip";
 import BookStoreIcon from "@/components/Icon/BookStoreIcon";
 import ButtonIcon from "@/components/Icon/ButtonIcon";
 import { useEffect, useState } from "react";
-import { FiPlus } from "react-icons/fi";
+import { FiBook, FiPlus } from "react-icons/fi";
 
 interface BookDetailParams {
   params: { id: string };
@@ -76,6 +77,7 @@ export default function BookDetail({ params }: BookDetailParams) {
           </div>
           <BookStoreIcon imageUrl='/IconAladdin.svg' width={48} />
           <ButtonIcon iconSize={48} iconColor='white' bgColor='primary' Icon={FiPlus} />
+          <Button Icon={FiBook} label='내 서재에 담기' />
         </div>
       </div>
     </div>
