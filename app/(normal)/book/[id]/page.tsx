@@ -1,5 +1,7 @@
 "use client";
 
+import Book from "@/components/Book/Book";
+import Chip from "@/components/Chips/Chip";
 import { useEffect, useState } from "react";
 
 interface BookDetailParams {
@@ -10,7 +12,16 @@ interface BookData {
   title: string;
   author: string;
   cover: string;
+  publisher: string;
   isbn13: string;
+  categoryName: string;
+  description: string;
+  link: string;
+  pubDate: string;
+  subInfo: Array<{
+    itemPage: number;
+    subTitle: string;
+  }>;
 }
 
 export default function BookDetail({ params }: BookDetailParams) {
@@ -27,8 +38,8 @@ export default function BookDetail({ params }: BookDetailParams) {
           throw new Error("Failed to fetch book data");
         }
         const data = await response.json();
-        console.log(data);
-        setBookData(data);
+        console.log(data.item[0]);
+        setBookData(data.item[0]);
       } catch (err) {
         setError("Error fetching book data");
         console.error(err);
@@ -45,11 +56,23 @@ export default function BookDetail({ params }: BookDetailParams) {
   if (!bookData) return <div>No book data found</div>;
 
   return (
-    <div className='h-screen'>
-      <h1>{bookData.title}</h1>
-      <p>Author: {bookData.author}</p>
-      <p>ISBN13: {params.id}</p>
-      {/* 필요한 다른 book 정보를 여기에 추가하세요 */}
+    <div className=''>
+      <div>
+        <Book imageUrl={bookData.cover} width={240} />
+        <div>
+          <div>
+            <div>{bookData.title}</div>
+            <div>
+              <div>{bookData.author}</div>
+            </div>
+            <div>
+              <Chip label={bookData.publisher} />
+              <Chip label={bookData.categoryName} />
+              <Chip label={bookData.pubDate} />
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
