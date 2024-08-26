@@ -13,7 +13,7 @@ export async function GET(request: Request) {
 
   const apiUrl = `http://www.aladin.co.kr/ttb/api/ItemSearch.aspx?ttbkey=${TTBKey}&Query=${encodeURIComponent(
     query
-  )}&QueryType=Keyword&SearchTarget=Book&output=js&Version=20131101&Start=${start}&MaxResults=100
+  )}&QueryType=Keyword&SearchTarget=Book&output=js&Version=20131101&Start=${start}&MaxResults=100&Cover=Big
 `;
 
   try {

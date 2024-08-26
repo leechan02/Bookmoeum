@@ -3,6 +3,7 @@
 import { useSearchParams } from "next/navigation";
 import SearchTabs from "./_components/SearchTabs";
 import { useCallback, useEffect, useRef, useState } from "react";
+import BookDescription from "@/components/Book/BookDescription";
 
 interface SearchResult {
   title: string;
@@ -78,7 +79,7 @@ export default function SearchPage(): JSX.Element {
           ) : (
             <div> 검색결과 {totalResults}</div>
           )}
-          <div>
+          <div className="grid grid-cols-6 gap-5 items-end">
             {searchResults.map((result, index) => (
               <div
                 key={index}
@@ -88,7 +89,11 @@ export default function SearchPage(): JSX.Element {
                     : null
                 }
               >
-                <div>{result.title}</div>
+                <BookDescription
+                  title={result.title}
+                  author={result.author}
+                  imageUrl={result.cover}
+                />
               </div>
             ))}
           </div>

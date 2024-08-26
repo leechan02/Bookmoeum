@@ -12,10 +12,10 @@ export default function BookDescription({
   imageUrl,
 }: BookDescriptionProps) {
   return (
-    <div className='flex-col justify-center items-start gap-2'>
+    <div className='flex flex-col justify-center items-start gap-2 w-40'>
       <Book imageUrl={imageUrl} width={160} />
-      <div className='text-sm font-medium text-primary'>{title}</div>
-      <div className='text-sx font-light text-primary'>{author}</div>
+      <div className='text-sm font-medium text-primary truncate w-full'>{title}</div>
+      <div className='text-xs font-light text-primary truncate w-full'>{author}</div>
     </div>
   );
 }
