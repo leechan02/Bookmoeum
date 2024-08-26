@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 
-const TTBkey = process.env.NEXT_PUBLIC_ALADDIN_API_KEY;
+const TTBKey = process.env.NEXT_PUBLIC_ALADDIN_API_KEY;
 
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
@@ -10,7 +10,7 @@ export async function GET(request: Request) {
     return new Response("검색어를 입력해주세요", { status: 400 });
   }
 
-  const apiUrl = `http://www.aladin.co.kr/ttb/api/ItemSearch.aspx?ttbkey=${TTBkey}&Query=${encodeURIComponent(
+  const apiUrl = `http://www.aladin.co.kr/ttb/api/ItemSearch.aspx?ttbkey=${TTBKey}&Query=${encodeURIComponent(
     query
   )}&QueryType=Keyword&SearchTarget=Book&output=js&Version=20131101
 `;

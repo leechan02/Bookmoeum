@@ -14,7 +14,8 @@ export default function SearchPage(): JSX.Element {
   const searchParams = useSearchParams();
   const query = searchParams.get("query") || "검색어를 입력해주세요";
   const [searchResult, setSearchResult] = useState<SearchResult[]>([]);
-  const [isLoading, setIsLoading] = useState(false);
+  const [totalResults, setTotalResults] = useState<number>(0);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   useEffect(() => {
     const fetchSearchResults = async () => {
@@ -31,6 +32,7 @@ export default function SearchPage(): JSX.Element {
         const data = await response.json();
         console.log(data);
         setSearchResult(data.item || []);
+        setTotalResults(data.totalResults || 0);
         console.log(searchResult);
       } catch (error) {
         console.error("검색 결과 가져오기 실패:", error);
