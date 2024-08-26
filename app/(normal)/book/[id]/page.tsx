@@ -32,6 +32,7 @@ interface ProcessedBookData extends BookData {
   processedTitle: string;
   processedAuthor: string;
   translator: string;
+  processedCategory: string;
 }
 
 const processTitle = (title: string): string => {
@@ -51,13 +52,24 @@ const processAuthorAndTranslator = (
   const authorMatch = author.match(/(.*?)\s*\(지은이\)/);
   const translatorMatch = author.match(/\(지은이\)(.*?)\(옮긴이\)/);
 
-  const trimSpecialChars = (str: string) => 
-    str.replace(/^[^a-zA-Z가-힣]+|[^a-zA-Z가-힣]+$/g, '').trim();
+  const trimSpecialChars = (str: string) =>
+    str.replace(/^[^a-zA-Z가-힣]+|[^a-zA-Z가-힣]+$/g, "").trim();
 
   return {
-    author: authorMatch ? trimSpecialChars(authorMatch[1]) : trimSpecialChars(author),
+    author: authorMatch
+      ? trimSpecialChars(authorMatch[1])
+      : trimSpecialChars(author),
     translator: translatorMatch ? trimSpecialChars(translatorMatch[1]) : "",
   };
+};
+
+const processCategory = (category: string): string => {
+  const parts = category.split(">");
+  console.log(parts);
+  if (parts.length >= 2) {
+    return parts[1].trim();
+  }
+  return category.trim();
 };
 
 export default function BookDetail({ params }: BookDetailParams) {
@@ -86,6 +98,7 @@ export default function BookDetail({ params }: BookDetailParams) {
           processedTitle: processTitle(rawBookData.title),
           processedAuthor: author,
           translator: translator,
+          processedCategory: processCategory(rawBookData.categoryName),
         });
       } catch (err) {
         setError("Error fetching book data");
@@ -106,15 +119,29 @@ export default function BookDetail({ params }: BookDetailParams) {
     <div className='flex justify-center items-center py-14'>
       <div className='flex justify-center items-start gap-40'>
         <Book imageUrl={bookData.cover} width={240} />
-        <div>
-          <div>{bookData.processedTitle}</div>
-          <div>
-            <div>{bookData.processedAuthor}</div>
-            {bookData.translator && <div>{bookData.translator}</div>}
+        <div className='flex-col justify-center items-start gap-6 inline-flex'>
+          <div className='text-3xl font-medium text-primary'>
+            {bookData.processedTitle}
           </div>
-          <div>
+          <div className='inline-flex justify-start items-center gap-4 px-1'>
+            <div className='inline-flex justify-start items-center gap-1'>
+              <span className='text-sm font-light text-primary'>
+                {bookData.processedAuthor}
+              </span>
+              <span className='text-sm font-light text-grey-200'>저</span>
+            </div>
+            {bookData.translator && (
+              <div className='inline-flex justify-start items-center gap-1'>
+                <span className='text-sm font-light text-primary'>
+                  {bookData.translator}
+                </span>
+                <span className='text-sm font-light text-grey-200'>역</span>
+              </div>
+            )}
+          </div>
+          <div className="inline-flex justify-start items-center gap-1">
             <Chip label={bookData.publisher} />
-            <Chip label={bookData.categoryName} />
+            <Chip label={bookData.processedCategory} />
             <Chip label={bookData.pubDate} />
           </div>
         </div>
