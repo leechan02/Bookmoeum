@@ -79,7 +79,7 @@ export default function SearchPage(): JSX.Element {
           ) : (
             <div> 검색결과 {totalResults}</div>
           )}
-          <div className="grid grid-cols-6 gap-5 items-end">
+          <div className="grid grid-cols-6 gap-8 items-end">
             {searchResults.map((result, index) => (
               <div
                 key={index}
