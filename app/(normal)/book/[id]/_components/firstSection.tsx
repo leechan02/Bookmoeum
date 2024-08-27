@@ -3,9 +3,9 @@ import Book from "@/components/Book/Book";
 import Chip from "@/components/Chips/Chip";
 import BookStoreIcon from "@/components/Icon/BookStoreIcon";
 import ButtonIcon from "@/components/Icon/ButtonIcon";
-import Button from "@/components/Button/Button";
 import { FiBook, FiHeart, FiPlus } from "react-icons/fi";
 import { ProcessedBookData } from '../page';
+import Button from '@/components/Button/Button';
 
 interface FirstSectionProps {
   bookData: ProcessedBookData;
@@ -58,7 +58,7 @@ export default function FirstSection({ bookData }: FirstSectionProps) {
             </div>
             <div className="inline-flex justify-start items-center gap-2">
               <ButtonIcon Icon={FiHeart} iconSize={40} iconColor="white" bgColor="secondary" />
-              <Button Icon={FiBook} label="내 서재에 담기"/>
+              <Button icon={FiBook} label="내 서재에 담기"/>
             </div>
           </div>
         </div>

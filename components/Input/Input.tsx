@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from 'react';
-import Button2 from "../Button/Button2";
+import Button from '../Button/Button';
 
 interface InputProps {
   type: 'text' | 'email' | 'password';
@@ -31,7 +31,7 @@ export default function Input({ type, placeholder, buttonLabel }: InputProps) {
         placeholder={placeholder}
         className="w-[400px] px-4 py-2 rounded-full bg-secondary focus:ring-2 focus:ring-primary focus:outline-none"
       />
-      <Button2 label={buttonLabel}/>
+      <Button label={buttonLabel} type="submit" width={400} />
     </form>
   );
 }

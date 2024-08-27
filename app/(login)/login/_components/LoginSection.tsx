@@ -1,4 +1,4 @@
-import Button2 from "@/components/Button/Button2";
+import Button from "@/components/Button/Button";
 import Input from "@/components/Input/Input";
 import Link from "next/link";
 
@@ -15,8 +15,8 @@ export default function LoginSection() {
           </div>
           <div className='flex-col justify-center items-center gap-5 inline-flex'>
             <div className='flex-col justify-start items-center gap-4 inline-flex'>
-              <Button2 img='/IconGoogle.svg' label='구글로 시작하기' />
-              <Button2 label='다른 옵션 없음' />
+              <Button icon="/IconGoogle.svg" label="구글로 시작하기" variant="secondary" width={400} />
+              <Button label="다른 옵션 없음" variant="secondary" width={400}/>
             </div>
             <div className='inline-flex justify-center gap-1'>
               <div className='border-b-2 border-secondary w-48 mb-[10px]'></div>
