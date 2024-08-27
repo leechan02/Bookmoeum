@@ -61,27 +61,37 @@ body {
 
 /* Book slider animation */
 @keyframes bookSlideLeft {
-  0% {
-    transform: translateX(0);
-  }
-  100% {
-    transform: translateX(-100%);
-  }
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
 }
 
 @keyframes bookSlideRight {
-  0% {
-    transform: translateX(0);
-  }
-  100% {
-    transform: translateX(100%);
-  }
+  0% { transform: translateX(0); }
+  100% { transform: translateX(50%); }
+}
+
+@keyframes bookSlideUp {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(-50%); }
+}
+
+@keyframes bookSlideDown {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(50%); }
 }
 
 .animate-bookSlideLeft {
-  animation: bookSlideLeft 60s linear infinite;
+  animation: bookSlideLeft 100s linear infinite;
 }
 
 .animate-bookSlideRight {
-  animation: bookSlideRight 60s linear infinite;
+  animation: bookSlideRight 100s linear infinite;
+}
+
+.animate-bookSlideUp {
+  animation: bookSlideUp 800s linear infinite;
+}
+
+.animate-bookSlideDown {
+  animation: bookSlideDown 800s linear infinite;
 }

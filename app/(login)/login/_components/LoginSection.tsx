@@ -4,7 +4,7 @@ import Link from "next/link";
 
 export default function LoginSection() {
   return (
-    <div className='inline-flex justify-center items-center w-1/2'>
+    <div className='inline-flex justify-center items-center w-1/2 bg-white'>
       <div className='flex-col justify-center items-center inline-flex'>
         <div className='h-screen flex-col justify-center items-center gap-10 inline-flex'>
           <Link href='/'>
