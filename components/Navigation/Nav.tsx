@@ -1,13 +1,33 @@
+import { useAuth } from "@/contexts/AuthContext";
+import { auth } from "@/libs/firebase/config";
 import Link from "next/link";
 
 export default function Nav() {
+  const { user, loading } = useAuth();
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  const handleLogout = () => {
+    auth.signOut();
+  }
+
   return (
     <div className='sticky top-0 h-[92px] flex px-28 py-4 justify-start items-center gap-6'>
-      <Link href='/' className="flex grow shrink basis-0">
+      <Link href='/' className='flex grow shrink basis-0'>
         <img src='/Logo.svg' alt='logo' />
       </Link>
-      <Link href='/mylibrary' className="font-medium">내 서재</Link>
-      <Link href='/login' className="font-medium">로그인</Link>
+      <Link href='/mylibrary' className='font-medium'>
+        내 서재
+      </Link>
+      {user ? (
+        <button className='font-medium' onClick={handleLogout}>로그아웃</button>
+      ) : (
+        <Link href='/login' className='font-medium'>
+          로그인
+        </Link>
+      )}
     </div>
   );
 }
