@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "../../styles/globals.css";
 import Nav from "@/components/Navigation/Nav";
 import Footer from "@/components/Footer";
+import { AuthProvider } from "@/contexts/AuthContext";
 
 export const metadata: Metadata = {
   title: "책모음",
@@ -16,9 +17,11 @@ export default function RootLayout({
   return (
     <html lang='ko'>
       <body>
-        <Nav />
-        {children}
-        <Footer />
+        <AuthProvider>
+          <Nav />
+          {children}
+          <Footer />
+        </AuthProvider>
       </body>
     </html>
   );

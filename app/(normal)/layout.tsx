@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "../../styles/globals.css";
 import Footer from "@/components/Footer";
 import SearchNav from "@/components/Navigation/SearchNav";
+import { AuthProvider } from "@/contexts/AuthContext";
 
 export const metadata: Metadata = {
   title: "책모음 - 검색",
@@ -16,9 +17,11 @@ export default function RootLayout({
   return (
     <html lang='ko'>
       <body>
-        <SearchNav />
-        {children}
-        <Footer />
+        <AuthProvider>
+          <SearchNav />
+          {children}
+          <Footer />
+        </AuthProvider>
       </body>
     </html>
   );
