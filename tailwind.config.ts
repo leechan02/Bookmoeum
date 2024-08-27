@@ -10,6 +10,7 @@ const config: Config = {
     colors: {
       transparent: "transparent",
       primary: "#353535",
+      hover: "#434343",
       secondary: "#ededed",
       white: "#ffffff",
       black: "#000000",

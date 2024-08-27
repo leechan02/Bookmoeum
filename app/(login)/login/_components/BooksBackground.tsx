@@ -50,6 +50,8 @@ export default function BooksBackground() {
       <BookSlider bookCover={bookCover} direction='vertical' />
       <BookSlider bookCover={bookCover} direction='vertical' reverse />
       <BookSlider bookCover={bookCover} direction='vertical' />
+      <BookSlider bookCover={bookCover} direction='vertical' reverse />
+      <BookSlider bookCover={bookCover} direction='vertical' />
     </div>
   );
 }

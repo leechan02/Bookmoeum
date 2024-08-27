@@ -20,8 +20,8 @@ export default function Button({
   const baseClasses =
     "inline-flex justify-center items-center gap-2 py-2 px-4 rounded-full";
   const colorClasses = isPrimary
-    ? "bg-primary text-white"
-    : "bg-transparent border-secondary border-2 text-primary";
+    ? "bg-primary text-white hover:bg-hover"
+    : "bg-transparent border-secondary border-2 text-primary hover:bg-secondary";
 
   // width가 제공된 경우에만 스타일을 적용
   const widthStyle = width
