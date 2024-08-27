@@ -14,7 +14,7 @@ export default function SecondSection({ bookData }: SecondSectionProps) {
         <CategoryTabs />
         <DetailSection
           category={bookData.processedCategory}
-          page={bookData.subInfo[0]?.itemPage ?? 0}
+          page={bookData.subInfo.itemPage}
           isbn13={bookData.isbn13}
         />
         <DescriptionSection description={bookData.description} />
