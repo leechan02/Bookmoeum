@@ -1,3 +1,5 @@
+"use client";
+
 import { useAuth } from "@/contexts/AuthContext";
 import { auth } from "@/libs/firebase/config";
 import Link from "next/link";
