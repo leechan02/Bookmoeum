@@ -11,10 +11,10 @@ interface FirstSectionProps {
   bookData: ProcessedBookData;
 }
 
-export function FirstSection({ bookData }: FirstSectionProps) {
+export default function FirstSection({ bookData }: FirstSectionProps) {
   return (
     <div className='flex justify-center items-center py-14'>
-      <div className='flex justify-center items-start gap-40'>
+      <div className='flex justify-between items-start w-[900px]'>
         <Book imageUrl={bookData.cover} width={240} />
         <div className='flex-col justify-start items-start gap-20 inline-flex'>
           <div className='flex-col justify-center items-start gap-6 inline-flex'>

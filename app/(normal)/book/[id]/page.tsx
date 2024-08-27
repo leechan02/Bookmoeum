@@ -1,13 +1,8 @@
 "use client";
 
-import Book from "@/components/Book/Book";
-import Button from "@/components/Button/Button";
-import Chip from "@/components/Chips/Chip";
-import BookStoreIcon from "@/components/Icon/BookStoreIcon";
-import ButtonIcon from "@/components/Icon/ButtonIcon";
 import { useEffect, useState } from "react";
-import { FiBook, FiHeart, FiPlus } from "react-icons/fi";
-import { FirstSection } from "./_components/firstSection";
+import FirstSection from "./_components/FirstSection";
+import SecondSection from "./_components/SecondSection";
 
 interface BookDetailParams {
   params: { id: string };
@@ -117,8 +112,9 @@ export default function BookDetail({ params }: BookDetailParams) {
   if (!bookData) return <div>No book data found</div>;
 
   return (
-    <div>
+    <>
       <FirstSection bookData={bookData} />
-    </div>
+      <SecondSection bookData={bookData} />
+    </>
   );
 }
