@@ -34,7 +34,7 @@ export default function SignInSection() {
             <img src='/LogoIcon.svg' alt='logo' className='w-12 h-12' />
           </Link>
           <div className='text-center text-primary text-3xl font-medium'>
-            반갑습니다!
+            어서오세요!
           </div>
           <form
             onSubmit={handleSubmit}
