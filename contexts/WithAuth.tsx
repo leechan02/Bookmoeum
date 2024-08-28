@@ -17,9 +17,9 @@ export function withAuth<P extends object>(
       }
     }, [user, loading, router]);
 
-    if (loading) {
-      return <div>Loading...</div>; // 또는 스켈레톤 UI
-    }
+    // if (loading) {
+    //   return <div>Loading...</div>; // 또는 스켈레톤 UI
+    // }
 
     if (!user) {
       return null; // 리다이렉트 중이므로 아무것도 렌더링하지 않음

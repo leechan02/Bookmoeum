@@ -8,7 +8,7 @@ import { auth } from "@/libs/firebase/config";
 
 export default function SearchNav() {
   const router = useRouter();
-  const { user, loading } = useAuth();
+  const { user } = useAuth();
 
   const handleSearch = (query: string) => {
     console.log(query);

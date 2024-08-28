@@ -5,18 +5,14 @@ import { auth } from "@/libs/firebase/config";
 import Link from "next/link";
 
 export default function Nav() {
-  const { user, loading } = useAuth();
-
-  if (loading) {
-    return <div>Loading...</div>;
-  }
+  const { user } = useAuth();
 
   const handleLogout = () => {
     auth.signOut();
   }
 
   return (
-    <div className='sticky top-0 h-[92px] flex px-28 py-4 justify-start items-center gap-6'>
+    <div className='h-[92px] flex px-28 py-4 justify-start items-center gap-6'>
       <Link href='/' className='flex grow shrink basis-0'>
         <img src='/Logo.svg' alt='logo' />
       </Link>
