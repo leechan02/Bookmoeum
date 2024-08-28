@@ -1,18 +1,18 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { FiSearch } from "react-icons/fi";
 
 interface SearchBarProps {
   placeholder?: string;
-  onSearch: (query: string) => void;
 }
 
 export default function SearchBar({
   placeholder = "읽고 싶은 책을 검색해보세요",
-  onSearch,
 }: SearchBarProps) {
   const [query, setQuery] = useState<string>("");
+  const router = useRouter();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setQuery(e.target.value);
@@ -21,7 +21,7 @@ export default function SearchBar({
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!query.trim()) return;
-    onSearch(query);
+    router.push(`/search?query=${query}`);
   };
 
   return (

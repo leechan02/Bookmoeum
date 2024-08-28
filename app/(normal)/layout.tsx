@@ -3,6 +3,8 @@ import "../../styles/globals.css";
 import Footer from "@/components/Footer";
 import SearchNav from "@/components/Navigation/SearchNav";
 import { AuthProvider } from "@/contexts/AuthContext";
+import Nav from "@/components/Navigation/Nav";
+import SearchBar from "@/components/Input/SearchBar";
 
 export const metadata: Metadata = {
   title: "책모음 - 검색",
@@ -16,7 +18,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang='ko'>
-      <body className="flex flex-col min-h-screen">
+      <body className='flex flex-col min-h-screen'>
         <AuthProvider>
           <SearchNav />
           {children}

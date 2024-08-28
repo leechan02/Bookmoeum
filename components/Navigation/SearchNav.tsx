@@ -7,20 +7,14 @@ import { useAuth } from "@/contexts/AuthContext";
 import { auth } from "@/libs/firebase/config";
 
 export default function SearchNav() {
-  const router = useRouter();
   const { user } = useAuth();
-
-  const handleSearch = (query: string) => {
-    console.log(query);
-    router.push(`/search?query=${query}`);
-  };
 
   return (
     <div className='sticky top-0 h-[92px] flex px-28 py-4 justify-between items-center'>
       <Link href='/'>
         <img src='/Logo.svg' alt='logo' />
       </Link>
-      <SearchBar onSearch={handleSearch} />
+      <SearchBar />
       <div className='flex gap-6'>
         <Link href='/mylibrary' className='font-medium'>
           내 서재
