@@ -1,7 +1,10 @@
+"use client";
+
+import { withAuth } from "@/contexts/WithAuth";
 import BookCoverSection from "../_components/BookCoverSection";
 import LoginSection from "../_components/LoginSection";
 
-export default function LoginPage() {
+function LoginPage() {
   return (
     <div className='flex w-full'>
       <LoginSection />
@@ -9,3 +12,5 @@ export default function LoginPage() {
     </div>
   );
 }
+
+export default withAuth(LoginPage);
