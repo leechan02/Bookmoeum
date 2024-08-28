@@ -3,7 +3,7 @@
 import Button from "@/components/Button/Button";
 import Input from "@/components/Input/Input";
 import { auth } from "@/libs/firebase/config";
-import { GoogleAuthProvider, signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
+import { createUserWithEmailAndPassword, GoogleAuthProvider, signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -18,7 +18,7 @@ export default function SignInSection() {
     console.log("Submitted value:", email, password);
 
     try {
-      await signInWithEmailAndPassword(auth, email, password);
+      await createUserWithEmailAndPassword(auth, email, password);
 
       router.push("/");
     } catch (error) {

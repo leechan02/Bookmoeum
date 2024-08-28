@@ -7,16 +7,16 @@ interface InputProps {
   type: 'text' | 'email' | 'password';
   placeholder: string;
   buttonLabel: string;
+  onSubmit: (value: string) => void;
 }
 
-export default function Input({ type, placeholder, buttonLabel }: InputProps) {
+export default function Input({ type, placeholder, buttonLabel, onSubmit }: InputProps) {
   const [inputValue, setInputValue] = useState('');
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // 여기에 폼 제출 로직을 추가하세요
     console.log('Submitted value:', inputValue);
-    // 예: API 호출 또는 다른 처리
+    onSubmit(inputValue);
   };
 
   return (

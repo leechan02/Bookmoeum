@@ -7,7 +7,11 @@ import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
-export default function LoginSection() {
+interface LoginSectionProps {
+  onEmailCheck: (email: string) => void;
+}
+
+export default function LoginSection({ onEmailCheck }: LoginSectionProps) {
   const router = useRouter();
 
   const handleGoogleLogin = async () => {
@@ -19,6 +23,10 @@ export default function LoginSection() {
     } catch (error) {
       console.error(error);
     }
+  };
+
+  const handleEmailSubmit = (email: string) => {
+    onEmailCheck(email);
   };
 
   return (
@@ -51,6 +59,7 @@ export default function LoginSection() {
               type='email'
               placeholder='이메일을 입력하세요'
               buttonLabel='계속'
+              onSubmit={handleEmailSubmit}
             />
           </div>
         </div>
