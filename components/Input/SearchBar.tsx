@@ -27,14 +27,14 @@ export default function SearchBar({
   return (
     <form
       onSubmit={handleSubmit}
-      className='w-[584px] h-[60px] flex items-center px-6 py-4 rounded-full bg-secondary opacity-95'
+      className='w-[300px] md:w-[480px] lg:w-[584px] h-[60px] flex items-center px-6 py-4 rounded-full bg-secondary opacity-95'
     >
       <input
         type='text'
         value={query}
         onChange={handleChange}
         placeholder={placeholder}
-        className='w-full h-full bg-transparent outline-none'
+        className='w-full h-full bg-transparent outline-none text-sm sm:text-base'
       />
       <button type='submit'>
         <FiSearch className='w-6 h-6 text-primary' />
