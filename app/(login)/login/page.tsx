@@ -1,5 +1,5 @@
-import BookCoverSection from "./_components/BookCoverSection";
-import LoginSection from "./_components/LoginSection";
+import BookCoverSection from "../_components/BookCoverSection";
+import LoginSection from "../_components/LoginSection";
 
 export default function LoginPage() {
   return (
