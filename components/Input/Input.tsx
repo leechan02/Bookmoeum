@@ -22,7 +22,7 @@ export default function Input({ type, placeholder, buttonLabel }: InputProps) {
   return (
     <form 
       onSubmit={handleSubmit}
-      className="flex flex-col justify-start items-center gap-4 w-full max-w-md mx-auto p-4"
+      className="flex flex-col justify-start items-center gap-4 w-full"
     >
       <input
         type={type}
