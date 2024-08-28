@@ -8,10 +8,10 @@ import { GoogleAuthProvider } from "firebase/auth/web-extension";
 import { useRouter } from "next/navigation";
 
 interface LoginOptionProps {
-  onEmailCheck: (email: string) => void;
+  handleSubmit: (email: string) => void;
 }
 
-export default function LoginOption({ onEmailCheck }: LoginOptionProps) {
+export default function LoginOption({ handleSubmit }: LoginOptionProps) {
   const router = useRouter();
 
   const handleGoogleLogin = async () => {
@@ -23,10 +23,6 @@ export default function LoginOption({ onEmailCheck }: LoginOptionProps) {
     } catch (error) {
       console.error(error);
     }
-  };
-
-  const handleEmailSubmit = (email: string) => {
-    onEmailCheck(email);
   };
 
   return (
@@ -50,7 +46,7 @@ export default function LoginOption({ onEmailCheck }: LoginOptionProps) {
         type='email'
         placeholder='이메일을 입력하세요'
         buttonLabel='계속'
-        onSubmit={handleEmailSubmit}
+        onSubmit={handleSubmit}
       />
     </div>
   );
