@@ -9,7 +9,7 @@ interface SecondSectionProps {
 
 export default function SecondSection({ bookData }: SecondSectionProps) {
   return (
-    <div className='flex justify-center items-start min-h-screen py-14'>
+    <div className='flex justify-center items-start py-14 flex-grow'>
       <div className='flex-col justify-center items-start gap-6 inline-flex w-[900px]'>
         <CategoryTabs />
         <DetailSection
