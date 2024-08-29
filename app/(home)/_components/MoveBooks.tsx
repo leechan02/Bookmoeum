@@ -42,7 +42,7 @@ export default function MoveBooks() {
   }, []);
 
   return (
-    <section className='py-14 flex-col gap-8 overflow-hidden'>
+    <section className='py-14 flex flex-col gap-6 overflow-hidden'>
       <BookSlider bookCover={bookCover} />
       <BookSlider bookCover={bookCover} reverse />
     </section>

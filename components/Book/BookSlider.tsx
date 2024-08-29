@@ -27,7 +27,7 @@ export default function BookSlider({
     <div
       className={`flex gap-4 ${
         direction === 'horizontal' ? 'flex-row' : 'flex-col'
-      } items-center ${
+      } items-end ${
         reverse ? 'justify-end' : 'justify-start'
       } ${getAnimationClass()}`}
     >
