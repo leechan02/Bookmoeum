@@ -27,7 +27,7 @@ export default function SearchBar({
   return (
     <form
       onSubmit={handleSubmit}
-      className='w-full min-w-[300px] max-w-[480px] md:w-[480px] lg:w-[584px] h-[52px] md:h-[60px] flex items-center px-6 py-4 mx-4 rounded-full bg-secondary opacity-95'
+      className='w-full min-w-[300px] max-w-[480px] md:w-[480px] lg:w-[584px] h-[52px] md:h-[60px] flex items-center px-6 py-4 mx-6 rounded-full bg-secondary opacity-95'
     >
       <input
         type='text'
