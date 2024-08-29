@@ -7,7 +7,7 @@ import WhereSection from "./_components/WhereSection";
 export default function Home(): JSX.Element {
   return (
     <>
-      <section className='flex flex-col justify-center items-center gap-4 sm:gap-6 md:gap-8 pt-8 sm:pt-10 md:pt-14 pb-4 sm:pb-5 md:pb-6'>
+      <section className='flex flex-col justify-center items-center gap-4 sm:gap-6 md:gap-8 pt-8 md:pt-14 pb-4 sm:pb-5 md:pb-6'>
         <img
           src='/LogoIcon.svg'
           alt='logo Icon'
@@ -29,7 +29,7 @@ export default function Home(): JSX.Element {
           </div>
         </div>
       </section>
-      <div className='flex justify-center items-center pt-4 pb-14 sticky top-0 z-50'>
+      <div className='flex justify-center items-center pt-4 pb-8 md:pb-14 sticky top-0 z-50'>
         <SearchBar />
       </div>
       <MoveBooks />
