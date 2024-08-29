@@ -5,6 +5,16 @@ import MoveBooks from "./_components/MoveBooks";
 import WhereSection from "./_components/WhereSection";
 
 export default function Home(): JSX.Element {
+  const customImages = [
+    {src: "/IconAladdin.svg", width: 64, height: 64},
+    {src: "/IconKyobo.svg", width: 64, height: 64},
+    {src: "/IconMille.svg", width: 64, height: 64},
+    {src: "/IconRidi.svg", width: 64, height: 64},
+    {src: "/IconYes24.svg", width: 64, height: 64},
+    {src: "/IconAladdin.svg", width: 64, height: 64},
+    {src: "/IconYP.svg", width: 64, height: 64},
+    {src: "/IconAladdin.svg", width: 64, height: 64},
+  ]
   return (
     <>
       <section className='flex flex-col justify-center items-center gap-4 sm:gap-6 md:gap-8 pt-8 md:pt-14 pb-4 sm:pb-5 md:pb-6'>
@@ -33,7 +43,7 @@ export default function Home(): JSX.Element {
         <SearchBar />
       </div>
       <MoveBooks />
-      <WhereSection />
+      <WhereSection customImages={customImages} />
     </>
   );
 }
