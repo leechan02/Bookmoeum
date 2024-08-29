@@ -9,12 +9,16 @@ export default function Home(): JSX.Element {
     {src: "/IconAladdin.svg", width: 64, height: 64},
     {src: "/IconKyobo.svg", width: 64, height: 64},
     {src: "/IconMille.svg", width: 64, height: 64},
+    {src: "/IconBox.svg", width: 64, height: 64},
     {src: "/IconRidi.svg", width: 64, height: 64},
     {src: "/IconYes24.svg", width: 64, height: 64},
-    {src: "/IconAladdin.svg", width: 64, height: 64},
+    {src: "/IconBookmark.svg", width: 64, height: 64},
     {src: "/IconYP.svg", width: 64, height: 64},
-    {src: "/IconAladdin.svg", width: 64, height: 64},
+    {src: "/IconHome.svg", width: 64, height: 64},
   ]
+
+  const Images = [...customImages, ...customImages];
+
   return (
     <>
       <section className='flex flex-col justify-center items-center gap-4 sm:gap-6 md:gap-8 pt-8 md:pt-14 pb-4 sm:pb-5 md:pb-6'>
@@ -43,7 +47,7 @@ export default function Home(): JSX.Element {
         <SearchBar />
       </div>
       <MoveBooks />
-      <WhereSection customImages={customImages} />
+      <WhereSection customImages={Images} />
     </>
   );
 }

@@ -29,14 +29,24 @@ const createRandomPositions = (count: number, maxWidth: number, maxHeight: numbe
 };
 
 const customPositions: Position[] = [
-  { x: -100, y: -100 },
-  { x: 100, y: -100 },
-  { x: -100, y: 100 },
-  { x: 100, y: 100 },
-  { x: 0, y: -100 },
   { x: 0, y: 100 },
-  { x: -150, y: -20 },
+  { x: 0, y: -120 },
+  { x: 100, y: 100 },
+  { x: -100, y: 100 },
+  { x: 100, y: -100 },
+  { x: -100, y: -100 },
   { x: 150, y: 0 },
+  { x: -150, y: 0 },
+  { x: 250, y: 50 },
+  { x: -250, y: -50 },
+  { x: -300, y: 100 },
+  { x: 300, y: -100 },
+  { x: -300, y: -150 },
+  { x: 200, y: 150 },
+  { x: -200, y: 160 },
+  { x: 200, y: -200 },
+  { x: -200, y: -200 },
+  { x: 0, y: 180 },
 ];
 
 const ImageMotion: React.FC<ImageMotionProps> = ({ position, index, image }) => {
@@ -94,7 +104,7 @@ export default function WhereSection({ useRandomPositions = false, customImages 
     : customPositions;
 
   const defaultImage: CustomImage = { src: "/IconMille.svg", width: 64, height: 64 };
-  const images = customImages || Array(8).fill(defaultImage);
+  const images = customImages || Array(16).fill(defaultImage);
 
   return (
     <div ref={sectionRef} className='min-h-screen flex justify-center items-center py-12 relative overflow-hidden'>
