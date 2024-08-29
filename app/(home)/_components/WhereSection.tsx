@@ -3,9 +3,9 @@ import WhereInfo from "./WhereInfo";
 
 export default function WhereSection() {
   return (
-    <div className='h-screen flex justify-center items-center'>
-      <div className='grid place-items-center gap-6'>
-        <div className='text-primary text-sm font-medium'>
+    <div className='min-h-screen flex justify-center items-center py-12'>
+      <div className='grid place-items-center gap-3 md:gap-6'>
+        <div className='text-primary text-xs md:text-sm font-medium'>
           책을 찾아볼 수 있는 곳
         </div>
         <WhereInfo count={4} label='서점' Icon={FiBook} />

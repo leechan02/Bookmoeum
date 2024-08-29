@@ -14,7 +14,7 @@ export default function Home(): JSX.Element {
           className='w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 text-primary'
         />
         <div className='flex flex-col gap-4 sm:gap-5 md:gap-6 justify-center items-center'>
-          <div className='text-center text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-primary leading-tight sm:leading-snug md:leading-normal lg:leading-[72px]'>
+          <div className='text-center text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-primary leading-normal sm:leading-normal md:leading-normal lg:leading-[72px]'>
             <span className='block sm:inline'>
               여러 사이트를
             </span>{" "}
