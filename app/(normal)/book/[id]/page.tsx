@@ -1,8 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import FirstSection from '@/app/(normal)/book/[id]/_components/FirstSection';
-import SecondSection from '@/app/(normal)/book/[id]/_components/SecondSection';
+import FirstSection from "./_components/FirstSection";
+import SecondSection from "./_components/SecondSection";
 
 interface BookDetailParams {
   params: { id: string };
