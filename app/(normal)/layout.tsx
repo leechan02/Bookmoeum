@@ -18,7 +18,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang='ko'>
-      <body className='flex flex-col min-h-screen'>
+      <body className='flex flex-col min-h-screen w-full'>
         <AuthProvider>
           <SearchNav />
           {children}

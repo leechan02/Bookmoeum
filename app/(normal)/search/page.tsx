@@ -72,24 +72,26 @@ export default function SearchPage(): JSX.Element {
   }, [query, page]);
 
   return (
-    <>
-      <div className='flex-col justify-center items-center px-28 py-8 gap-8'>
-        <div className='flex-col inline-flex justify-start items-start gap-4'>
-          <div className='font-bold text-3xl text-primary'>{query}</div>
-          <SearchTabs />
-          {isLoading ? (
-            <div>검색결과...</div>
-          ) : (
-            <div> 검색결과 {totalResults}</div>
-          )}
-          <BookList
-            searchResults={searchResults}
-            lastResultElementRef={lastResultElementRef}
-          />
-          {isLoading && <div>로딩 중...</div>}
-          {!hasMore && <div>더 이상 결과가 없습니다.</div>}
+    <div className='w-full max-w-[1440px] mx-auto'>
+      <div className='flex flex-col justify-center items-start px-4 sm:px-6 md:px-8 lg:px-28 py-6 sm:py-8 gap-6 sm:gap-8'>
+        <div className='font-bold text-2xl sm:text-3xl text-primary'>
+          {query}
         </div>
+        <SearchTabs />
+        {isLoading ? (
+          <div className='text-sm sm:text-base'>검색결과</div>
+        ) : (
+          <div className='text-sm sm:text-base'> 검색결과 {totalResults}</div>
+        )}
+        <BookList
+          searchResults={searchResults}
+          lastResultElementRef={lastResultElementRef}
+        />
+        {isLoading && <div className='text-sm sm:text-base'>로딩 중...</div>}
+        {!hasMore && (
+          <div className='text-sm sm:text-base'>더 이상 결과가 없습니다.</div>
+        )}
       </div>
-    </>
+    </div>
   );
 }

@@ -29,40 +29,38 @@ export default function SearchNav() {
 
   return (
     <div className='sticky top-0 w-full max-w-[1440px] mx-auto'>
-      <div className='h-[80px] flex px-6 md:px-8 lg:px-28 py-4 justify-between items-center'>
-        <Link href='/' className='flex-shrink-0'>
-          <img
-            src={isMobile ? "/LogoIcon.svg" : "/Logo.svg"}
-            alt='logo'
-            className={isMobile ? "w-8 h-8" : ""}
-          />
-        </Link>
-
-        <div className='flex-grow flex justify-center'>
-          <SearchBar />
-        </div>
-        {/* Desktop Menu */}
-        <div className='hidden md:flex items-center gap-6'>
-          <Link href='/mylibrary' className='font-medium'>
-            내 서재
+        <div className='h-[80px] flex px-6 md:px-8 lg:px-28 py-4 justify-between items-center'>
+          <Link href='/' className='flex-shrink-0'>
+            <img
+              src={isMobile ? "/LogoIcon.svg" : "/Logo.svg"}
+              alt='logo'
+              className={isMobile ? "w-8 h-8" : ""}
+            />
           </Link>
-          {user ? (
-            <button className='font-medium' onClick={handleLogout}>
-              로그아웃
-            </button>
-          ) : (
-            <Link href='/login' className='font-medium'>
-              로그인
+
+          <SearchBar />
+          {/* Desktop Menu */}
+          <div className='hidden md:flex items-center gap-6'>
+            <Link href='/mylibrary' className='font-medium'>
+              내 서재
             </Link>
-          )}
-        </div>
-        {/* Mobile Menu Icon */}
-        <button
-          className='md:hidden'
-          onClick={() => setIsMenuOpen(!isMenuOpen)}
-        >
-          <FiMenu size={32} />
-        </button>
+            {user ? (
+              <button className='font-medium' onClick={handleLogout}>
+                로그아웃
+              </button>
+            ) : (
+              <Link href='/login' className='font-medium'>
+                로그인
+              </Link>
+            )}
+          </div>
+          {/* Mobile Menu Icon */}
+          <button
+            className='md:hidden'
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+          >
+            <FiMenu size={32} />
+          </button>
       </div>
       {/* Mobile Menu */}
       {isMenuOpen && (
