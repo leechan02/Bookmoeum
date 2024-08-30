@@ -51,9 +51,9 @@ export default function LoginSection() {
   };
 
   return (
-    <div className='inline-flex justify-center items-center w-1/2 bg-white'>
-      <div className='flex-col justify-center items-center inline-flex'>
-        <div className='h-screen flex-col justify-center items-center gap-10 inline-flex'>
+    <div className='flex justify-center items-center w-full md:w-1/2 p-4'>
+      <div className='flex flex-col justify-center items-center w-full max-w-md'>
+        <div className='flex flex-col justify-center items-center gap-10 w-full'>
           <Link href='/'>
             <img src='/LogoIcon.svg' alt='logo' className='w-12 h-12' />
           </Link>
