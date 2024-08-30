@@ -40,12 +40,12 @@ export default function SearchPage(): JSX.Element {
     if (query === "검색어를 입력해주세요" || isLoading || !hasMore) return;
     setIsLoading(true);
     try {
-      // const response = await fetch(
-      //   `/api/search?query=${encodeURIComponent(query)}&start=${
-      //     (page - 1) * 10 + 1
-      //   }`
-      // );
-      const response = await fetch(`/data/bookSearch.json`);
+      const response = await fetch(
+        `/api/search?query=${encodeURIComponent(query)}&start=${
+          (page - 1) * 10 + 1
+        }`
+      );
+      // const response = await fetch(`/data/bookSearch.json`);
       if (!response.ok) {
         throw new Error("API 요청 실패");
       }
