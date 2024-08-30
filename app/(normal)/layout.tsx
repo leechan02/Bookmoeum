@@ -1,10 +1,8 @@
 import type { Metadata } from "next";
-import "../../styles/globals.css";
+import "@/styles/globals.css";
 import Footer from "@/components/Footer";
 import SearchNav from "@/components/Navigation/SearchNav";
 import { AuthProvider } from "@/contexts/AuthContext";
-import Nav from "@/components/Navigation/Nav";
-import SearchBar from "@/components/Input/SearchBar";
 
 export const metadata: Metadata = {
   title: "책모음 - 검색",
