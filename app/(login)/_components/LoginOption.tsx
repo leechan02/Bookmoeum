@@ -38,8 +38,8 @@ export default function LoginOption({
   };
 
   return (
-    <div className='flex-col justify-center items-center gap-5 inline-flex'>
-      <div className='flex-col justify-start items-center gap-4 inline-flex'>
+    <div className='flex-col justify-center items-center gap-4 sm:gap-5 inline-flex w-full'>
+      <div className='flex-col justify-start items-center gap-3 sm:gap-4 inline-flex w-full'>
         <Button
           icon='/IconGoogle.svg'
           label='구글로 시작하기'
@@ -55,7 +55,7 @@ export default function LoginOption({
           onClick={onShowSignIn}
         />
       </div>
-      {error && <div className='text-red-500'>{error}</div>}
+      {error && <div className='text-red-500 text-sm'>{error}</div>}
       <div className='inline-flex justify-center gap-1'>
         <div className='border-b-2 border-secondary w-48 mb-[10px]'></div>
         <div className='font-medium text-secondary text-base'>or</div>

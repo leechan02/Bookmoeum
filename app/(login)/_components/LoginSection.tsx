@@ -51,13 +51,13 @@ export default function LoginSection() {
   };
 
   return (
-    <div className='flex justify-center items-center w-full md:w-1/2 p-4'>
-      <div className='flex flex-col justify-center items-center w-full max-w-md'>
-        <div className='flex flex-col justify-center items-center gap-10 w-full'>
+    <div className='flex justify-center items-center w-full md:w-1/2 p-4 min-h-screen'>
+      <div className='flex flex-col justify-center items-center w-full max-w-[320px] sm:max-w-md'>
+        <div className='flex flex-col justify-center items-center gap-6 sm:gap-10 w-full'>
           <Link href='/'>
-            <img src='/LogoIcon.svg' alt='logo' className='w-12 h-12' />
+            <img src='/LogoIcon.svg' alt='logo' className='w-10 h-10 sm:w-12 sm:h-12' />
           </Link>
-          <div className='text-center text-primary text-3xl font-medium'>
+          <div className='text-center text-primary text-2xl sm:text-3xl font-medium'>
             반갑습니다!
           </div>
           {showSignIn ? (
@@ -72,7 +72,7 @@ export default function LoginSection() {
               />
               <button
                 onClick={handleResetPassword}
-                className='text-blue-500 hover:underline'
+                className='text-sm sm:text-base text-blue-500 hover:underline'
               >
                 비밀번호를 잊으셨나요?
               </button>
