@@ -12,12 +12,12 @@ export default function BookList({
   lastResultElementRef,
 }: BookListProps) {
   return (
-    <div className="grid grid-cols-[repeat(auto-fit,minmax(120px,1fr))] gap-1 md:gap-8 w-full items-end">
+    <div className='grid grid-cols-[repeat(auto-fit,minmax(100px,1fr))] sm:grid-cols-[repeat(auto-fit,minmax(120px,1fr))] gap-1 md:gap-8 w-full items-end'>
       {searchResults.map((result, index) => (
         <div
           key={index}
           ref={index === searchResults.length - 1 ? lastResultElementRef : null}
-          className="w-full"
+          className='w-full'
         >
           <Link href={`/book/${result.isbn13}`}>
             <BookDescription
