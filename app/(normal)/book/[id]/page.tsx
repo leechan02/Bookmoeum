@@ -76,8 +76,8 @@ export default function BookDetail({ params }: BookDetailParams) {
   useEffect(() => {
     const fetchBookData = async () => {
       try {
-        const response = await fetch(`/api/bookDetail/aladdin/${params.id}`);
-        // const response = await fetch(`/data/bookDetail.json`);
+        // const response = await fetch(`/api/bookDetail/aladdin/${params.id}`);
+        const response = await fetch(`/data/bookDetail.json`);
         if (!response.ok) {
           throw new Error("Failed to fetch book data");
         }
