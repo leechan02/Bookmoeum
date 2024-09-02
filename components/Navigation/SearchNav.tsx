@@ -41,15 +41,15 @@ export default function SearchNav() {
           <SearchBar />
           {/* Desktop Menu */}
           <div className='hidden md:flex items-center gap-6'>
-            <Link href='/mylibrary' className='font-medium'>
+            <Link href='/mylibrary' className='font-medium text-primary whitespace-nowrap'>
               내 서재
             </Link>
             {user ? (
-              <button className='font-medium' onClick={handleLogout}>
+              <button className='font-medium text-primary whitespace-nowrap' onClick={handleLogout}>
                 로그아웃
               </button>
             ) : (
-              <Link href='/login' className='font-medium'>
+              <Link href='/login' className='font-medium text-primary whitespace-nowrap'>
                 로그인
               </Link>
             )}
@@ -70,13 +70,13 @@ export default function SearchNav() {
           </Link>
           {user ? (
             <button
-              className='block w-full text-center py-2 font-medium'
+              className='block w-full text-center py-2 font-medium text-primary'
               onClick={handleLogout}
             >
               로그아웃
             </button>
           ) : (
-            <Link href='/login' className='block py-2 font-medium'>
+            <Link href='/login' className='block py-2 font-medium text-primary'>
               로그인
             </Link>
           )}
