@@ -28,12 +28,12 @@ const config: Config = {
       },
     },
     fontFamily: {
-      'light': ['S-CoreDream-3Light', 'sans-serif'],
-      'regular': ['S-CoreDream-4Regular', 'sans-serif'],
-      'medium': ['S-CoreDream-6Medium', 'sans-serif'],
-      'bold': ['S-CoreDream-7Bold', 'sans-serif'],
+      light: ["S-CoreDream-3Light", "sans-serif"],
+      regular: ["S-CoreDream-4Regular", "sans-serif"],
+      medium: ["S-CoreDream-6Medium", "sans-serif"],
+      bold: ["S-CoreDream-7Bold", "sans-serif"],
     },
   },
-  plugins: [],
+  plugins: [require("tailwind-scrollbar-hide")],
 };
 export default config;
