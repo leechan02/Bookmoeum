@@ -1,10 +1,26 @@
-import { FiInstagram } from 'react-icons/fi';
+"use client";
+
+import { FiInstagram } from "react-icons/fi";
+import React, { useEffect, useState } from "react";
 
 export default function Footer() {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 400);
+    };
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
+
+  if (isMobile) return null;
+
   return (
     <div className='bg-primary py-4 sm:py-6'>
-      <div className="max-w-[1440px] mx-auto px-4 sm:px-6 md:px-8 lg:px-28">
-        <div className="py-4 sm:py-6 md:py-8 flex flex-col sm:flex-row justify-between items-center sm:items-start gap-4 sm:gap-0">
+      <div className='max-w-[1440px] mx-auto px-4 sm:px-6 md:px-8 lg:px-28'>
+        <div className='py-4 sm:py-6 md:py-8 flex flex-col sm:flex-row justify-between items-center sm:items-start gap-4 sm:gap-0'>
           <div className='w-full sm:w-[263px] flex flex-col justify-start items-center sm:items-start gap-4'>
             <img
               src='/LogoIconDark.svg'

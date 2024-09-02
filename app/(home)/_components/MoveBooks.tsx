@@ -31,7 +31,6 @@ export default function MoveBooks() {
     async function fetchBestseller() {
       try {
         const { item } = await getBestseller();
-        console.log(item);
         setBookCover(item.map((book) => book.cover));
       } catch (error) {
         console.error(error);

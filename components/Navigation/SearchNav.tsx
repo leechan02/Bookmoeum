@@ -11,10 +11,12 @@ export default function SearchNav() {
   const { user } = useAuth();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+  const [isColumn, setIsColumn] = useState(false);
 
   useEffect(() => {
     const checkMobile = () => {
       setIsMobile(window.innerWidth < 768);
+      setIsColumn(window.innerWidth < 400);
     };
 
     checkMobile();
@@ -28,8 +30,9 @@ export default function SearchNav() {
   };
 
   return (
-    <div className='sticky top-0 w-full max-w-[1440px] mx-auto'>
-        <div className='h-[80px] flex px-6 md:px-8 lg:px-28 py-4 justify-between items-center'>
+    <>
+      <div className={isColumn ? "hidden" : "w-full max-w-[1440px] mx-auto"}>
+        <div className='md:h-[80px] flex px-6 md:px-8 lg:px-28 pt-4 justify-between items-center'>
           <Link href='/' className='flex-shrink-0'>
             <img
               src={isMobile ? "/LogoIcon.svg" : "/Logo.svg"}
@@ -38,18 +41,27 @@ export default function SearchNav() {
             />
           </Link>
 
-          <SearchBar />
+          {!isColumn && <SearchBar />}
           {/* Desktop Menu */}
           <div className='hidden md:flex items-center gap-6'>
-            <Link href='/mylibrary' className='font-medium'>
+            <Link
+              href='/mylibrary'
+              className='font-medium text-primary whitespace-nowrap'
+            >
               내 서재
             </Link>
             {user ? (
-              <button className='font-medium' onClick={handleLogout}>
+              <button
+                className='font-medium text-primary whitespace-nowrap'
+                onClick={handleLogout}
+              >
                 로그아웃
               </button>
             ) : (
-              <Link href='/login' className='font-medium'>
+              <Link
+                href='/login'
+                className='font-medium text-primary whitespace-nowrap'
+              >
                 로그인
               </Link>
             )}
@@ -61,27 +73,40 @@ export default function SearchNav() {
           >
             <FiMenu size={32} />
           </button>
-      </div>
-      {/* Mobile Menu */}
-      {isMenuOpen && (
-        <div className='md:hidden px-4 py-2 bg-white shadow-md text-center'>
-          <Link href='/mylibrary' className='block py-2 font-medium'>
-            내 서재
-          </Link>
-          {user ? (
-            <button
-              className='block w-full text-center py-2 font-medium'
-              onClick={handleLogout}
-            >
-              로그아웃
-            </button>
-          ) : (
-            <Link href='/login' className='block py-2 font-medium'>
-              로그인
-            </Link>
-          )}
         </div>
-      )}
-    </div>
+        {/* Mobile Menu */}
+        {isMenuOpen && (
+          <div className='md:hidden px-4 py-2 bg-white shadow-md text-center'>
+            <Link href='/mylibrary' className='block py-2 font-medium'>
+              내 서재
+            </Link>
+            {user ? (
+              <button
+                className='block w-full text-center py-2 font-medium text-primary'
+                onClick={handleLogout}
+              >
+                로그아웃
+              </button>
+            ) : (
+              <Link
+                href='/login'
+                className='block py-2 font-medium text-primary'
+              >
+                로그인
+              </Link>
+            )}
+          </div>
+        )}
+      </div>
+      <div
+        className={
+          isColumn
+            ? "sticky top-0 flex justify-center items-center py-4"
+            : "hidden"
+        }
+      >
+        <SearchBar />
+      </div>
+    </>
   );
 }

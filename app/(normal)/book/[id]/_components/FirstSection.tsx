@@ -59,7 +59,7 @@ export default function FirstSection({ bookData }: FirstSectionProps) {
                 <BookStoreIcon imageUrl='/IconRidi.svg' width={40} />
                 <ButtonIcon
                   Icon={FiPlus}
-                  iconSize={40}
+                  iconSize={48}
                   iconColor='white'
                   bgColor='primary'
                 />
