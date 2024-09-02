@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Button from '../Button/Button';
 
 interface InputProps {
@@ -12,6 +12,23 @@ interface InputProps {
 
 export default function Input({ type, placeholder, buttonLabel, onSubmit }: InputProps) {
   const [inputValue, setInputValue] = useState('');
+  const [buttonWidth, setButtonWidth] = useState(400);
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth >= 640) setButtonWidth(400);
+      else setButtonWidth(300);
+    };
+
+    // 초기 설정
+    handleResize();
+
+    // 리사이즈 이벤트 리스너 추가
+    window.addEventListener("resize", handleResize);
+
+    // 컴포넌트 언마운트 시 리스너 제거
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -29,9 +46,9 @@ export default function Input({ type, placeholder, buttonLabel, onSubmit }: Inpu
         value={inputValue}
         onChange={(e) => setInputValue(e.target.value)}
         placeholder={placeholder}
-        className="w-[400px] px-4 py-2 rounded-full bg-secondary focus:ring-2 focus:ring-primary focus:outline-none"
+        className="w-[300px] sm:w-[400px] px-4 py-2 rounded-full bg-secondary focus:ring-2 focus:ring-primary focus:outline-none"
       />
-      <Button label={buttonLabel} type="submit" width={400} />
+      <Button label={buttonLabel} type="submit" width={buttonWidth} />
     </form>
   );
 }
