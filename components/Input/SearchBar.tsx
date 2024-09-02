@@ -34,7 +34,7 @@ export default function SearchBar({
         value={query}
         onChange={handleChange}
         placeholder={placeholder}
-        className='w-full h-full bg-transparent outline-none text-sm md:text-base'
+        className='w-full h-full bg-transparent outline-none text-sm md:text-base text-ellipsis'
       />
       <button type='submit'>
         <FiSearch className='w-6 h-6 text-primary' />
