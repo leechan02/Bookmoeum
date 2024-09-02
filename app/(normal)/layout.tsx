@@ -3,6 +3,7 @@ import "@/styles/globals.css";
 import Footer from "@/components/Footer";
 import SearchNav from "@/components/Navigation/SearchNav";
 import { AuthProvider } from "@/contexts/AuthContext";
+import MobileNav from "@/components/Navigation/MobileNav";
 
 export const metadata: Metadata = {
   title: "책모음 - 검색",
@@ -21,6 +22,7 @@ export default function RootLayout({
           <SearchNav />
           {children}
           <Footer />
+          <MobileNav />
         </AuthProvider>
       </body>
     </html>
