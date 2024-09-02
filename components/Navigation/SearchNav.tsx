@@ -31,7 +31,7 @@ export default function SearchNav() {
 
   return (
     <>
-      <div className='w-full max-w-[1440px] mx-auto'>
+      <div className={isColumn ? "hidden" : "w-full max-w-[1440px] mx-auto"}>
         <div className='md:h-[80px] flex px-6 md:px-8 lg:px-28 pt-4 justify-between items-center'>
           <Link href='/' className='flex-shrink-0'>
             <img
@@ -100,7 +100,9 @@ export default function SearchNav() {
       </div>
       <div
         className={
-          isColumn ? "sticky top-0 flex justify-center items-center py-4" : "hidden"
+          isColumn
+            ? "sticky top-0 flex justify-center items-center py-4"
+            : "hidden"
         }
       >
         <SearchBar />

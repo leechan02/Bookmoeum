@@ -73,7 +73,7 @@ function SearchContent() {
 
 
   return (
-    <div className='flex flex-col justify-center items-start gap-6 sm:gap-8'>
+    <div className='flex flex-col justify-center items-start gap-4 sm:gap-8'>
       <div className='font-bold text-2xl sm:text-3xl text-primary'>
         {query}
       </div>
@@ -96,9 +96,22 @@ function SearchContent() {
 }
 
 export default function SearchPage(): JSX.Element {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 400);
+    };
+
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
+
   return (
     <div className='w-full max-w-[1440px] mx-auto'>
-      <div className='px-6 md:px-8 lg:px-28 py-6 sm:py-8'>
+      <div className={isMobile ? 'px-6 py-0' : 'px-6 md:px-8 lg:px-28 py-6 sm:py-8'}>
         <Suspense fallback={<div>Loading...</div>}>
           <SearchContent />
         </Suspense>
