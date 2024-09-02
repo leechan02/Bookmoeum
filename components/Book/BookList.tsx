@@ -12,7 +12,7 @@ export default function BookList({
   lastResultElementRef,
 }: BookListProps) {
   return (
-    <div className='grid grid-cols-[repeat(auto-fit,minmax(100px,1fr))] sm:grid-cols-[repeat(auto-fit,minmax(120px,1fr))] gap-1 md:gap-8 w-full items-end'>
+    <div className='grid grid-cols-[repeat(auto-fit,minmax(100px,1fr))] sm:grid-cols-[repeat(auto-fit,minmax(120px,1fr))] md:grid-cols-[repeat(auto-fit,minmax(140px,1fr))] gap-1 md:gap-8 w-full items-end'>
       {searchResults.map((result, index) => (
         <div
           key={index}
