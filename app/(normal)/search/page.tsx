@@ -79,9 +79,9 @@ function SearchContent() {
       </div>
       <SearchTabs />
       {isLoading ? (
-        <div className='text-sm sm:text-base'>검색결과</div>
+        <div className='text-sm sm:text-base text-primary'>검색결과</div>
       ) : (
-        <div className='text-sm sm:text-base'> 검색결과 {totalResults}</div>
+        <div className='text-sm sm:text-base text-primary'> 검색결과 {totalResults}</div>
       )}
       <BookList
         searchResults={searchResults}
@@ -98,7 +98,7 @@ function SearchContent() {
 export default function SearchPage(): JSX.Element {
   return (
     <div className='w-full max-w-[1440px] mx-auto'>
-      <div className='px-4 sm:px-6 md:px-8 lg:px-28 py-6 sm:py-8'>
+      <div className='px-6 md:px-8 lg:px-28 py-6 sm:py-8'>
         <Suspense fallback={<div>Loading...</div>}>
           <SearchContent />
         </Suspense>

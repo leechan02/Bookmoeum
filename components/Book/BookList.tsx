@@ -19,7 +19,7 @@ export default function BookList({
           ref={index === searchResults.length - 1 ? lastResultElementRef : null}
           className='w-full'
         >
-          <Link href={`/book/${result.isbn13}`}>
+          <Link href={`/book/${result.isbn13}`} className="flex justify-center items-center">
             <BookDescription
               title={result.title}
               author={result.author}
