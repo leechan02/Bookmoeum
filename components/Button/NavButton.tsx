@@ -16,7 +16,7 @@ export default function NavButton({ icon: Icon, label, link }: NavButtonProps) {
       {typeof Icon === "string" ? (
         <img src={Icon} alt='icon' className='w-6 h-6' />
       ) : (
-        <Icon className='w-6 h-6 text-white' />
+        <Icon className='w-6 h-6 text-secondary' />
       )}
       <div className='text-secondary font-regular text-xs'>{label}</div>
     </Link>
