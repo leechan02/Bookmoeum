@@ -63,7 +63,7 @@ export default function LoginSection() {
           {showSignIn ? (
             <SignInSection />
           ) : showPasswordInput ? (
-            <>
+            <div className="flex flex-col justify-center items-center gap-4">
               <Input
                 type='password'
                 placeholder='비밀번호를 입력하세요'
@@ -76,7 +76,7 @@ export default function LoginSection() {
               >
                 비밀번호를 잊으셨나요?
               </button>
-            </>
+            </div>
           ) : (
             <LoginOption
               handleEmailSubmit={handleEmailSubmit}
