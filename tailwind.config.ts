@@ -14,6 +14,7 @@ const config: Config = {
       secondary: "#ededed",
       white: "#ffffff",
       black: "#000000",
+      error: "#FF3D3D",
       grey: {
         50: "#ededed",
         100: "#c7c7c7",

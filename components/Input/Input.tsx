@@ -1,17 +1,24 @@
 "use client";
 
-import { useEffect, useState } from 'react';
-import Button from '../Button/Button';
+import { useEffect, useState } from "react";
+import Button from "../Button/Button";
 
 interface InputProps {
-  type: 'text' | 'email' | 'password';
+  type: "text" | "email" | "password";
   placeholder: string;
   buttonLabel: string;
   onSubmit: (value: string) => void;
+  error?: string | null;
 }
 
-export default function Input({ type, placeholder, buttonLabel, onSubmit }: InputProps) {
-  const [inputValue, setInputValue] = useState('');
+export default function Input({
+  type,
+  placeholder,
+  buttonLabel,
+  onSubmit,
+  error,
+}: InputProps) {
+  const [inputValue, setInputValue] = useState("");
   const [buttonWidth, setButtonWidth] = useState(400);
 
   useEffect(() => {
@@ -32,23 +39,26 @@ export default function Input({ type, placeholder, buttonLabel, onSubmit }: Inpu
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log('Submitted value:', inputValue);
+    console.log("Submitted value:", inputValue);
     onSubmit(inputValue);
   };
 
   return (
-    <form 
+    <form
       onSubmit={handleSubmit}
-      className="flex flex-col justify-start items-center gap-4 w-full"
+      className='flex flex-col justify-start items-center gap-4 w-full'
     >
+      {error && <p className='text-error text-xs'>{error}</p>}
       <input
         type={type}
         value={inputValue}
         onChange={(e) => setInputValue(e.target.value)}
         placeholder={placeholder}
-        className="w-[300px] sm:w-[400px] px-4 py-2 rounded-full bg-secondary focus:ring-2 focus:ring-primary focus:outline-none"
-      />
-      <Button label={buttonLabel} type="submit" width={buttonWidth} />
+        className={`w-[300px] sm:w-[400px] px-4 py-2 rounded-full bg-secondary focus:outline-none ${
+          error ? "ring-2 ring-error" : "focus:ring-2 focus:ring-primary"
+        }`}
+        />
+      <Button label={buttonLabel} type='submit' width={buttonWidth} />
     </form>
   );
 }
