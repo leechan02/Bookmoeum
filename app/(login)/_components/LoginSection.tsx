@@ -14,6 +14,7 @@ import SignInSection from "./SignInSection";
 export default function LoginSection() {
   const [email, setEmail] = useState("");
   const [showPasswordInput, setShowPasswordInput] = useState(false);
+  const [showPasswordReset, setShowPasswordReset] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [showSignIn, setShowSignIn] = useState(false);
   const [emailError, setEmailError] = useState<string | null>(null);
@@ -45,6 +46,7 @@ export default function LoginSection() {
   const handleResetPassword = async () => {
     try {
       await sendPasswordResetEmail(auth, email);
+      setShowPasswordReset(true);
     } catch (error: any) {
       console.error("Reset password error:", error);
       setError("비밀번호 재설정 이메일을 보내는 중 오류가 발생했습니다.");
@@ -54,12 +56,14 @@ export default function LoginSection() {
   const handleShowSignIn = () => {
     setShowSignIn(true);
     setEmailError(null);
+    setShowPasswordReset(false);
     setPasswordError(null);
   };
 
   const handleBackToLogin = () => {
     setShowSignIn(false);
     setShowPasswordInput(false);
+    setShowPasswordReset(false);
     setEmailError(null);
     setPasswordError(null);
   };
@@ -75,9 +79,20 @@ export default function LoginSection() {
               className='w-10 h-10 sm:w-12 sm:h-12'
             />
           </Link>
-          <div className='text-center text-primary text-2xl sm:text-3xl font-medium'>
-            반갑습니다!
-          </div>
+          {showPasswordReset ? (
+            <div className='flex flex-col gap-1'>
+              <div className='text-center text-primary text-2xl sm:text-3xl font-medium'>
+                비밀번호 재설정 메일을 보냈어요!
+              </div>
+              <div className='text-center text-primary text-xs sm:text-sm font-light'>
+                메일이 오지 않았다면, 스팸 메일함을 확인해주세요.
+              </div>
+            </div>
+          ) : (
+            <div className='text-center text-primary text-2xl sm:text-3xl font-medium'>
+              반갑습니다!
+            </div>
+          )}
           {showSignIn ? (
             <SignInSection handleLogin={handleBackToLogin} />
           ) : showPasswordInput ? (
@@ -89,7 +104,7 @@ export default function LoginSection() {
                 onSubmit={handlePasswordSubmit}
                 error={passwordError}
               />
-              <div className="flex justify-center gap-4">
+              <div className='flex justify-center gap-4'>
                 <button
                   onClick={handleResetPassword}
                   className='text-sm sm:text-base text-primary hover:underline'
