@@ -10,11 +10,13 @@ import { FiMail } from "react-icons/fi";
 interface LoginOptionProps {
   handleEmailSubmit: (email: string) => void;
   onShowSignIn: () => void;
+  emailError?: string | null;
 }
 
 export default function LoginOption({
   handleEmailSubmit,
   onShowSignIn,
+  emailError,
 }: LoginOptionProps) {
   const router = useRouter();
   const [error, setError] = useState<string | null>(null);
@@ -66,7 +68,7 @@ export default function LoginOption({
         />
         <Button
           icon={FiMail}
-          label='이메일로 시작하기'
+          label='이메일로 회원가입'
           variant='secondary'
           width={buttonWidth}
           onClick={onShowSignIn}
@@ -83,6 +85,7 @@ export default function LoginOption({
         placeholder='이메일을 입력하세요'
         buttonLabel='계속'
         onSubmit={handleEmailSubmit}
+        error={emailError}
       />
     </div>
   );
