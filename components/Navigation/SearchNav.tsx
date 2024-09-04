@@ -3,15 +3,17 @@
 import Link from "next/link";
 import SearchBar from "../Input/SearchBar";
 import { useAuth } from "@/contexts/AuthContext";
-import { auth } from "@/libs/firebase/config";
 import { useEffect, useState } from "react";
 import { FiMenu } from "react-icons/fi";
+import { logoutUser } from "@/utils/logout";
+import { useRouter } from "next/navigation";
 
 export default function SearchNav() {
   const { user } = useAuth();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const [isColumn, setIsColumn] = useState(false);
+  const router = useRouter();
 
   useEffect(() => {
     const checkMobile = () => {
@@ -25,8 +27,16 @@ export default function SearchNav() {
     return () => window.removeEventListener("resize", checkMobile);
   }, []);
 
-  const handleLogout = () => {
-    auth.signOut();
+
+  const handleLogout = async () => {
+    const result = await logoutUser();
+    if (result.success) {
+      console.log("로그아웃 성공");
+      router.push('/');
+    } else {
+      console.error("로그아웃 실패");
+      // 사용자에게 오류 메시지 표시
+    }
   };
 
   return (
