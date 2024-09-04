@@ -5,11 +5,12 @@ import LoginOption from "./LoginOption";
 import { useState } from "react";
 import {
   sendPasswordResetEmail,
-  signInWithEmailAndPassword,
 } from "firebase/auth";
 import { auth } from "@/libs/firebase/config";
 import Input from "@/components/Input/Input";
 import SignInSection from "./SignInSection";
+import { loginWithEmailAndPassword } from "@/utils/login";
+import { useRouter } from "next/navigation";
 
 export default function LoginSection() {
   const [email, setEmail] = useState("");
@@ -19,6 +20,7 @@ export default function LoginSection() {
   const [showSignIn, setShowSignIn] = useState(false);
   const [emailError, setEmailError] = useState<string | null>(null);
   const [passwordError, setPasswordError] = useState<string | null>(null);
+  const router = useRouter();
 
   const handleEmailSubmit = async (inputEmail: string) => {
     setEmail(inputEmail);
@@ -28,7 +30,9 @@ export default function LoginSection() {
 
   const handlePasswordSubmit = async (password: string) => {
     try {
-      await signInWithEmailAndPassword(auth, email, password);
+      await loginWithEmailAndPassword(email, password);
+      console.log("Login successful");
+      router.push("/");
     } catch (error: any) {
       console.error("Login error:", error.code);
       if (error.code === "auth/wrong-password") {

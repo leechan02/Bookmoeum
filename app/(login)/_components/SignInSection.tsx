@@ -1,14 +1,6 @@
 "use client";
 import Button from "@/components/Button/Button";
-import Input from "@/components/Input/Input";
-import { auth } from "@/libs/firebase/config";
-import {
-  createUserWithEmailAndPassword,
-  GoogleAuthProvider,
-  signInWithEmailAndPassword,
-  signInWithPopup,
-} from "firebase/auth";
-import Link from "next/link";
+import { registerUser } from "@/utils/login";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
@@ -67,7 +59,8 @@ export default function SignInSection({
     }
 
     try {
-      await createUserWithEmailAndPassword(auth, email, password);
+      await registerUser(email, password);
+      console.log("User registered successfully");
       router.push("/");
     } catch (error: any) {
       console.error(error);

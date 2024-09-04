@@ -1,7 +1,8 @@
 "use client";
 import { useAuth } from "@/contexts/AuthContext";
-import { auth } from "@/libs/firebase/config";
+import { logoutUser } from "@/utils/logout";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 import { FiMenu } from "react-icons/fi";
 
@@ -9,6 +10,7 @@ export default function Nav() {
   const { user } = useAuth();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+  const router = useRouter();
 
   useEffect(() => {
     const checkMobile = () => {
@@ -21,9 +23,17 @@ export default function Nav() {
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
-  const handleLogout = () => {
-    auth.signOut();
-  }
+
+  const handleLogout = async () => {
+    const result = await logoutUser();
+    if (result.success) {
+      console.log("로그아웃 성공");
+      router.push('/');
+    } else {
+      console.error("로그아웃 실패");
+      // 사용자에게 오류 메시지 표시
+    }
+  };
 
   return (
     <div className="w-full max-w-[1440px] mx-auto">

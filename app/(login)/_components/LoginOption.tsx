@@ -1,8 +1,7 @@
 "use client";
 import Button from "@/components/Button/Button";
 import Input from "@/components/Input/Input";
-import { auth } from "@/libs/firebase/config";
-import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+import { loginWithGoogle } from "@/utils/login";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { FiMail } from "react-icons/fi";
@@ -40,9 +39,8 @@ export default function LoginOption({
 
   const handleGoogleLogin = async () => {
     try {
-      const provider = new GoogleAuthProvider();
-      const result = await signInWithPopup(auth, provider);
-      console.log("Google login successful:", result.user);
+      await loginWithGoogle();
+      console.log("Google login successful");
       router.push("/");
     } catch (error: any) {
       console.error("Google login error:", error);

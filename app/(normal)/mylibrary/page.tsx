@@ -3,7 +3,7 @@
 import CharacterMsg from "@/components/Message/CharacterMsg";
 import { withAuth } from "@/contexts/WithAuth";
 
-function MylibraryPage() {
+export default function MylibraryPage() {
   return (
     <div className='flex justify-center items-center flex-grow'>
       <CharacterMsg
@@ -13,5 +13,3 @@ function MylibraryPage() {
     </div>
   );
 }
-
-export default withAuth(MylibraryPage);
