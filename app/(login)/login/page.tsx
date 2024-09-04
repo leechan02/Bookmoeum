@@ -4,7 +4,7 @@ import { withAuth } from "@/contexts/WithAuth";
 import BookCoverSection from "../_components/BookCoverSection";
 import LoginSection from "../_components/LoginSection";
 
-function LoginPage() {
+export default function LoginPage() {
   return (
     <div className='flex flex-col md:flex-row w-full min-h-screen'>
       <div className='flex-grow flex items-center justify-center'>
@@ -16,5 +16,3 @@ function LoginPage() {
     </div>
   );
 }
-
-export default withAuth(LoginPage);
