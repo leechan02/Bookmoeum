@@ -7,6 +7,7 @@ import LibrarySelect from "./LibrarySelect";
 interface LibrarySelectPopupProps {
   isOpen: boolean;
   onClose: () => void;
+  onLibrarySelect: (library: LibraryResult) => void;
 }
 
 export interface LibraryResult {
@@ -19,6 +20,7 @@ export interface LibraryResult {
 export default function LibrarySelectPopup({
   isOpen,
   onClose,
+  onLibrarySelect,
 }: LibrarySelectPopupProps) {
   if (!isOpen) return null;
   const [results, setResults] = useState<LibraryResult[]>([]);
@@ -50,6 +52,11 @@ export default function LibrarySelectPopup({
     setResultCount(searchResult.length);
   };
 
+  const handleLibrarySelect = (library: LibraryResult) => {
+    onLibrarySelect(library);
+    onClose();
+  };
+
   return (
     <div className='fixed inset-0 bg-primary bg-opacity-30 flex items-center justify-center z-50'>
       <div className='w-[320px] h-[480px] rounded-3xl bg-white p-4 relative flex flex-col justify-between items-start'>
@@ -62,13 +69,17 @@ export default function LibrarySelectPopup({
             onClick={onClose}
           />
         </div>
-        <div className="flex flex-col gap-4">
+        <div className='flex flex-col gap-4'>
           <div className='text-sm text-primary font-regular'>
             검색결과 {resultCount}
           </div>
           <div className='max-h-[360px] overflow-y-auto w-full flex flex-col gap-2 scrollbar-hide'>
             {results.map((result, index) => (
-              <LibrarySelect key={index} library={result} />
+              <LibrarySelect
+                key={index}
+                library={result}
+                onSelect={() => handleLibrarySelect(result)}
+              />
             ))}
           </div>
         </div>

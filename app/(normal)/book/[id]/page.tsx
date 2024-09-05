@@ -3,7 +3,9 @@
 import { useEffect, useState } from "react";
 import FirstSection from "./_components/FirstSection";
 import SecondSection from "./_components/SecondSection";
-import LibrarySelectPopup from "@/components/Popup/LibrarySelectPopup";
+import LibrarySelectPopup, {
+  LibraryResult,
+} from "@/components/Popup/LibrarySelectPopup";
 
 interface BookDetailParams {
   params: { id: string };
@@ -74,6 +76,9 @@ export default function BookDetail({ params }: BookDetailParams) {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
+  const [selectedLibrary, setSelectedLibrary] = useState<LibraryResult | null>(
+    null
+  );
 
   useEffect(() => {
     const fetchBookData = async () => {
@@ -109,15 +114,35 @@ export default function BookDetail({ params }: BookDetailParams) {
     fetchBookData();
   }, [params.id]);
 
+  const handleSelectLibrary = (library: LibraryResult) => {
+    setSelectedLibrary(library);
+    localStorage.setItem("selectedLibrary", JSON.stringify(library));
+    setIsPopupOpen(false);
+  };
+
+  const handleRemoveLibrary = () => {
+    setSelectedLibrary(null);
+    localStorage.removeItem("selectedLibrary");
+  }
+
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>Error: {error}</div>;
   if (!bookData) return <div>No book data found</div>;
 
   return (
     <>
-      <FirstSection bookData={bookData} onClick={() => setIsPopupOpen(true)} />
+      <FirstSection
+        bookData={bookData}
+        onClick={() => setIsPopupOpen(true)}
+        selectedLibrary={selectedLibrary}
+        onRemoveLibrary={handleRemoveLibrary}
+      />
       <SecondSection bookData={bookData} />
-      <LibrarySelectPopup isOpen={isPopupOpen} onClose={() => setIsPopupOpen(false)} />
+      <LibrarySelectPopup
+        isOpen={isPopupOpen}
+        onClose={() => setIsPopupOpen(false)}
+        onLibrarySelect={handleSelectLibrary}
+      />
     </>
   );
 }
