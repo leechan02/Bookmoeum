@@ -10,6 +10,10 @@ interface LibrarySelectPopupProps {
 export default function LibrarySelectPopup({isOpen, onClose}: LibrarySelectPopupProps) {
   if (!isOpen) return null;
 
+  const handleSubmit = (query: string) => {
+    console.log(query);
+  }
+
   return (
     <div className='fixed inset-0 bg-primary bg-opacity-30 flex items-center justify-center z-50'>
       <div className='w-[320px] h-[480px] rounded-3xl bg-white p-4 relative flex justify-center items-end'>
@@ -22,7 +26,7 @@ export default function LibrarySelectPopup({isOpen, onClose}: LibrarySelectPopup
             onClick={onClose}
           />
         </div>
-        <SearchBar placeholder="도서관을 검색해보세요"/>
+        <SearchBar placeholder="도서관을 검색해보세요" isBook={false} onSubmit={handleSubmit}/>
       </div>
     </div>
   );

@@ -1,6 +1,5 @@
 "use client";
 
-import { on } from "events";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { FiSearch } from "react-icons/fi";
