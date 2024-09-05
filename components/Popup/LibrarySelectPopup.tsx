@@ -10,8 +10,21 @@ interface LibrarySelectPopupProps {
 export default function LibrarySelectPopup({isOpen, onClose}: LibrarySelectPopupProps) {
   if (!isOpen) return null;
 
-  const handleSubmit = (query: string) => {
+  async function searchLibrary(query: string) {
+    const response = await fetch(`/api/library?query=${encodeURIComponent(query)}`);
+    if (response.ok) {
+      const data = await response.json();
+      console.log(data);
+    } else {
+      console.error('검색 실패');
+    }
+  }
+
+  const handleSubmit = async (query: string) => {
     console.log(query);
+
+    const searchResult = await searchLibrary(query);
+    console.log(searchResult);
   }
 
   return (
