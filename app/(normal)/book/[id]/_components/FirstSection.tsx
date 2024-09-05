@@ -68,7 +68,7 @@ export default function FirstSection({
                 <BookStoreIcon imageUrl='/IconRidi.svg' width={40} />
                 {selectedLibrary && (
                   <IconButton
-                    Icon={FiHome}
+                    icon={selectedLibrary.libraryName}
                     iconSize={48}
                     iconColor='white'
                     bgColor='primary'
@@ -76,7 +76,7 @@ export default function FirstSection({
                   />
                 )}
                 <IconButton
-                  Icon={FiPlus}
+                  icon={FiPlus}
                   iconSize={48}
                   iconColor='white'
                   bgColor='primary'
@@ -86,7 +86,7 @@ export default function FirstSection({
             </div>
             <div className='flex justify-center md:justify-start items-center gap-2 w-full'>
               <IconButton
-                Icon={FiHeart}
+                icon={FiHeart}
                 iconSize={40}
                 iconColor='white'
                 bgColor='secondary'

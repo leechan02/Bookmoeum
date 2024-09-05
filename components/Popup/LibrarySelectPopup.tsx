@@ -1,6 +1,5 @@
 "use client";
 import { FiX } from "react-icons/fi";
-import IconButton from "../Button/IconButton";
 import SearchBar from "../Input/SearchBar";
 import { useState } from "react";
 import LibrarySelect from "./LibrarySelect";
