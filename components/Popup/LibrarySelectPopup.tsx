@@ -1,3 +1,5 @@
+"use client";
+
 import { FiX } from "react-icons/fi";
 import ButtonIcon from "../Icon/ButtonIcon";
 import SearchBar from "../Input/SearchBar";
