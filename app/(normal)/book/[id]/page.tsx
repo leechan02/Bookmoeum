@@ -76,9 +76,7 @@ export default function BookDetail({ params }: BookDetailParams) {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
-  const [selectedLibrary, setSelectedLibrary] = useState<LibraryResult | null>(
-    null
-  );
+  const [selectedLibraries, setSelectedLibraries] = useState<LibraryResult[]>([]);
 
   useEffect(() => {
     const fetchBookData = async () => {
@@ -112,18 +110,28 @@ export default function BookDetail({ params }: BookDetailParams) {
     };
 
     fetchBookData();
+
+    // 로컬 스토리지에서 선택된 도서관들 불러오기
+    const storedLibraries = localStorage.getItem("selectedLibraries");
+    if (storedLibraries) {
+      setSelectedLibraries(JSON.parse(storedLibraries));
+    }
   }, [params.id]);
 
   const handleSelectLibrary = (library: LibraryResult) => {
-    setSelectedLibrary(library);
-    localStorage.setItem("selectedLibrary", JSON.stringify(library));
+    const updatedLibraries = [...selectedLibraries, library];
+    setSelectedLibraries(updatedLibraries);
+    localStorage.setItem("selectedLibraries", JSON.stringify(updatedLibraries));
     setIsPopupOpen(false);
   };
 
-  const handleRemoveLibrary = () => {
-    setSelectedLibrary(null);
-    localStorage.removeItem("selectedLibrary");
-  }
+  const handleRemoveLibrary = (libraryToRemove: LibraryResult) => {
+    const updatedLibraries = selectedLibraries.filter(
+      lib => lib.libraryCode !== libraryToRemove.libraryCode
+    );
+    setSelectedLibraries(updatedLibraries);
+    localStorage.setItem("selectedLibraries", JSON.stringify(updatedLibraries));
+  };
 
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>Error: {error}</div>;
@@ -134,7 +142,7 @@ export default function BookDetail({ params }: BookDetailParams) {
       <FirstSection
         bookData={bookData}
         onClick={() => setIsPopupOpen(true)}
-        selectedLibrary={selectedLibrary}
+        selectedLibraries={selectedLibraries}
         onRemoveLibrary={handleRemoveLibrary}
       />
       <SecondSection bookData={bookData} />

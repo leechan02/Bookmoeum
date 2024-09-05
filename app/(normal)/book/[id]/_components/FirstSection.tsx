@@ -11,14 +11,14 @@ import IconButton from "@/components/Button/IconButton";
 interface FirstSectionProps {
   bookData: ProcessedBookData;
   onClick?: () => void;
-  selectedLibrary: LibraryResult | null;
-  onRemoveLibrary?: () => void;
+  selectedLibraries: LibraryResult[];
+  onRemoveLibrary?: (library: LibraryResult) => void;
 }
 
 export default function FirstSection({
   bookData,
   onClick,
-  selectedLibrary,
+  selectedLibraries,
   onRemoveLibrary,
 }: FirstSectionProps) {
   return (
@@ -66,15 +66,16 @@ export default function FirstSection({
                 <BookStoreIcon imageUrl='/IconYP.svg' width={40} />
                 <BookStoreIcon imageUrl='/IconMille.svg' width={40} />
                 <BookStoreIcon imageUrl='/IconRidi.svg' width={40} />
-                {selectedLibrary && (
+                {selectedLibraries.map((library) => (
                   <IconButton
-                    icon={selectedLibrary.libraryName}
+                    key={library.libraryCode}
+                    icon={library.libraryName}
                     iconSize={48}
                     iconColor='white'
                     bgColor='primary'
-                    onClick={onRemoveLibrary}
+                    onClick={() => onRemoveLibrary && onRemoveLibrary(library)}
                   />
-                )}
+                ))}
                 <IconButton
                   icon={FiPlus}
                   iconSize={48}
