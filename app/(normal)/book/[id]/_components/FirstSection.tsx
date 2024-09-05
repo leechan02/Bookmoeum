@@ -2,16 +2,25 @@ import React from "react";
 import Book from "@/components/Book/Book";
 import Chip from "@/components/Chips/Chip";
 import BookStoreIcon from "@/components/Icon/BookStoreIcon";
-import ButtonIcon from "@/components/Icon/ButtonIcon";
-import { FiBook, FiHeart, FiPlus } from "react-icons/fi";
+import { FiBook, FiHeart, FiHome, FiPlus } from "react-icons/fi";
 import { ProcessedBookData } from "../page";
 import Button from "@/components/Button/Button";
+import { LibraryResult } from "@/components/Popup/LibrarySelectPopup";
+import IconButton from "@/components/Button/IconButton";
 
 interface FirstSectionProps {
   bookData: ProcessedBookData;
+  onClick?: () => void;
+  selectedLibraries: LibraryResult[];
+  onRemoveLibrary?: (library: LibraryResult) => void;
 }
 
-export default function FirstSection({ bookData }: FirstSectionProps) {
+export default function FirstSection({
+  bookData,
+  onClick,
+  selectedLibraries,
+  onRemoveLibrary,
+}: FirstSectionProps) {
   return (
     <div className='flex flex-col justify-center items-center py-8 md:py-14 px-8'>
       <div className='flex flex-col md:flex-row justify-between items-center w-full max-w-[900px] gap-8'>
@@ -57,17 +66,27 @@ export default function FirstSection({ bookData }: FirstSectionProps) {
                 <BookStoreIcon imageUrl='/IconYP.svg' width={40} />
                 <BookStoreIcon imageUrl='/IconMille.svg' width={40} />
                 <BookStoreIcon imageUrl='/IconRidi.svg' width={40} />
-                <ButtonIcon
-                  Icon={FiPlus}
+                {selectedLibraries.map((library) => (
+                  <IconButton
+                    key={library.libraryCode}
+                    icon={library.libraryName}
+                    iconSize={48}
+                    iconColor='white'
+                    bgColor='primary'
+                  />
+                ))}
+                <IconButton
+                  icon={FiPlus}
                   iconSize={48}
                   iconColor='white'
                   bgColor='primary'
+                  onClick={onClick}
                 />
               </div>
             </div>
             <div className='flex justify-center md:justify-start items-center gap-2 w-full'>
-              <ButtonIcon
-                Icon={FiHeart}
+              <IconButton
+                icon={FiHeart}
                 iconSize={40}
                 iconColor='white'
                 bgColor='secondary'

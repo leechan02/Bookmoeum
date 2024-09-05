@@ -3,6 +3,9 @@
 import { useEffect, useState } from "react";
 import FirstSection from "./_components/FirstSection";
 import SecondSection from "./_components/SecondSection";
+import LibrarySelectPopup, {
+  LibraryResult,
+} from "@/components/Popup/LibrarySelectPopup";
 
 interface BookDetailParams {
   params: { id: string };
@@ -72,6 +75,8 @@ export default function BookDetail({ params }: BookDetailParams) {
   const [bookData, setBookData] = useState<ProcessedBookData | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
+  const [selectedLibraries, setSelectedLibraries] = useState<LibraryResult[]>([]);
 
   useEffect(() => {
     const fetchBookData = async () => {
@@ -105,7 +110,27 @@ export default function BookDetail({ params }: BookDetailParams) {
     };
 
     fetchBookData();
+
+    // 로컬 스토리지에서 선택된 도서관들 불러오기
+    const storedLibraries = localStorage.getItem("selectedLibraries");
+    if (storedLibraries) {
+      setSelectedLibraries(JSON.parse(storedLibraries));
+    }
   }, [params.id]);
+
+  const handleSelectLibrary = (library: LibraryResult) => {
+    const updatedLibraries = [...selectedLibraries, library];
+    setSelectedLibraries(updatedLibraries);
+    localStorage.setItem("selectedLibraries", JSON.stringify(updatedLibraries));
+  };
+
+  const handleRemoveLibrary = (libraryToRemove: LibraryResult) => {
+    const updatedLibraries = selectedLibraries.filter(
+      lib => lib.libraryCode !== libraryToRemove.libraryCode
+    );
+    setSelectedLibraries(updatedLibraries);
+    localStorage.setItem("selectedLibraries", JSON.stringify(updatedLibraries));
+  };
 
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>Error: {error}</div>;
@@ -113,8 +138,20 @@ export default function BookDetail({ params }: BookDetailParams) {
 
   return (
     <>
-      <FirstSection bookData={bookData} />
+     <FirstSection
+        bookData={bookData}
+        onClick={() => setIsPopupOpen(true)}
+        selectedLibraries={selectedLibraries}
+        onRemoveLibrary={handleRemoveLibrary}
+      />
       <SecondSection bookData={bookData} />
+      <LibrarySelectPopup
+        isOpen={isPopupOpen}
+        onClose={() => setIsPopupOpen(false)}
+        onLibrarySelect={handleSelectLibrary}
+        onLibraryRemove={handleRemoveLibrary}
+        selectedLibraries={selectedLibraries}
+      />
     </>
   );
 }
