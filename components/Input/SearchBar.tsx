@@ -1,15 +1,20 @@
 "use client";
 
+import { on } from "events";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { FiSearch } from "react-icons/fi";
 
 interface SearchBarProps {
   placeholder?: string;
+  isBook?: boolean;
+  onSubmit?: (query: string) => void;
 }
 
 export default function SearchBar({
   placeholder = "읽고 싶은 책을 검색해보세요",
+  isBook = true,
+  onSubmit
 }: SearchBarProps) {
   const [query, setQuery] = useState<string>("");
   const router = useRouter();
@@ -21,13 +26,17 @@ export default function SearchBar({
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!query.trim()) return;
-    router.push(`/search?query=${query}`);
+    if (isBook) {
+      router.push(`/search?query=${query}`);
+    } else {
+      onSubmit && onSubmit(query);
+    }
   };
 
   return (
     <form
       onSubmit={handleSubmit}
-      className='w-full max-w-[460px] lg:max-w-[584px] h-[52px] md:h-[60px] flex items-center px-6 py-4 mx-6 rounded-full bg-secondary opacity-95'
+      className='w-full max-w-[460px] lg:max-w-[584px] h-[52px] md:h-[60px] flex items-center px-6 py-4 rounded-full bg-secondary opacity-95'
     >
       <input
         type='text'

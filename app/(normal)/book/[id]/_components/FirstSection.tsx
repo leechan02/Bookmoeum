@@ -9,9 +9,10 @@ import Button from "@/components/Button/Button";
 
 interface FirstSectionProps {
   bookData: ProcessedBookData;
+  onClick?: () => void;
 }
 
-export default function FirstSection({ bookData }: FirstSectionProps) {
+export default function FirstSection({ bookData, onClick }: FirstSectionProps) {
   return (
     <div className='flex flex-col justify-center items-center py-8 md:py-14 px-8'>
       <div className='flex flex-col md:flex-row justify-between items-center w-full max-w-[900px] gap-8'>
@@ -62,6 +63,7 @@ export default function FirstSection({ bookData }: FirstSectionProps) {
                   iconSize={48}
                   iconColor='white'
                   bgColor='primary'
+                  onClick={onClick}
                 />
               </div>
             </div>

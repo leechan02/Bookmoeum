@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import FirstSection from "./_components/FirstSection";
 import SecondSection from "./_components/SecondSection";
+import LibrarySelectPopup from "@/components/Popup/LibrarySelectPopup";
 
 interface BookDetailParams {
   params: { id: string };
@@ -72,6 +73,7 @@ export default function BookDetail({ params }: BookDetailParams) {
   const [bookData, setBookData] = useState<ProcessedBookData | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
 
   useEffect(() => {
     const fetchBookData = async () => {
@@ -113,8 +115,9 @@ export default function BookDetail({ params }: BookDetailParams) {
 
   return (
     <>
-      <FirstSection bookData={bookData} />
+      <FirstSection bookData={bookData} onClick={() => setIsPopupOpen(true)} />
       <SecondSection bookData={bookData} />
+      <LibrarySelectPopup isOpen={isPopupOpen} onClose={() => setIsPopupOpen(false)} />
     </>
   );
 }
