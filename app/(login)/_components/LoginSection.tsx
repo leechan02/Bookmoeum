@@ -41,7 +41,6 @@ export default function LoginSection() {
         setEmailError("해당 이메일로 가입된 계정이 없습니다.");
         setShowPasswordInput(false); // 이메일 입력으로 돌아가기
       } else {
-        setPasswordError("비밀번호가 일치하지 않습니다. 다시 시도해 주세요.");
         setError("로그인 중 오류가 발생했습니다. 다시 시도해 주세요.");
       }
     }
@@ -97,6 +96,7 @@ export default function LoginSection() {
               반갑습니다!
             </div>
           )}
+          {error && <div className='text-error text-xs'>{error}</div>}
           {showSignIn ? (
             <SignInSection handleLogin={handleBackToLogin} />
           ) : showPasswordInput ? (
