@@ -30,7 +30,7 @@ export default function Button({
 
   return (
     <button
-      className={`${baseClasses} ${colorClasses}`}
+      className={`${baseClasses} ${colorClasses} flex-shrink-0`}
       onClick={onClick}
       style={widthStyle}
       type={type}
