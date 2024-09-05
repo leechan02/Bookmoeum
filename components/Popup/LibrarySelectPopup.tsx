@@ -71,14 +71,14 @@ export default function LibrarySelectPopup({
       onClick={handleOverlayClick}
     >
       <div
-        className='w-[320px] h-[480px] rounded-3xl bg-white p-4 relative flex flex-col justify-between items-center'
+        className='w-[320px] h-[480px] rounded-3xl bg-white p-4 relative flex flex-col justify-center items-center gap-2'
         onClick={(e) => e.stopPropagation()}
       >
-        <div className='flex flex-col gap-4'>
-          <div className='text-sm text-primary font-regular text-center'>
-            검색결과 {resultCount}
-          </div>
-          <div className='max-h-[360px] overflow-y-auto flex flex-col gap-2 scrollbar-hide'>
+        <div className='text-sm text-primary font-regular text-center'>
+          내 도서관 {resultCount}
+        </div>
+        <div className='max-h-32 flex overflow-y-auto scrollbar-hide'>
+          <div className='flex flex-col gap-2'>
             {results.map((result, index) => (
               <LibrarySelect
                 key={index}
@@ -86,6 +86,22 @@ export default function LibrarySelectPopup({
                 onSelect={() => handleLibrarySelect(result)}
               />
             ))}
+          </div>
+        </div>
+        <div className='text-sm text-primary font-regular text-center'>
+          검색결과 {resultCount}
+        </div>
+        <div className='flex-1 overflow-hidden flex flex-col'>
+          <div className='flex-1 overflow-y-auto scrollbar-hide'>
+            <div className='flex flex-col gap-2'>
+              {results.map((result, index) => (
+                <LibrarySelect
+                  key={index}
+                  library={result}
+                  onSelect={() => handleLibrarySelect(result)}
+                />
+              ))}
+            </div>
           </div>
         </div>
         <SearchBar
