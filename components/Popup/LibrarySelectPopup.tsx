@@ -58,6 +58,7 @@ export default function LibrarySelectPopup({
 
   const handleOverlayClick = (e: React.MouseEvent<HTMLDivElement>) => {
     if (e.target === e.currentTarget) {
+      setResults([]);
       onClose();
     }
   };
