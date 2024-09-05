@@ -1,5 +1,4 @@
 "use client";
-
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { FiSearch } from "react-icons/fi";
@@ -8,12 +7,14 @@ interface SearchBarProps {
   placeholder?: string;
   isBook?: boolean;
   onSubmit?: (query: string) => void;
+  small?: boolean;
 }
 
 export default function SearchBar({
   placeholder = "읽고 싶은 책을 검색해보세요",
   isBook = true,
-  onSubmit
+  onSubmit,
+  small = false
 }: SearchBarProps) {
   const [query, setQuery] = useState<string>("");
   const router = useRouter();
@@ -32,20 +33,34 @@ export default function SearchBar({
     }
   };
 
+  const formClasses = `
+    w-full 
+    ${small ? 'max-w-[300px] h-[40px]' : 'max-w-[460px] lg:max-w-[584px] h-[52px] md:h-[60px]'}
+    flex items-center px-4 py-2 rounded-full bg-secondary opacity-95 mx-2
+  `;
+
+  const inputClasses = `
+    w-full h-full bg-transparent outline-none 
+    ${small ? 'text-xs' : 'text-sm md:text-base'}
+    text-ellipsis
+  `;
+
+  const iconClasses = `
+    ${small ? 'w-4 h-4' : 'w-6 h-6'}
+    text-primary
+  `;
+
   return (
-    <form
-      onSubmit={handleSubmit}
-      className='w-full max-w-[460px] lg:max-w-[584px] h-[52px] md:h-[60px] flex items-center px-6 py-4 rounded-full bg-secondary opacity-95'
-    >
+    <form onSubmit={handleSubmit} className={formClasses}>
       <input
         type='text'
         value={query}
         onChange={handleChange}
         placeholder={placeholder}
-        className='w-full h-full bg-transparent outline-none text-sm md:text-base text-ellipsis'
+        className={inputClasses}
       />
       <button type='submit'>
-        <FiSearch className='w-6 h-6 text-primary' />
+        <FiSearch className={iconClasses} />
       </button>
     </form>
   );
