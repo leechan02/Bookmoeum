@@ -73,7 +73,6 @@ export default function FirstSection({
                     iconSize={48}
                     iconColor='white'
                     bgColor='primary'
-                    onClick={() => onRemoveLibrary && onRemoveLibrary(library)}
                   />
                 ))}
                 <IconButton

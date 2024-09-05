@@ -1,13 +1,15 @@
 "use client";
 import { FiX } from "react-icons/fi";
 import SearchBar from "../Input/SearchBar";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import LibrarySelect from "./LibrarySelect";
 
 interface LibrarySelectPopupProps {
   isOpen: boolean;
   onClose: () => void;
   onLibrarySelect: (library: LibraryResult) => void;
+  onLibraryRemove: (library: LibraryResult) => void;
+  selectedLibraries: LibraryResult[];
 }
 
 export interface LibraryResult {
@@ -21,9 +23,21 @@ export default function LibrarySelectPopup({
   isOpen,
   onClose,
   onLibrarySelect,
+  onLibraryRemove,
+  selectedLibraries,
 }: LibrarySelectPopupProps) {
   const [results, setResults] = useState<LibraryResult[]>([]);
+  const [filteredResults, setFilteredResults] = useState<LibraryResult[]>([]);
   const [resultCount, setResultCount] = useState(0);
+
+  useEffect(() => {
+    // 선택된 도서관을 제외한 검색 결과 필터링
+    const filtered = results.filter(
+      result => !selectedLibraries.some(selected => selected.libraryCode === result.libraryCode)
+    );
+    setFilteredResults(filtered);
+    setResultCount(filtered.length);
+  }, [results, selectedLibraries]);
 
   async function searchLibrary(query: string): Promise<LibraryResult[]> {
     try {
@@ -45,20 +59,22 @@ export default function LibrarySelectPopup({
 
   const handleSubmit = async (query: string) => {
     console.log(query);
-
     const searchResult = await searchLibrary(query);
     setResults(searchResult);
-    setResultCount(searchResult.length);
   };
 
   const handleLibrarySelect = (library: LibraryResult) => {
     onLibrarySelect(library);
-    onClose();
+  };
+
+  const handleLibraryRemove = (library: LibraryResult) => {
+    onLibraryRemove(library);
   };
 
   const handleOverlayClick = (e: React.MouseEvent<HTMLDivElement>) => {
     if (e.target === e.currentTarget) {
       setResults([]);
+      setFilteredResults([]);
       onClose();
     }
   };
@@ -75,15 +91,16 @@ export default function LibrarySelectPopup({
         onClick={(e) => e.stopPropagation()}
       >
         <div className='text-sm text-primary font-regular text-center'>
-          내 도서관 {resultCount}
+          내 도서관 {selectedLibraries.length}
         </div>
-        <div className='max-h-32 flex overflow-y-auto scrollbar-hide'>
+        <div className='max-h-40 flex overflow-y-auto scrollbar-hide'>
           <div className='flex flex-col gap-2'>
-            {results.map((result, index) => (
+            {selectedLibraries.map((library, index) => (
               <LibrarySelect
                 key={index}
-                library={result}
-                onSelect={() => handleLibrarySelect(result)}
+                library={library}
+                onSelect={() => handleLibraryRemove(library)}
+                isSelected={true}
               />
             ))}
           </div>
@@ -94,11 +111,14 @@ export default function LibrarySelectPopup({
         <div className='flex-1 overflow-hidden flex flex-col'>
           <div className='flex-1 overflow-y-auto scrollbar-hide'>
             <div className='flex flex-col gap-2'>
-              {results.map((result, index) => (
+              {filteredResults.map((result, index) => (
                 <LibrarySelect
                   key={index}
                   library={result}
                   onSelect={() => handleLibrarySelect(result)}
+                  isSelected={selectedLibraries.some(
+                    (lib) => lib.libraryCode === result.libraryCode
+                  )}
                 />
               ))}
             </div>

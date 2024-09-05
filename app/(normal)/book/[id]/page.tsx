@@ -122,7 +122,6 @@ export default function BookDetail({ params }: BookDetailParams) {
     const updatedLibraries = [...selectedLibraries, library];
     setSelectedLibraries(updatedLibraries);
     localStorage.setItem("selectedLibraries", JSON.stringify(updatedLibraries));
-    setIsPopupOpen(false);
   };
 
   const handleRemoveLibrary = (libraryToRemove: LibraryResult) => {
@@ -139,7 +138,7 @@ export default function BookDetail({ params }: BookDetailParams) {
 
   return (
     <>
-      <FirstSection
+     <FirstSection
         bookData={bookData}
         onClick={() => setIsPopupOpen(true)}
         selectedLibraries={selectedLibraries}
@@ -150,6 +149,8 @@ export default function BookDetail({ params }: BookDetailParams) {
         isOpen={isPopupOpen}
         onClose={() => setIsPopupOpen(false)}
         onLibrarySelect={handleSelectLibrary}
+        onLibraryRemove={handleRemoveLibrary}
+        selectedLibraries={selectedLibraries}
       />
     </>
   );
