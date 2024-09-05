@@ -3,24 +3,32 @@ interface ButtonIconProps {
   iconSize: number;
   iconColor: string;
   bgColor: string;
+  onClick?: () => void;
 }
 
-export default function ButtonIcon({ Icon, iconSize, iconColor, bgColor }: ButtonIconProps) {
+export default function ButtonIcon({
+  Icon,
+  iconSize,
+  iconColor,
+  bgColor,
+  onClick,
+}: ButtonIconProps) {
   return (
-    <div 
+    <button
       className={`rounded-full inline-flex justify-center items-center bg-${bgColor}`}
       style={{
         width: `${iconSize}px`,
         height: `${iconSize}px`,
       }}
+      onClick={onClick}
     >
-      <Icon 
+      <Icon
         className={`text-${iconColor}`}
         style={{
-          width: '70%',
-          height: '100%',
+          width: "70%",
+          height: "100%",
         }}
       />
-    </div>
+    </button>
   );
 }
