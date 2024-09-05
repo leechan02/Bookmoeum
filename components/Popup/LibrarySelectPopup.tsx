@@ -24,10 +24,9 @@ export default function LibrarySelectPopup({
   onClose,
   onLibrarySelect,
 }: LibrarySelectPopupProps) {
-  if (!isOpen) return null;
   const [results, setResults] = useState<LibraryResult[]>([]);
   const [resultCount, setResultCount] = useState(0);
-
+  
   async function searchLibrary(query: string): Promise<LibraryResult[]> {
     try {
       const response = await fetch(
@@ -45,19 +44,21 @@ export default function LibrarySelectPopup({
       return [];
     }
   }
-
+  
   const handleSubmit = async (query: string) => {
     console.log(query);
-
+    
     const searchResult = await searchLibrary(query);
     setResults(searchResult);
     setResultCount(searchResult.length);
   };
-
+  
   const handleLibrarySelect = (library: LibraryResult) => {
     onLibrarySelect(library);
     onClose();
   };
+  
+  if (!isOpen) return null;
 
   return (
     <div className='fixed inset-0 bg-primary bg-opacity-30 flex items-center justify-center z-50'>
