@@ -61,7 +61,7 @@ function SearchContent() {
 
     try {
       const response = await fetch(
-        `/api/search?query=${encodeURIComponent(query)}&start=${
+        `/api/search/aladdin?query=${encodeURIComponent(query)}&start=${
           (page - 1) * 10 + 1
         }`,
         { signal }
