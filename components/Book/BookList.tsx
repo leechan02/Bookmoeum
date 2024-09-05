@@ -19,11 +19,13 @@ export default function BookList({
           ref={index === searchResults.length - 1 ? lastResultElementRef : null}
           className='w-full'
         >
-          <Link href={`/book/${result.isbn13}`} className="flex justify-center items-center">
+          {/* <Link href={`/book/${result.isbn13}`} className="flex justify-center items-center"> */}
+          <Link href={`/book/${result.isbn}`} className="flex justify-center items-center">
             <BookDescription
               title={result.title}
               author={result.author}
-              imageUrl={result.cover}
+              // imageUrl={result.cover}
+              imageUrl={result.image}
             />
           </Link>
         </div>
