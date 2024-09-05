@@ -2,11 +2,11 @@ import React from "react";
 import Book from "@/components/Book/Book";
 import Chip from "@/components/Chips/Chip";
 import BookStoreIcon from "@/components/Icon/BookStoreIcon";
-import ButtonIcon from "@/components/Icon/ButtonIcon";
 import { FiBook, FiHeart, FiHome, FiPlus } from "react-icons/fi";
 import { ProcessedBookData } from "../page";
 import Button from "@/components/Button/Button";
 import { LibraryResult } from "@/components/Popup/LibrarySelectPopup";
+import IconButton from "@/components/Button/IconButton";
 
 interface FirstSectionProps {
   bookData: ProcessedBookData;
@@ -67,7 +67,7 @@ export default function FirstSection({
                 <BookStoreIcon imageUrl='/IconMille.svg' width={40} />
                 <BookStoreIcon imageUrl='/IconRidi.svg' width={40} />
                 {selectedLibrary && (
-                  <ButtonIcon
+                  <IconButton
                     Icon={FiHome}
                     iconSize={48}
                     iconColor='white'
@@ -75,7 +75,7 @@ export default function FirstSection({
                     onClick={onRemoveLibrary}
                   />
                 )}
-                <ButtonIcon
+                <IconButton
                   Icon={FiPlus}
                   iconSize={48}
                   iconColor='white'
@@ -85,7 +85,7 @@ export default function FirstSection({
               </div>
             </div>
             <div className='flex justify-center md:justify-start items-center gap-2 w-full'>
-              <ButtonIcon
+              <IconButton
                 Icon={FiHeart}
                 iconSize={40}
                 iconColor='white'

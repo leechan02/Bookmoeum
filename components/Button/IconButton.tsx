@@ -1,4 +1,4 @@
-interface ButtonIconProps {
+interface IconButtonProps {
   Icon: React.ElementType;
   iconSize: number;
   iconColor: string;
@@ -6,13 +6,13 @@ interface ButtonIconProps {
   onClick?: () => void;
 }
 
-export default function ButtonIcon({
+export default function IconButton({
   Icon,
   iconSize,
   iconColor,
   bgColor,
   onClick,
-}: ButtonIconProps) {
+}: IconButtonProps) {
   return (
     <button
       className={`rounded-full inline-flex justify-center items-center bg-${bgColor}`}
