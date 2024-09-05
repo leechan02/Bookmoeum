@@ -49,7 +49,7 @@ export default function LoginOption({
       } else if (error.code === "auth/cancelled-popup-request") {
         setError("이미 로그인 창이 열려 있습니다.");
       } else {
-        setError("로그인 중 오류가 발생했습니다. 다시 시도해 주세요.");
+        setError("로그인 중 오류가 발생했습니다.");
       }
     }
   };
@@ -72,7 +72,7 @@ export default function LoginOption({
           onClick={onShowSignIn}
         />
       </div>
-      {error && <div className='text-red-500 text-sm'>{error}</div>}
+      {error && <div className='text-error text-xs'>{error}</div>}
       <div className='inline-flex justify-center gap-1'>
         <div className='border-b-2 border-secondary w-32 sm:w-48 mb-[10px]'></div>
         <div className='font-medium text-secondary text-sm sm:text-base'>or</div>
