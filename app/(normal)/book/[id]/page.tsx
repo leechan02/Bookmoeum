@@ -6,6 +6,8 @@ import SecondSection from "./_components/SecondSection";
 import LibrarySelectPopup, {
   LibraryResult,
 } from "@/components/Popup/LibrarySelectPopup";
+import { useSelector } from "react-redux";
+import { RootState } from "@/store/store";
 
 interface BookDetailParams {
   params: { id: string };
@@ -14,17 +16,12 @@ interface BookDetailParams {
 interface BookData {
   title: string;
   author: string;
-  cover: string;
+  image: string;
   publisher: string;
-  isbn13: string;
-  categoryName: string;
+  isbn: string;
   description: string;
   link: string;
-  pubDate: string;
-  subInfo: {
-    itemPage: number;
-    subTitle: string;
-  };
+  pubdate: string;
 }
 
 export interface ProcessedBookData extends BookData {
@@ -77,39 +74,10 @@ export default function BookDetail({ params }: BookDetailParams) {
   const [error, setError] = useState<string | null>(null);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [selectedLibraries, setSelectedLibraries] = useState<LibraryResult[]>([]);
+  const book = useSelector((state: RootState) => state.book.selectedBook);
 
   useEffect(() => {
-    const fetchBookData = async () => {
-      try {
-        const response = await fetch(`/api/bookDetail/aladdin/${params.id}`);
-        // const response = await fetch(`/data/bookDetail.json`);
-        if (!response.ok) {
-          throw new Error("Failed to fetch book data");
-        }
-        const data = await response.json();
-        const rawBookData = data.item[0];
-
-        console.log(rawBookData);
-        const { author, translator } = processAuthorAndTranslator(
-          rawBookData.author
-        );
-
-        setBookData({
-          ...rawBookData,
-          processedTitle: processTitle(rawBookData.title),
-          processedAuthor: author,
-          translator: translator,
-          processedCategory: processCategory(rawBookData.categoryName),
-        });
-      } catch (err) {
-        setError("Error fetching book data");
-        console.error(err);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    fetchBookData();
+    console.log(book);
 
     // 로컬 스토리지에서 선택된 도서관들 불러오기
     const storedLibraries = localStorage.getItem("selectedLibraries");
@@ -138,7 +106,7 @@ export default function BookDetail({ params }: BookDetailParams) {
 
   return (
     <>
-     <FirstSection
+     {/* <FirstSection
         bookData={bookData}
         onClick={() => setIsPopupOpen(true)}
         selectedLibraries={selectedLibraries}
@@ -151,7 +119,7 @@ export default function BookDetail({ params }: BookDetailParams) {
         onLibrarySelect={handleSelectLibrary}
         onLibraryRemove={handleRemoveLibrary}
         selectedLibraries={selectedLibraries}
-      />
+      /> */}
     </>
   );
 }
