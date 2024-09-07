@@ -78,7 +78,7 @@ export default function BookDetail({ params }: BookDetailParams) {
 
   useEffect(() => {
     console.log(book);
-
+    setBookData(book);
     // 로컬 스토리지에서 선택된 도서관들 불러오기
     const storedLibraries = localStorage.getItem("selectedLibraries");
     if (storedLibraries) {
@@ -100,13 +100,13 @@ export default function BookDetail({ params }: BookDetailParams) {
     localStorage.setItem("selectedLibraries", JSON.stringify(updatedLibraries));
   };
 
-  if (isLoading) return <div>Loading...</div>;
-  if (error) return <div>Error: {error}</div>;
+  // if (isLoading) return <div>Loading...</div>;
+  // if (error) return <div>Error: {error}</div>;
   if (!bookData) return <div>No book data found</div>;
 
   return (
     <>
-     {/* <FirstSection
+     <FirstSection
         bookData={bookData}
         onClick={() => setIsPopupOpen(true)}
         selectedLibraries={selectedLibraries}
@@ -119,7 +119,7 @@ export default function BookDetail({ params }: BookDetailParams) {
         onLibrarySelect={handleSelectLibrary}
         onLibraryRemove={handleRemoveLibrary}
         selectedLibraries={selectedLibraries}
-      /> */}
+      />
     </>
   );
 }

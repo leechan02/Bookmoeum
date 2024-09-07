@@ -14,11 +14,11 @@ export default function SecondSection({ bookData }: SecondSectionProps) {
         <CategoryTabs />
         <div className='w-full overflow-x-auto scrollbar-hide'>
           <DetailSection
-            category={bookData.processedCategory}
-            page={bookData.subInfo.itemPage}
-            isbn13={bookData.isbn13}
+            // category={bookData.processedCategory}
+            // page={bookData.subInfo.itemPage}
+            isbn={bookData.isbn}
             publisher={bookData.publisher}
-            pubDate={bookData.pubDate}
+            pubDate={bookData.pubdate}
           />
         </div>
         <DescriptionSection description={bookData.description} />

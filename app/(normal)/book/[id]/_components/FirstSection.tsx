@@ -25,17 +25,17 @@ export default function FirstSection({
     <div className='flex flex-col justify-center items-center py-8 md:py-14 px-8'>
       <div className='flex flex-col md:flex-row justify-between items-center w-full max-w-[900px] gap-8'>
         <div className='flex justify-center'>
-          <Book imageUrl={bookData.cover} width={240} />
+          <Book imageUrl={bookData.image} width={240} />
         </div>
         <div className='flex-col justify-start items-start gap-10 md:gap-20 inline-flex w-full md:w-auto'>
           <div className='flex-col justify-center items-start gap-4 md:gap-6 inline-flex w-full'>
             <div className='text-xl md:text-3xl font-medium text-primary text-center md:text-left w-full'>
-              {bookData.processedTitle}
+              {bookData.title}
             </div>
             <div className='inline-flex flex-wrap justify-center md:justify-start items-center gap-2 md:gap-4 px-1 w-full'>
               <div className='inline-flex justify-start items-center gap-1'>
                 <span className='text-sm font-medium text-primary'>
-                  {bookData.processedAuthor}
+                  {bookData.author}
                 </span>
                 <span className='text-sm font-light text-grey-200'>저</span>
               </div>
@@ -50,8 +50,8 @@ export default function FirstSection({
             </div>
             <div className='inline-flex flex-wrap justify-center md:justify-start items-center gap-1 w-full'>
               <Chip label={bookData.publisher} />
-              <Chip label={bookData.processedCategory} />
-              <Chip label={bookData.pubDate} />
+              {/* <Chip label={bookData.processedCategory} /> */}
+              <Chip label={bookData.pubdate} />
             </div>
           </div>
           <div className='flex-col justify-start items-center md:items-start gap-6 md:gap-8 inline-flex w-full'>
