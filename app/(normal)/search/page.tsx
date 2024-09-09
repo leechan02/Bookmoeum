@@ -78,7 +78,6 @@ function SearchContent() {
         throw new Error("API 요청 실패");
       }
       const data = await response.json();
-      console.log(data);
       setSearchResults(prevResults => {
         // const newResults = [...prevResults, ...data.item];
         const newResults = [...prevResults, ...data.items];
@@ -86,7 +85,6 @@ function SearchContent() {
         setHasMore(newResults.length < data.total);
         return newResults;
       });
-      console.log(searchResults);
       // setTotalResults(data.totalResults);
       setTotalResults(data.total);
     } catch (error: unknown) {

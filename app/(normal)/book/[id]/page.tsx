@@ -60,7 +60,6 @@ export default function BookDetail({ params }: BookDetailParams) {
   );
 
   useEffect(() => {
-    console.log(book);
     if (book) {
       const { processedTitle, subTitle } = processTitle(book.title);
       const processedAuthor = processAuthor(book.author);
