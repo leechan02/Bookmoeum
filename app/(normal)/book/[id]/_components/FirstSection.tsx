@@ -3,11 +3,11 @@ import Book from "@/components/Book/Book";
 import Chip from "@/components/Chips/Chip";
 import BookStoreIcon from "@/components/Icon/BookStoreIcon";
 import { FiBook, FiHeart, FiHome, FiPlus } from "react-icons/fi";
-import { BookData } from "../page";
 import Button from "@/components/Button/Button";
 import { LibraryResult } from "@/components/Popup/LibrarySelectPopup";
 import IconButton from "@/components/Button/IconButton";
 import FindBook from "./FindBook";
+import { BookData } from "@/store/bookSlice";
 
 interface FirstSectionProps {
   bookData: BookData;
@@ -56,7 +56,7 @@ export default function FirstSection({
             </div>
           </div>
           <div className='flex-col justify-start items-center md:items-start gap-6 md:gap-8 inline-flex w-full'>
-            <FindBook bookData={bookData} selectedLibraries={selectedLibraries} onAddLibrary={onClick} />
+            <FindBook selectedLibraries={selectedLibraries} onAddLibrary={onClick} />
             <div className='flex justify-center md:justify-start items-center gap-2 w-full'>
               <IconButton
                 icon={FiHeart}

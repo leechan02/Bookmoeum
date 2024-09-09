@@ -3,10 +3,11 @@ import BookStoreIcon from "@/components/Icon/BookStoreIcon";
 import { FiPlus } from "react-icons/fi";
 import { LibraryResult } from "@/components/Popup/LibrarySelectPopup";
 import IconButton from "@/components/Button/IconButton";
-import { BookData } from "../page";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "@/store/store";
+import { BookData, updateBookData } from '../../../../../store/bookSlice';
 
 interface FindBookProps {
-  bookData: BookData;
   selectedLibraries: LibraryResult[];
   onAddLibrary: () => void;
 }
@@ -24,10 +25,11 @@ interface BookstoreResults {
 const resultsCache: { [key: string]: BookstoreResults } = {};
 
 export default function FindBook({
-  bookData,
   selectedLibraries,
   onAddLibrary,
 }: FindBookProps) {
+  const dispatch = useDispatch();
+  const bookData = useSelector((state: RootState) => state.book.selectedBook as BookData);
   const [bookstoreResults, setBookstoreResults] = useState<BookstoreResults>({
     kyobo: null,
     yes24: null,
@@ -38,6 +40,8 @@ export default function FindBook({
 
   useEffect(() => {
     const fetchBookstoreData = async () => {
+      if (!bookData) return;
+      
       setIsLoading(true);
       if (resultsCache[bookData.isbn]) {
         setBookstoreResults(resultsCache[bookData.isbn]);
@@ -50,13 +54,22 @@ export default function FindBook({
           bookstores.map(async (store) => {
             const response = await fetch(`/api/bookDetail/${store}?isbn=${bookData.isbn}`);
             const data = await response.json();
-            console.log(`${store} API response:`, data);  // 디버깅을 위한 로그
+            console.log(`${store} API response:`, data);
             return { [store]: data };
           })
         );
         const newResults = Object.assign({}, ...results);
         setBookstoreResults(newResults);
         resultsCache[bookData.isbn] = newResults;
+
+        // Update Redux state with additional data from Aladdin API
+        if (newResults.aladdin?.exists) {
+          dispatch(updateBookData({
+            category: newResults.aladdin.category,
+            page: newResults.aladdin.page,
+            // Add other fields as needed
+          }));
+        }
       } catch (error) {
         console.error('Error fetching bookstore data:', error);
         setBookstoreResults({
@@ -70,7 +83,7 @@ export default function FindBook({
       }
     };
     fetchBookstoreData();
-  }, [bookData.isbn]);
+  }, [bookData, dispatch]);
 
   return (
     <div className='flex-col justify-start items-center md:items-start gap-2 inline-flex w-full'>

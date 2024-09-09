@@ -8,10 +8,12 @@ import BookList from "@/components/Book/BookList";
 export interface SearchResult {
   title: string;
   author: string;
-  // cover: string;
   image: string;
-  // isbn13: string;
+  publisher: string;
   isbn: string;
+  description: string;
+  link: string;
+  pubdate: string;
 }
 
 function SearchContent() {
