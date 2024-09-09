@@ -5,7 +5,7 @@ import { LibraryResult } from "@/components/Popup/LibrarySelectPopup";
 import IconButton from "@/components/Button/IconButton";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/store/store";
-import { BookData, updateBookData } from '../../../../../store/bookSlice';
+import { BookData, updateBookData } from "../../../../../store/bookSlice";
 
 interface FindBookProps {
   selectedLibraries: LibraryResult[];
@@ -24,12 +24,32 @@ interface BookstoreResults {
 
 const resultsCache: { [key: string]: BookstoreResults } = {};
 
+const processTranslator = (author: string): string => {
+  const translatorMatch = author.match(/\(지은이\)(.*?)\(옮긴이\)/);
+
+  const trimSpecialChars = (str: string) =>
+    str.replace(/^[^a-zA-Z가-힣]+|[^a-zA-Z가-힣]+$/g, "").trim();
+
+  return translatorMatch ? trimSpecialChars(translatorMatch[1]) : "";
+};
+
+const processCategory = (category: string): string => {
+  const parts = category.split(">");
+  console.log(parts);
+  if (parts.length >= 2) {
+    return parts[1].trim();
+  }
+  return category.trim();
+};
+
 export default function FindBook({
   selectedLibraries,
   onAddLibrary,
 }: FindBookProps) {
   const dispatch = useDispatch();
-  const bookData = useSelector((state: RootState) => state.book.selectedBook as BookData);
+  const bookData = useSelector(
+    (state: RootState) => state.book.selectedBook as BookData
+  );
   const [bookstoreResults, setBookstoreResults] = useState<BookstoreResults>({
     kyobo: null,
     yes24: null,
@@ -41,18 +61,20 @@ export default function FindBook({
   useEffect(() => {
     const fetchBookstoreData = async () => {
       if (!bookData) return;
-      
+
       setIsLoading(true);
       if (resultsCache[bookData.isbn]) {
         setBookstoreResults(resultsCache[bookData.isbn]);
         setIsLoading(false);
         return;
       }
-      const bookstores = ['kyobo', 'yes24', 'yp', 'aladdin'];
+      const bookstores = ["kyobo", "yes24", "yp", "aladdin"];
       try {
         const results = await Promise.all(
           bookstores.map(async (store) => {
-            const response = await fetch(`/api/bookDetail/${store}?isbn=${bookData.isbn}`);
+            const response = await fetch(
+              `/api/bookDetail/${store}?isbn=${bookData.isbn}`
+            );
             const data = await response.json();
             console.log(`${store} API response:`, data);
             return { [store]: data };
@@ -64,14 +86,21 @@ export default function FindBook({
 
         // Update Redux state with additional data from Aladdin API
         if (newResults.aladdin?.exists) {
-          dispatch(updateBookData({
-            category: newResults.aladdin.category,
-            page: newResults.aladdin.page,
-            // Add other fields as needed
-          }));
+          const translator = processTranslator(newResults.aladdin.author || "");
+          const processedCategory = processCategory(
+            newResults.aladdin.category || ""
+          );
+
+          dispatch(
+            updateBookData({
+              translator,
+              category: processedCategory,
+              page: newResults.aladdin.page,
+            })
+          );
         }
       } catch (error) {
-        console.error('Error fetching bookstore data:', error);
+        console.error("Error fetching bookstore data:", error);
         setBookstoreResults({
           kyobo: { exists: false },
           yes24: { exists: false },
@@ -93,23 +122,40 @@ export default function FindBook({
           <div>로딩 중...</div>
         ) : (
           <>
-            {bookstoreResults.aladdin?.exists && bookstoreResults.aladdin.link && (
-              <a href={bookstoreResults.aladdin.link} target="_blank" rel="noopener noreferrer">
-                <BookStoreIcon imageUrl='/IconAladdin.svg' width={40} />
-              </a>
-            )}
+            {bookstoreResults.aladdin?.exists &&
+              bookstoreResults.aladdin.link && (
+                <a
+                  href={bookstoreResults.aladdin.link}
+                  target='_blank'
+                  rel='noopener noreferrer'
+                >
+                  <BookStoreIcon imageUrl='/IconAladdin.svg' width={40} />
+                </a>
+              )}
             {bookstoreResults.kyobo?.exists && bookstoreResults.kyobo.link && (
-              <a href={bookstoreResults.kyobo.link} target="_blank" rel="noopener noreferrer">
+              <a
+                href={bookstoreResults.kyobo.link}
+                target='_blank'
+                rel='noopener noreferrer'
+              >
                 <BookStoreIcon imageUrl='/IconKyobo.svg' width={40} />
               </a>
             )}
             {bookstoreResults.yes24?.exists && bookstoreResults.yes24.link && (
-              <a href={bookstoreResults.yes24.link} target="_blank" rel="noopener noreferrer">
+              <a
+                href={bookstoreResults.yes24.link}
+                target='_blank'
+                rel='noopener noreferrer'
+              >
                 <BookStoreIcon imageUrl='/IconYes24.svg' width={40} />
               </a>
             )}
             {bookstoreResults.yp?.exists && bookstoreResults.yp.link && (
-              <a href={bookstoreResults.yp.link} target="_blank" rel="noopener noreferrer">
+              <a
+                href={bookstoreResults.yp.link}
+                target='_blank'
+                rel='noopener noreferrer'
+              >
                 <BookStoreIcon imageUrl='/IconYP.svg' width={40} />
               </a>
             )}
