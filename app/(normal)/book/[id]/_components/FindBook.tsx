@@ -31,6 +31,7 @@ export default function FindBook({
   const [bookstoreResults, setBookstoreResults] = useState<BookstoreResults>({
     kyobo: null,
     yes24: null,
+    yp: null,
   });
   const [isLoading, setIsLoading] = useState(true);
 
@@ -42,7 +43,7 @@ export default function FindBook({
         setIsLoading(false);
         return;
       }
-      const bookstores = ['kyobo', 'yes24'];
+      const bookstores = ['kyobo', 'yes24', 'yp'];
       try {
         const results = await Promise.all(
           bookstores.map(async (store) => {
@@ -90,7 +91,13 @@ export default function FindBook({
             ) : (
               <div>Yes24 결과 없음</div>  // Yes24 결과가 없을 때 표시
             )}
-            <BookStoreIcon imageUrl='/IconYP.svg' width={40} />
+            {bookstoreResults.yp?.exists && bookstoreResults.yp.link ? (
+              <a href={bookstoreResults.yp.link} target="_blank" rel="noopener noreferrer">
+                <BookStoreIcon imageUrl='/IconYP.svg' width={40} />
+              </a>
+            ) : (
+              <div>YP 결과 없음</div>  // YP 결과가 없을 때 표시
+            )}
             <BookStoreIcon imageUrl='/IconMille.svg' width={40} />
             <BookStoreIcon imageUrl='/IconRidi.svg' width={40} />
             {selectedLibraries.map((library) => (
