@@ -7,10 +7,11 @@ import { BookData } from "../page";
 import Button from "@/components/Button/Button";
 import { LibraryResult } from "@/components/Popup/LibrarySelectPopup";
 import IconButton from "@/components/Button/IconButton";
+import FindBook from "./FindBook";
 
 interface FirstSectionProps {
   bookData: BookData;
-  onClick?: () => void;
+  onClick: () => void;
   selectedLibraries: LibraryResult[];
   onRemoveLibrary?: (library: LibraryResult) => void;
 }
@@ -55,35 +56,7 @@ export default function FirstSection({
             </div>
           </div>
           <div className='flex-col justify-start items-center md:items-start gap-6 md:gap-8 inline-flex w-full'>
-            <div className='flex-col justify-start items-center md:items-start gap-2 inline-flex w-full'>
-              <div className='text-xs font-regular text-grey-200'>
-                읽을 수 있는 곳
-              </div>
-              <div className='flex flex-wrap justify-center md:justify-start items-center gap-4 w-full'>
-                <BookStoreIcon imageUrl='/IconAladdin.svg' width={40} />
-                <BookStoreIcon imageUrl='/IconKyobo.svg' width={40} />
-                <BookStoreIcon imageUrl='/IconYes24.svg' width={40} />
-                <BookStoreIcon imageUrl='/IconYP.svg' width={40} />
-                <BookStoreIcon imageUrl='/IconMille.svg' width={40} />
-                <BookStoreIcon imageUrl='/IconRidi.svg' width={40} />
-                {selectedLibraries.map((library) => (
-                  <IconButton
-                    key={library.libraryCode}
-                    icon={library.libraryName}
-                    iconSize={48}
-                    iconColor='white'
-                    bgColor='primary'
-                  />
-                ))}
-                <IconButton
-                  icon={FiPlus}
-                  iconSize={48}
-                  iconColor='white'
-                  bgColor='primary'
-                  onClick={onClick}
-                />
-              </div>
-            </div>
+            <FindBook selectedLibraries={selectedLibraries} onAddLibrary={onClick} />
             <div className='flex justify-center md:justify-start items-center gap-2 w-full'>
               <IconButton
                 icon={FiHeart}
