@@ -51,8 +51,8 @@ export default function FirstSection({
             </div>
             <div className='inline-flex flex-wrap justify-center md:justify-start items-center gap-1 w-full'>
               <Chip label={bookData.publisher} />
-              {/* <Chip label={bookData.processedCategory} /> */}
               <Chip label={bookData.pubdate} />
+              <Chip label={bookData.category} />
             </div>
           </div>
           <div className='flex-col justify-start items-center md:items-start gap-6 md:gap-8 inline-flex w-full'>

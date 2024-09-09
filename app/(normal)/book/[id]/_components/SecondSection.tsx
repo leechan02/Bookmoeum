@@ -1,7 +1,7 @@
-import { BookData } from "../page";
 import DetailSection from "./DetailSection";
 import CategoryTabs from "./CategoryTabs";
 import DescriptionSection from "./DescriptionSection";
+import { BookData } from "@/store/bookSlice";
 
 interface SecondSectionProps {
   bookData: BookData;
@@ -14,8 +14,8 @@ export default function SecondSection({ bookData }: SecondSectionProps) {
         <CategoryTabs />
         <div className='w-full overflow-x-auto scrollbar-hide'>
           <DetailSection
-            // category={bookData.processedCategory}
-            // page={bookData.subInfo.itemPage}
+            category={bookData.category}
+            page={bookData.page}
             isbn={bookData.isbn}
             publisher={bookData.publisher}
             pubDate={bookData.pubdate}

@@ -1,31 +1,31 @@
 import Chip from "@/components/Chips/Chip";
 
 interface DetailSectionProps {
-  // category: string;
-  // page: number;
+  category: string;
+  page: number;
   isbn: string;
   publisher: string;
   pubDate: string;
 }
 
 export default function DetailSection({
-  // category,
-  // page,
+  category,
+  page,
   isbn,
   publisher,
   pubDate,
 }: DetailSectionProps) {
-  // const pageString = page + "p";
+  const pageString = page + "p";
   return (
     <div className='inline-flex justify-start items-center gap-4 whitespace-nowrap min-w-max'>
-      {/* <div className='flex justify-start items-center gap-1'>
+      <div className='flex justify-start items-center gap-1'>
         <div className='text-xs text-primary font-medium'>카테고리</div>
         <Chip label={category} />
-      </div> */}
-      {/* <div className='flex justify-start items-center gap-1'>
+      </div>
+      <div className='flex justify-start items-center gap-1'>
         <div className='text-xs text-primary font-medium'>페이지</div>
         <Chip label={pageString} />
-      </div> */}
+      </div>
       <div className='flex justify-start items-center gap-1'>
         <div className='text-xs text-primary font-medium'>출판사</div>
         <Chip label={publisher} />
