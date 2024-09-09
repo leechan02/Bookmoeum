@@ -19,7 +19,20 @@ export async function GET(request: NextRequest) {
       throw new Error("Aladin API에서 데이터를 가져오지 못했습니다");
     }
     const data = await response.json();
-    return NextResponse.json(data);
+
+    // 알라딘 데이터를 일관된 형식으로 변환
+    if (data.item && data.item.length > 0) {
+      const book = data.item[0];
+      console.log("알라딘 API 응답:", book);
+      return NextResponse.json({
+        exists: true,
+        title: book.title,
+        link: book.link,
+        // 필요한 경우 추가 필드를 포함할 수 있습니다
+      });
+    } else {
+      return NextResponse.json({ exists: false });
+    }
   } catch (error) {
     console.error("Aladin API 에러:", error);
     return NextResponse.json(

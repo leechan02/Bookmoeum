@@ -32,6 +32,7 @@ export default function FindBook({
     kyobo: null,
     yes24: null,
     yp: null,
+    aladdin: null,
   });
   const [isLoading, setIsLoading] = useState(true);
 
@@ -43,7 +44,7 @@ export default function FindBook({
         setIsLoading(false);
         return;
       }
-      const bookstores = ['kyobo', 'yes24', 'yp'];
+      const bookstores = ['kyobo', 'yes24', 'yp', 'aladdin'];
       try {
         const results = await Promise.all(
           bookstores.map(async (store) => {
@@ -61,6 +62,8 @@ export default function FindBook({
         setBookstoreResults({
           kyobo: { exists: false },
           yes24: { exists: false },
+          yp: { exists: false },
+          aladdin: { exists: false },
         });
       } finally {
         setIsLoading(false);
@@ -68,7 +71,6 @@ export default function FindBook({
     };
     fetchBookstoreData();
   }, [bookData.isbn]);
-
 
   return (
     <div className='flex-col justify-start items-center md:items-start gap-2 inline-flex w-full'>
@@ -78,25 +80,25 @@ export default function FindBook({
           <div>로딩 중...</div>
         ) : (
           <>
-            <BookStoreIcon imageUrl='/IconAladdin.svg' width={40} />
+            {bookstoreResults.aladdin?.exists && bookstoreResults.aladdin.link && (
+              <a href={bookstoreResults.aladdin.link} target="_blank" rel="noopener noreferrer">
+                <BookStoreIcon imageUrl='/IconAladdin.svg' width={40} />
+              </a>
+            )}
             {bookstoreResults.kyobo?.exists && bookstoreResults.kyobo.link && (
               <a href={bookstoreResults.kyobo.link} target="_blank" rel="noopener noreferrer">
                 <BookStoreIcon imageUrl='/IconKyobo.svg' width={40} />
               </a>
             )}
-            {bookstoreResults.yes24?.exists && bookstoreResults.yes24.link ? (
+            {bookstoreResults.yes24?.exists && bookstoreResults.yes24.link && (
               <a href={bookstoreResults.yes24.link} target="_blank" rel="noopener noreferrer">
                 <BookStoreIcon imageUrl='/IconYes24.svg' width={40} />
               </a>
-            ) : (
-              <div>Yes24 결과 없음</div>  // Yes24 결과가 없을 때 표시
             )}
-            {bookstoreResults.yp?.exists && bookstoreResults.yp.link ? (
+            {bookstoreResults.yp?.exists && bookstoreResults.yp.link && (
               <a href={bookstoreResults.yp.link} target="_blank" rel="noopener noreferrer">
                 <BookStoreIcon imageUrl='/IconYP.svg' width={40} />
               </a>
-            ) : (
-              <div>YP 결과 없음</div>  // YP 결과가 없을 때 표시
             )}
             <BookStoreIcon imageUrl='/IconMille.svg' width={40} />
             <BookStoreIcon imageUrl='/IconRidi.svg' width={40} />
