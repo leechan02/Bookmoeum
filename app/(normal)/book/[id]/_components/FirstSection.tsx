@@ -3,14 +3,15 @@ import Book from "@/components/Book/Book";
 import Chip from "@/components/Chips/Chip";
 import BookStoreIcon from "@/components/Icon/BookStoreIcon";
 import { FiBook, FiHeart, FiHome, FiPlus } from "react-icons/fi";
-import { ProcessedBookData } from "../page";
 import Button from "@/components/Button/Button";
 import { LibraryResult } from "@/components/Popup/LibrarySelectPopup";
 import IconButton from "@/components/Button/IconButton";
+import FindBook from "./FindBook";
+import { BookData } from "@/store/bookSlice";
 
 interface FirstSectionProps {
-  bookData: ProcessedBookData;
-  onClick?: () => void;
+  bookData: BookData;
+  onClick: () => void;
   selectedLibraries: LibraryResult[];
   onRemoveLibrary?: (library: LibraryResult) => void;
 }
@@ -25,7 +26,7 @@ export default function FirstSection({
     <div className='flex flex-col justify-center items-center py-8 md:py-14 px-8'>
       <div className='flex flex-col md:flex-row justify-between items-center w-full max-w-[900px] gap-8'>
         <div className='flex justify-center'>
-          <Book imageUrl={bookData.cover} width={240} />
+          <Book imageUrl={bookData.image} width={240} />
         </div>
         <div className='flex-col justify-start items-start gap-10 md:gap-20 inline-flex w-full md:w-auto'>
           <div className='flex-col justify-center items-start gap-4 md:gap-6 inline-flex w-full'>
@@ -50,40 +51,12 @@ export default function FirstSection({
             </div>
             <div className='inline-flex flex-wrap justify-center md:justify-start items-center gap-1 w-full'>
               <Chip label={bookData.publisher} />
-              <Chip label={bookData.processedCategory} />
-              <Chip label={bookData.pubDate} />
+              <Chip label={bookData.pubdate} />
+              {bookData.category && <Chip label={bookData.category} />}
             </div>
           </div>
           <div className='flex-col justify-start items-center md:items-start gap-6 md:gap-8 inline-flex w-full'>
-            <div className='flex-col justify-start items-center md:items-start gap-2 inline-flex w-full'>
-              <div className='text-xs font-regular text-grey-200'>
-                읽을 수 있는 곳
-              </div>
-              <div className='flex flex-wrap justify-center md:justify-start items-center gap-4 w-full'>
-                <BookStoreIcon imageUrl='/IconAladdin.svg' width={40} />
-                <BookStoreIcon imageUrl='/IconKyobo.svg' width={40} />
-                <BookStoreIcon imageUrl='/IconYes24.svg' width={40} />
-                <BookStoreIcon imageUrl='/IconYP.svg' width={40} />
-                <BookStoreIcon imageUrl='/IconMille.svg' width={40} />
-                <BookStoreIcon imageUrl='/IconRidi.svg' width={40} />
-                {selectedLibraries.map((library) => (
-                  <IconButton
-                    key={library.libraryCode}
-                    icon={library.libraryName}
-                    iconSize={48}
-                    iconColor='white'
-                    bgColor='primary'
-                  />
-                ))}
-                <IconButton
-                  icon={FiPlus}
-                  iconSize={48}
-                  iconColor='white'
-                  bgColor='primary'
-                  onClick={onClick}
-                />
-              </div>
-            </div>
+            <FindBook selectedLibraries={selectedLibraries} onAddLibrary={onClick} />
             <div className='flex justify-center md:justify-start items-center gap-2 w-full'>
               <IconButton
                 icon={FiHeart}

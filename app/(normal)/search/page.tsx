@@ -8,8 +8,12 @@ import BookList from "@/components/Book/BookList";
 export interface SearchResult {
   title: string;
   author: string;
-  cover: string;
-  isbn13: string;
+  image: string;
+  publisher: string;
+  isbn: string;
+  description: string;
+  link: string;
+  pubdate: string;
 }
 
 function SearchContent() {
@@ -60,8 +64,14 @@ function SearchContent() {
     const signal = abortControllerRef.current.signal;
 
     try {
+      // const response = await fetch(
+      //   `/api/search/aladdin?query=${encodeURIComponent(query)}&start=${
+      //     (page - 1) * 10 + 1
+      //   }`,
+      //   { signal }
+      // );
       const response = await fetch(
-        `/api/search?query=${encodeURIComponent(query)}&start=${
+        `/api/search/naver?query=${encodeURIComponent(query)}&start=${
           (page - 1) * 10 + 1
         }`,
         { signal }
@@ -71,11 +81,14 @@ function SearchContent() {
       }
       const data = await response.json();
       setSearchResults(prevResults => {
-        const newResults = [...prevResults, ...data.item];
-        setHasMore(newResults.length < data.totalResults);
+        // const newResults = [...prevResults, ...data.item];
+        const newResults = [...prevResults, ...data.items];
+        // setHasMore(newResults.length < data.totalResults);
+        setHasMore(newResults.length < data.total);
         return newResults;
       });
-      setTotalResults(data.totalResults);
+      // setTotalResults(data.totalResults);
+      setTotalResults(data.total);
     } catch (error: unknown) {
       if (error instanceof Error && error.name !== 'AbortError') {
         console.error("검색 결과 가져오기 실패:", error);
