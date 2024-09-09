@@ -1,4 +1,4 @@
-// app/api/check-kyobobook/route.ts
+// app/api/bookDtail/kyobo/route.ts
 
 import { NextResponse } from 'next/server';
 import * as cheerio from 'cheerio';
@@ -26,7 +26,6 @@ export async function GET(request: Request) {
 
     const title = bookItem.find('.prod_info').text().trim();
     const link = bookItem.find('.prod_info').attr('href');
-    console.log('title:', title);
     console.log('link:', link);
 
     // ISBN이 정확히 일치하는지 확인

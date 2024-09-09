@@ -56,7 +56,7 @@ export default function FirstSection({
             </div>
           </div>
           <div className='flex-col justify-start items-center md:items-start gap-6 md:gap-8 inline-flex w-full'>
-            <FindBook selectedLibraries={selectedLibraries} onAddLibrary={onClick} />
+            <FindBook bookData={bookData} selectedLibraries={selectedLibraries} onAddLibrary={onClick} />
             <div className='flex justify-center md:justify-start items-center gap-2 w-full'>
               <IconButton
                 icon={FiHeart}
