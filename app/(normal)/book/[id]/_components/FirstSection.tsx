@@ -3,13 +3,13 @@ import Book from "@/components/Book/Book";
 import Chip from "@/components/Chips/Chip";
 import BookStoreIcon from "@/components/Icon/BookStoreIcon";
 import { FiBook, FiHeart, FiHome, FiPlus } from "react-icons/fi";
-import { ProcessedBookData } from "../page";
+import { BookData } from "../page";
 import Button from "@/components/Button/Button";
 import { LibraryResult } from "@/components/Popup/LibrarySelectPopup";
 import IconButton from "@/components/Button/IconButton";
 
 interface FirstSectionProps {
-  bookData: ProcessedBookData;
+  bookData: BookData;
   onClick?: () => void;
   selectedLibraries: LibraryResult[];
   onRemoveLibrary?: (library: LibraryResult) => void;
@@ -30,12 +30,12 @@ export default function FirstSection({
         <div className='flex-col justify-start items-start gap-10 md:gap-20 inline-flex w-full md:w-auto'>
           <div className='flex-col justify-center items-start gap-4 md:gap-6 inline-flex w-full'>
             <div className='text-xl md:text-3xl font-medium text-primary text-center md:text-left w-full'>
-              {bookData.title}
+              {bookData.processedTitle}
             </div>
             <div className='inline-flex flex-wrap justify-center md:justify-start items-center gap-2 md:gap-4 px-1 w-full'>
               <div className='inline-flex justify-start items-center gap-1'>
                 <span className='text-sm font-medium text-primary'>
-                  {bookData.author}
+                  {bookData.processedAuthor}
                 </span>
                 <span className='text-sm font-light text-grey-200'>저</span>
               </div>

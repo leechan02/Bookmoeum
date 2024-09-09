@@ -1,10 +1,10 @@
-import { ProcessedBookData } from "../page";
+import { BookData } from "../page";
 import DetailSection from "./DetailSection";
 import CategoryTabs from "./CategoryTabs";
 import DescriptionSection from "./DescriptionSection";
 
 interface SecondSectionProps {
-  bookData: ProcessedBookData;
+  bookData: BookData;
 }
 
 export default function SecondSection({ bookData }: SecondSectionProps) {
