@@ -28,6 +28,9 @@ export async function GET(request: NextRequest) {
         exists: true,
         title: book.title,
         link: book.link,
+        category: book.categoryName,
+        page: book.subInfo?.itemPage,
+        author: book.author,
         // 필요한 경우 추가 필드를 포함할 수 있습니다
       });
     } else {
