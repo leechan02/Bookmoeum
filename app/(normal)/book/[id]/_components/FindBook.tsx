@@ -160,7 +160,7 @@ export default function FindBook({
               </a>
             )} */}
             {/* <BookStoreIcon imageUrl='/IconMille.svg' width={40} /> */}
-            <BookStoreIcon imageUrl='/IconRidi.svg' width={40} />
+            {/* <BookStoreIcon imageUrl='/IconRidi.svg' width={40} /> */}
             {selectedLibraries.map((library) => (
               <IconButton
                 key={library.libraryCode}

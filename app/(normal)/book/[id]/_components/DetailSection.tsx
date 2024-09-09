@@ -18,14 +18,18 @@ export default function DetailSection({
   const pageString = page + "p";
   return (
     <div className='inline-flex justify-start items-center gap-4 whitespace-nowrap min-w-max'>
-      <div className='flex justify-start items-center gap-1'>
-        <div className='text-xs text-primary font-medium'>카테고리</div>
-        <Chip label={category} />
-      </div>
-      <div className='flex justify-start items-center gap-1'>
-        <div className='text-xs text-primary font-medium'>페이지</div>
-        <Chip label={pageString} />
-      </div>
+      {category && (
+        <>
+          <div className='flex justify-start items-center gap-1'>
+            <div className='text-xs text-primary font-medium'>카테고리</div>
+            <Chip label={category} />
+          </div>
+          <div className='flex justify-start items-center gap-1'>
+            <div className='text-xs text-primary font-medium'>페이지</div>
+            <Chip label={pageString} />
+          </div>
+        </>
+      )}
       <div className='flex justify-start items-center gap-1'>
         <div className='text-xs text-primary font-medium'>출판사</div>
         <Chip label={publisher} />
