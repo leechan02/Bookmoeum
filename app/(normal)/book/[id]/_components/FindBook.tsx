@@ -6,6 +6,7 @@ import IconButton from "@/components/Button/IconButton";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/store/store";
 import { BookData, updateBookData } from "../../../../../store/bookSlice";
+import Chip from "@/components/Chips/Chip";
 
 interface FindBookProps {
   selectedLibraries: LibraryResult[];
@@ -162,13 +163,18 @@ export default function FindBook({
             {/* <BookStoreIcon imageUrl='/IconMille.svg' width={40} /> */}
             {/* <BookStoreIcon imageUrl='/IconRidi.svg' width={40} /> */}
             {selectedLibraries.map((library) => (
-              <IconButton
-                key={library.libraryCode}
-                icon={library.libraryName}
-                iconSize={48}
-                iconColor='white'
-                bgColor='primary'
-              />
+              <div className="relative inline-flex flex-col items-center">
+                <IconButton
+                  key={library.libraryCode}
+                  icon={library.libraryName}
+                  iconSize={48}
+                  iconColor='white'
+                  bgColor='primary'
+                />
+                <div className="absolute -bottom-7 left-1/2 transform -translate-x-1/2">
+                  <Chip label="대출가능" textColor="text-white" backgroundColor="bg-success" />
+                </div>
+              </div>
             ))}
             <IconButton
               icon={FiPlus}
