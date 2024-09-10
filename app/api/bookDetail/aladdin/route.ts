@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { useLayoutEffect } from "react";
 
 const API_KEY = process.env.ALADDIN_API_KEY;
 const BASE_URL = "http://www.aladin.co.kr/ttb/api/ItemLookUp.aspx";
@@ -23,7 +24,23 @@ export async function GET(request: NextRequest) {
     // 알라딘 데이터를 일관된 형식으로 변환
     if (data.item && data.item.length > 0) {
       const book = data.item[0];
-      console.log("알라딘 API 응답:", book);
+
+      let usedBookInfo = {available: false, link: null};
+      const usedList = book.subInfo?.usedList;
+
+      if (usedList) {
+        const usedSources = ['aladinUsed', 'userUsed', 'spaceUsed'];
+        for (const source of usedSources) {
+          if (usedList[source] && usedList[source].itemCount > 0) {
+            usedBookInfo = {
+              available: true,
+              link: usedList[source].link,
+            };
+            break;
+          }
+        }
+      }
+
       return NextResponse.json({
         exists: true,
         title: book.title,
@@ -31,7 +48,7 @@ export async function GET(request: NextRequest) {
         category: book.categoryName,
         page: book.subInfo?.itemPage,
         author: book.author,
-        // 필요한 경우 추가 필드를 포함할 수 있습니다
+        usedBook: usedBookInfo,
       });
     } else {
       return NextResponse.json({ exists: false });
