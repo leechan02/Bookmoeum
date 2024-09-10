@@ -6,6 +6,7 @@ import IconButton from "@/components/Button/IconButton";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/store/store";
 import { BookData, updateBookData } from "../../../../../store/bookSlice";
+import Chip from "@/components/Chips/Chip";
 
 interface FindBookProps {
   selectedLibraries: LibraryResult[];
@@ -18,8 +19,24 @@ interface ExistResult {
   link?: string;
 }
 
+interface AladinResult extends ExistResult {
+  usedBook?: {
+    available: boolean;
+    link: string | null;
+  };
+}
+
 interface BookstoreResults {
-  [key: string]: ExistResult | null;
+  [key: string]: ExistResult | AladinResult | null;
+}
+
+interface LibraryAvailability {
+  exists: boolean;
+  loanAvailable: boolean;
+}
+
+interface LibraryResults {
+  [key: string]: LibraryAvailability;
 }
 
 const resultsCache: { [key: string]: BookstoreResults } = {};
@@ -56,6 +73,7 @@ export default function FindBook({
     // yp: null,
     aladdin: null,
   });
+  const [libraryResults, setLibraryResults] = useState<LibraryResults>({});
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -114,6 +132,26 @@ export default function FindBook({
     fetchBookstoreData();
   }, [bookData, dispatch]);
 
+  useEffect(() => {
+    const fetchLibraryData = async () => {
+      if (!bookData) return;
+
+      const results = await Promise.all(
+        selectedLibraries.map(async (library) => {
+          const response = await fetch(
+            `/api/bookDetail/library?isbn=${bookData.isbn}&libCode=${library.libraryCode}`
+          );
+          const data = await response.json();
+          console.log(`${library.libraryCode} API response:`, data);
+          return { [library.libraryCode]: data };
+        })
+      );
+      setLibraryResults(Object.assign({}, ...results));
+    };
+
+    fetchLibraryData();
+  }, [bookData, selectedLibraries]);
+
   return (
     <div className='flex-col justify-start items-center md:items-start gap-2 inline-flex w-full'>
       <div className='text-xs font-regular text-grey-200'>읽을 수 있는 곳</div>
@@ -122,23 +160,35 @@ export default function FindBook({
           <div>로딩 중...</div>
         ) : (
           <>
-            {bookstoreResults.aladdin?.exists &&
-              bookstoreResults.aladdin.link && (
-                <a
-                  href={bookstoreResults.aladdin.link}
-                  target='_blank'
-                  rel='noopener noreferrer'
-                >
-                  <BookStoreIcon imageUrl='/IconAladdin.svg' width={40} />
-                </a>
-              )}
+            {bookstoreResults.aladdin?.exists && (
+              <>
+                {bookstoreResults.aladdin.link && (
+                  <a
+                    href={bookstoreResults.aladdin.link}
+                    target='_blank'
+                    rel='noopener noreferrer'
+                  >
+                    <BookStoreIcon imageUrl='/IconAladdin.svg' width={48} />
+                  </a>
+                )}
+                {(bookstoreResults.aladdin as AladinResult).usedBook?.available && (
+                  <a
+                    href={(bookstoreResults.aladdin as AladinResult).usedBook?.link || '#'}
+                    target='_blank'
+                    rel='noopener noreferrer'
+                  >
+                    <BookStoreIcon imageUrl='/IconAladdinUsed.svg' width={48} />
+                  </a>
+                )}
+              </>
+            )}
             {bookstoreResults.kyobo?.exists && bookstoreResults.kyobo.link && (
               <a
                 href={bookstoreResults.kyobo.link}
                 target='_blank'
                 rel='noopener noreferrer'
               >
-                <BookStoreIcon imageUrl='/IconKyobo.svg' width={40} />
+                <BookStoreIcon imageUrl='/IconKyobo.svg' width={48} />
               </a>
             )}
             {bookstoreResults.yes24?.exists && bookstoreResults.yes24.link && (
@@ -147,7 +197,7 @@ export default function FindBook({
                 target='_blank'
                 rel='noopener noreferrer'
               >
-                <BookStoreIcon imageUrl='/IconYes24.svg' width={40} />
+                <BookStoreIcon imageUrl='/IconYes24.svg' width={48} />
               </a>
             )}
             {/* {bookstoreResults.yp?.exists && bookstoreResults.yp.link && (
@@ -161,15 +211,46 @@ export default function FindBook({
             )} */}
             {/* <BookStoreIcon imageUrl='/IconMille.svg' width={40} /> */}
             {/* <BookStoreIcon imageUrl='/IconRidi.svg' width={40} /> */}
-            {selectedLibraries.map((library) => (
-              <IconButton
-                key={library.libraryCode}
-                icon={library.libraryName}
-                iconSize={48}
-                iconColor='white'
-                bgColor='primary'
-              />
-            ))}
+            {selectedLibraries.map((library) => {
+              const availability = libraryResults[library.libraryCode];
+              return (
+                <div
+                  key={library.libraryCode}
+                  className='relative inline-flex flex-col items-center group'
+                >
+                  {availability?.exists ? (
+                    <a
+                      href={library.homepage}
+                      target='_blank'
+                      rel='noopener noreferrer'
+                    >
+                      <IconButton
+                        icon={library.libraryName}
+                        iconSize={48}
+                        iconColor='white'
+                        bgColor={availability.exists ? "success" : "secondary"}
+                      />
+                    </a>
+                  ) : (
+                    <IconButton
+                      icon={library.libraryName}
+                      iconSize={48}
+                      iconColor='white'
+                      bgColor='secondary'
+                    />
+                  )}
+                  <div className='absolute -top-7 left-1/2 transform -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-300'>
+                    <Chip
+                      label={availability?.exists ? "보유" : "미보유"}
+                      textColor='text-white'
+                      backgroundColor={
+                        availability?.exists ? "bg-success" : "bg-secondary"
+                      }
+                    />
+                  </div>
+                </div>
+              );
+            })}
             <IconButton
               icon={FiPlus}
               iconSize={48}
