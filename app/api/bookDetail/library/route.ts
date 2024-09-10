@@ -25,6 +25,7 @@ export async function GET(request: NextRequest) {
 
     if (data.response && data.response.result) {
       const { hasBook, loanAvailable } = data.response.result;
+      console.log("hasBook:", hasBook, "loanAvailable:", loanAvailable);
       
       return NextResponse.json({
         exists: hasBook === "Y",
