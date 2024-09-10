@@ -168,7 +168,7 @@ export default function FindBook({
                     target='_blank'
                     rel='noopener noreferrer'
                   >
-                    <BookStoreIcon imageUrl='/IconAladdin.svg' width={40} />
+                    <BookStoreIcon imageUrl='/IconAladdin.svg' width={48} />
                   </a>
                 )}
                 {(bookstoreResults.aladdin as AladinResult).usedBook?.available && (
@@ -177,7 +177,7 @@ export default function FindBook({
                     target='_blank'
                     rel='noopener noreferrer'
                   >
-                    <BookStoreIcon imageUrl='/IconAladdin.svg' width={40} />
+                    <BookStoreIcon imageUrl='/IconAladdinUsed.svg' width={48} />
                   </a>
                 )}
               </>
@@ -188,7 +188,7 @@ export default function FindBook({
                 target='_blank'
                 rel='noopener noreferrer'
               >
-                <BookStoreIcon imageUrl='/IconKyobo.svg' width={40} />
+                <BookStoreIcon imageUrl='/IconKyobo.svg' width={48} />
               </a>
             )}
             {bookstoreResults.yes24?.exists && bookstoreResults.yes24.link && (
@@ -197,7 +197,7 @@ export default function FindBook({
                 target='_blank'
                 rel='noopener noreferrer'
               >
-                <BookStoreIcon imageUrl='/IconYes24.svg' width={40} />
+                <BookStoreIcon imageUrl='/IconYes24.svg' width={48} />
               </a>
             )}
             {/* {bookstoreResults.yp?.exists && bookstoreResults.yp.link && (
