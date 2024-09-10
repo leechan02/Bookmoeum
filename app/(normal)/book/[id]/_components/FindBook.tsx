@@ -19,8 +19,15 @@ interface ExistResult {
   link?: string;
 }
 
+interface AladinResult extends ExistResult {
+  usedBook?: {
+    available: boolean;
+    link: string | null;
+  };
+}
+
 interface BookstoreResults {
-  [key: string]: ExistResult | null;
+  [key: string]: ExistResult | AladinResult | null;
 }
 
 interface LibraryAvailability {
@@ -153,16 +160,28 @@ export default function FindBook({
           <div>로딩 중...</div>
         ) : (
           <>
-            {bookstoreResults.aladdin?.exists &&
-              bookstoreResults.aladdin.link && (
-                <a
-                  href={bookstoreResults.aladdin.link}
-                  target='_blank'
-                  rel='noopener noreferrer'
-                >
-                  <BookStoreIcon imageUrl='/IconAladdin.svg' width={40} />
-                </a>
-              )}
+            {bookstoreResults.aladdin?.exists && (
+              <>
+                {bookstoreResults.aladdin.link && (
+                  <a
+                    href={bookstoreResults.aladdin.link}
+                    target='_blank'
+                    rel='noopener noreferrer'
+                  >
+                    <BookStoreIcon imageUrl='/IconAladdin.svg' width={40} />
+                  </a>
+                )}
+                {(bookstoreResults.aladdin as AladinResult).usedBook?.available && (
+                  <a
+                    href={(bookstoreResults.aladdin as AladinResult).usedBook?.link || '#'}
+                    target='_blank'
+                    rel='noopener noreferrer'
+                  >
+                    <BookStoreIcon imageUrl='/IconAladdin.svg' width={40} />
+                  </a>
+                )}
+              </>
+            )}
             {bookstoreResults.kyobo?.exists && bookstoreResults.kyobo.link && (
               <a
                 href={bookstoreResults.kyobo.link}
