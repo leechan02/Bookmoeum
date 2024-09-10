@@ -98,7 +98,18 @@ export default function FindBook({
             return { [store]: data };
           })
         );
-        const newResults = Object.assign({}, ...results);
+
+        // 리디북스 API 호출 (제목으로 검색)
+        const ridiResponse = await fetch(
+          `/api/bookDetail/ridi?title=${encodeURIComponent(bookData.processedTitle)}`
+        );
+        const ridiData = await ridiResponse.json();
+        console.log("Ridi API response:", ridiData);
+
+        const newResults = {
+          ...Object.assign({}, ...results),
+          ridi: ridiData,
+        };
         setBookstoreResults(newResults);
         resultsCache[bookData.isbn] = newResults;
 
@@ -122,8 +133,9 @@ export default function FindBook({
         setBookstoreResults({
           kyobo: { exists: false },
           yes24: { exists: false },
-          yp: { exists: false },
+          // yp: { exists: false },
           aladdin: { exists: false },
+          ridi: { exists: false },
         });
       } finally {
         setIsLoading(false);
@@ -171,9 +183,13 @@ export default function FindBook({
                     <BookStoreIcon imageUrl='/IconAladdin.svg' width={48} />
                   </a>
                 )}
-                {(bookstoreResults.aladdin as AladinResult).usedBook?.available && (
+                {(bookstoreResults.aladdin as AladinResult).usedBook
+                  ?.available && (
                   <a
-                    href={(bookstoreResults.aladdin as AladinResult).usedBook?.link || '#'}
+                    href={
+                      (bookstoreResults.aladdin as AladinResult).usedBook
+                        ?.link || "#"
+                    }
                     target='_blank'
                     rel='noopener noreferrer'
                   >
@@ -201,16 +217,24 @@ export default function FindBook({
               </a>
             )}
             {/* {bookstoreResults.yp?.exists && bookstoreResults.yp.link && (
+                <a
+                  href={bookstoreResults.yp.link}
+                  target='_blank'
+                  rel='noopener noreferrer'
+                >
+                  <BookStoreIcon imageUrl='/IconYP.svg' width={40} />
+                </a>
+              )} */}
+            {bookstoreResults.ridi?.exists && bookstoreResults.ridi.link && (
               <a
-                href={bookstoreResults.yp.link}
+                href={bookstoreResults.ridi.link}
                 target='_blank'
                 rel='noopener noreferrer'
               >
-                <BookStoreIcon imageUrl='/IconYP.svg' width={40} />
+                <BookStoreIcon imageUrl='/IconRidi.svg' width={48} />
               </a>
-            )} */}
+            )}
             {/* <BookStoreIcon imageUrl='/IconMille.svg' width={40} /> */}
-            {/* <BookStoreIcon imageUrl='/IconRidi.svg' width={40} /> */}
             {selectedLibraries.map((library) => {
               const availability = libraryResults[library.libraryCode];
               return (
