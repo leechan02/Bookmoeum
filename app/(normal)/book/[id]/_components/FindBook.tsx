@@ -101,7 +101,9 @@ export default function FindBook({
 
         // 리디북스 API 호출 (제목으로 검색)
         const ridiResponse = await fetch(
-          `/api/bookDetail/ridi?title=${encodeURIComponent(bookData.processedTitle)}`
+          `/api/bookDetail/ridi?title=${encodeURIComponent(
+            bookData.processedTitle
+          )}`
         );
         const ridiData = await ridiResponse.json();
         console.log("Ridi API response:", ridiData);
@@ -179,6 +181,7 @@ export default function FindBook({
                     href={bookstoreResults.aladdin.link}
                     target='_blank'
                     rel='noopener noreferrer'
+                    className='h-12'
                   >
                     <BookStoreIcon imageUrl='/IconAladdin.svg' width={48} />
                   </a>
@@ -192,6 +195,7 @@ export default function FindBook({
                     }
                     target='_blank'
                     rel='noopener noreferrer'
+                    className='h-12'
                   >
                     <BookStoreIcon imageUrl='/IconAladdinUsed.svg' width={48} />
                   </a>
@@ -203,6 +207,7 @@ export default function FindBook({
                 href={bookstoreResults.kyobo.link}
                 target='_blank'
                 rel='noopener noreferrer'
+                className='h-12'
               >
                 <BookStoreIcon imageUrl='/IconKyobo.svg' width={48} />
               </a>
@@ -212,6 +217,7 @@ export default function FindBook({
                 href={bookstoreResults.yes24.link}
                 target='_blank'
                 rel='noopener noreferrer'
+                className='h-12'
               >
                 <BookStoreIcon imageUrl='/IconYes24.svg' width={48} />
               </a>
@@ -230,6 +236,7 @@ export default function FindBook({
                 href={bookstoreResults.ridi.link}
                 target='_blank'
                 rel='noopener noreferrer'
+                className='h-12'
               >
                 <BookStoreIcon imageUrl='/IconRidi.svg' width={48} />
               </a>
