@@ -10,7 +10,7 @@ export default function WhereInfo({ count, label, Icon }: WhereInfoProps) {
       <div className='text-primary text-3xl md:text-5xl font-bold text-center md:text-left'>
         {count} {label}
       </div>
-      <Icon className='w-8 h-8 md:w-12 md:h-12' />
+      <Icon className='w-8 h-8 md:w-12 md:h-12 text-primary mb-1' />
     </div>
   );
 }
