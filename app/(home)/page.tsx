@@ -7,14 +7,12 @@ import WhereSection from "./_components/WhereSection";
 export default function Home(): JSX.Element {
   const customImages = [
     {src: "/IconAladdin.svg", width: 64, height: 64},
+    {src: "/IconAladdinUsed.svg", width: 64, height: 64},
     {src: "/IconKyobo.svg", width: 64, height: 64},
-    {src: "/IconRidi.svg", width: 64, height: 64},
     {src: "/IconYes24.svg", width: 64, height: 64},
     {src: "/IconBookmark.svg", width: 64, height: 64},
-    {src: "/IconAladdinUsed.svg", width: 64, height: 64},
+    {src: "/IconRidi.svg", width: 64, height: 64},
   ]
-
-  const Images = [...customImages, ...customImages];
 
   return (
     <>
@@ -44,7 +42,7 @@ export default function Home(): JSX.Element {
         <SearchBar />
       </div>
       <MoveBooks />
-      <WhereSection customImages={Images} />
+      <WhereSection customImages={customImages} />
     </>
   );
 }
