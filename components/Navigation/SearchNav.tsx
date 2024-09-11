@@ -111,7 +111,7 @@ export default function SearchNav() {
       <div
         className={
           isColumn
-            ? "sticky top-0 flex justify-center items-center py-4"
+            ? "sticky top-0 flex justify-center items-center py-4 z-50"
             : "hidden"
         }
       >
