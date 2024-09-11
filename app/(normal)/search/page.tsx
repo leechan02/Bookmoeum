@@ -2,7 +2,7 @@
 
 import { useSearchParams } from "next/navigation";
 import SearchTabs from "./_components/SearchTabs";
-import { useCallback, useEffect } from "react";
+import { Suspense, useCallback, useEffect } from "react";
 import BookList from "@/components/Book/BookList";
 import { useInfiniteQuery } from "@tanstack/react-query";
 
@@ -113,7 +113,9 @@ export default function SearchPage(): JSX.Element {
   return (
     <div className='w-full max-w-[1440px] mx-auto'>
       <div className='px-6 md:px-8 lg:px-28 py-6 sm:py-8'>
-        <SearchContent />
+        <Suspense fallback={<div>로딩 중...</div>}>
+          <SearchContent />
+        </Suspense>
       </div>
     </div>
   );
