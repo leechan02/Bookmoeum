@@ -25,7 +25,7 @@ export default function Book({
 
   return (
     <div
-      className="relative flex-none inline-flex justify-center items-center overflow-hidden drop-shadow"
+      className="relative flex-none inline-flex justify-center items-center overflow-hidden drop-shadow-md"
       style={{
         width: `${width}px`,
         height: `${height}px`,
