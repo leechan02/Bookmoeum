@@ -34,7 +34,7 @@ export default function SearchBar({
   };
 
   const formClasses = `
-    w-full 
+    w-full
     ${small ? 'max-w-[300px] h-[40px]' : 'max-w-[460px] lg:max-w-[584px] h-[52px] md:h-[60px]'}
     flex items-center px-6 py-2 rounded-full bg-secondary opacity-95 mx-2
   `;

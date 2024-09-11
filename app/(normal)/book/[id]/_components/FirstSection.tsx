@@ -24,7 +24,7 @@ export default function FirstSection({
 }: FirstSectionProps) {
   return (
     <div className='flex flex-col justify-center items-center py-8 md:py-14 px-8'>
-      <div className='flex flex-col md:flex-row justify-between items-center w-full max-w-[900px]'>
+      <div className='flex flex-col md:flex-row justify-between items-center w-full max-w-[900px] gap-8'>
         <div className='flex justify-center'>
           <Book imageUrl={bookData.image} width={240} />
         </div>
