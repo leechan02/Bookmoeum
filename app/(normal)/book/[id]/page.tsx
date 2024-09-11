@@ -13,7 +13,7 @@ interface BookDetailParams {
 }
 
 const fetchBookData = async (id: string): Promise<BookData> => {
-  const response = await fetch(`/api/bookDetail/aladdin/${id}`);
+  const response = await fetch(`/api/bookDetail/aladdin?isbn=${id}`);
   if (!response.ok) {
     throw new Error("Failed to fetch book data");
   }
