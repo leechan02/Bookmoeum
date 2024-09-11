@@ -1,28 +1,79 @@
 "use client";
-
 import { useEffect, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { useQuery } from "@tanstack/react-query";
+import { RootState } from "@/store/store";
+import { BookData, setSelectedBook, updateBookData } from "@/store/bookSlice";
 import FirstSection from "./_components/FirstSection";
 import SecondSection from "./_components/SecondSection";
-import LibrarySelectPopup, {
-  LibraryResult,
-} from "@/components/Popup/LibrarySelectPopup";
-import { useSelector } from "react-redux";
-import { RootState } from "@/store/store";
-import { BookData } from "@/store/bookSlice";
+import LibrarySelectPopup, { LibraryResult } from "@/components/Popup/LibrarySelectPopup";
 
 interface BookDetailParams {
   params: { id: string };
 }
 
+const fetchBookData = async (id: string): Promise<any> => {
+  const response = await fetch(`/api/bookDetail/book?isbn=${id}`);
+
+  if (!response.ok) {
+    throw new Error("Failed to fetch book data");
+  }
+  return response.json();
+};
+
+const processTitle = (title: string): { processedTitle: string; subTitle: string } => {
+  const match = title.match(/^(.+?)\s*(\(.+\))?$/);
+  if (match && match[2]) {
+    return {
+      processedTitle: match[1].trim(),
+      subTitle: match[2].slice(1, -1).trim()
+    };
+  }
+  return { processedTitle: title, subTitle: "" };
+};
+
+const processAuthor = (author: string): string => {
+  return author.replace(/\^/g, ", ");
+};
+
+const processBookData = (data: any): BookData => {
+  console.log(data);
+  const { processedTitle, subTitle } = processTitle(data.title);
+  const processedAuthor = processAuthor(data.author);
+  return {
+    ...data,
+    processedTitle,
+    processedAuthor,
+    subTitle,
+    translator: '',
+    category: '',
+    page: 0,
+  };
+};
+
 export default function BookDetail({ params }: BookDetailParams) {
+  const dispatch = useDispatch();
   const [isPopupOpen, setIsPopupOpen] = useState(false);
-  const [selectedLibraries, setSelectedLibraries] = useState<LibraryResult[]>(
-    []
-  );
-  const bookData = useSelector((state: RootState) => state.book.selectedBook);
+  const [selectedLibraries, setSelectedLibraries] = useState<LibraryResult[]>([]);
+  
+  const reduxBookData = useSelector((state: RootState) => state.book.selectedBook);
+
+  const { data: queryBookData, isLoading, error } = useQuery<any>({
+    queryKey: ["book", params.id],
+    queryFn: () => fetchBookData(params.id),
+    enabled: !reduxBookData,
+  });
 
   useEffect(() => {
-    // 로컬 스토리지에서 선택된 도서관들 불러오기
+    if (queryBookData && !reduxBookData) {
+      const processedData = processBookData(queryBookData);
+      dispatch(setSelectedBook(processedData));
+    }
+  }, [queryBookData, reduxBookData, dispatch]);
+
+  const bookData = reduxBookData || (queryBookData ? processBookData(queryBookData) : null);
+
+  useEffect(() => {
     const storedLibraries = localStorage.getItem("selectedLibraries");
     if (storedLibraries) {
       setSelectedLibraries(JSON.parse(storedLibraries));
@@ -43,6 +94,8 @@ export default function BookDetail({ params }: BookDetailParams) {
     localStorage.setItem("selectedLibraries", JSON.stringify(updatedLibraries));
   };
 
+  if (isLoading) return <div>Loading...</div>;
+  if (error) return <div>Error loading book data</div>;
   if (!bookData) return <div>No book data found</div>;
 
   return (

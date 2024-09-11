@@ -5,6 +5,7 @@ import SearchNav from "@/components/Navigation/SearchNav";
 import { AuthProvider } from "@/contexts/AuthContext";
 import MobileNav from "@/components/Navigation/MobileNav";
 import { Providers } from "@/contexts/Providers";
+import QueryProviders from "@/contexts/QueryProviders";
 
 export const metadata: Metadata = {
   title: "책모음 - 검색",
@@ -20,10 +21,12 @@ export default function RootLayout({
     <html lang='ko'>
       <body className='flex flex-col min-h-screen w-full'>
         <AuthProvider>
-          <SearchNav />
-          <Providers>{children}</Providers>
-          <Footer />
-          <MobileNav />
+          <QueryProviders>
+            <SearchNav />
+            <Providers>{children}</Providers>
+            <Footer />
+            <MobileNav />
+          </QueryProviders>
         </AuthProvider>
       </body>
     </html>
