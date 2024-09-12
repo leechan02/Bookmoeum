@@ -34,9 +34,6 @@ export async function GET(request: Request) {
       link = `https://www.yes24.com${link}`;
     }
 
-    console.log("title:", title);
-    console.log("link:", link);
-
     // ISBN이 정확히 일치하는지 확인
     // const detailResponse = await fetch(link as string);
     // const detailHtml = await detailResponse.text();
@@ -46,6 +43,8 @@ export async function GET(request: Request) {
     // if (bookIsbn !== isbn) {
     //   return NextResponse.json({ exists: false });
     // }
+
+    console.log("yes24 API 응답:", link);
 
     return NextResponse.json({
       exists: true,

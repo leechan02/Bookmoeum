@@ -38,6 +38,7 @@ export async function GET(request: NextRequest) {
     }
 
     const data = await response.json();
+    console.log("네이버 API 응답:", data.items[0].title);
     return NextResponse.json(data.items[0]);
   } catch (error) {
     console.error("Naver API 에러:", error);

@@ -26,7 +26,6 @@ export async function GET(request: Request) {
 
     const title = bookItem.find('.prod_info').text().trim();
     const link = bookItem.find('.prod_info').attr('href');
-    console.log('link:', link);
 
     // ISBN이 정확히 일치하는지 확인
     // const detailResponse = await fetch(link as string);
@@ -37,6 +36,8 @@ export async function GET(request: Request) {
     // if (bookIsbn !== isbn) {
     //   return NextResponse.json({ exists: false });
     // }
+
+    console.log("kyobo API 응답:", link);
 
     return NextResponse.json({
       exists: true,
