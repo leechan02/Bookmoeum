@@ -68,6 +68,7 @@ export default function FindBook({ selectedLibraries, onAddLibrary }: FindBookPr
       queryKey: ['bookstore', store, bookData?.isbn],
       queryFn: () => fetchBookstoreData(store, bookData?.isbn),
       enabled: !!bookData?.isbn,
+      staleTime: 1000 * 60 * 30, // 10 minutes
     })),
   });
 
@@ -75,6 +76,7 @@ export default function FindBook({ selectedLibraries, onAddLibrary }: FindBookPr
     queryKey: ['bookstore', 'ridi', bookData?.processedTitle],
     queryFn: () => fetchRidiData(bookData?.processedTitle || ''),
     enabled: !!bookData?.processedTitle,
+      staleTime: 1000 * 60 * 30, // 10 minutes
   });
 
   const libraryQueries = useQueries({
@@ -82,6 +84,7 @@ export default function FindBook({ selectedLibraries, onAddLibrary }: FindBookPr
       queryKey: ['library', library.libraryCode, bookData?.isbn],
       queryFn: () => fetchLibraryData(bookData?.isbn, library.libraryCode),
       enabled: !!bookData?.isbn,
+      staleTime: 1000 * 60 * 30, // 10 minutes
     })),
   });
 

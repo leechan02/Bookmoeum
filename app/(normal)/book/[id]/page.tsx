@@ -62,6 +62,7 @@ export default function BookDetail({ params }: BookDetailParams) {
     queryKey: ["book", params.id],
     queryFn: () => fetchBookData(params.id),
     enabled: !reduxBookData,
+    staleTime: 1000 * 60 * 30, // 10 minutes
   });
 
   useEffect(() => {
