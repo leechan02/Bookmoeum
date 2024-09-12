@@ -20,6 +20,7 @@ export async function GET(request: NextRequest) {
       throw new Error("Aladin API에서 데이터를 가져오지 못했습니다");
     }
     const data = await response.json();
+    console.log("알라딘 API 응답:", data.item[0].title);
 
     // 알라딘 데이터를 일관된 형식으로 변환
     if (data.item && data.item.length > 0) {

@@ -58,7 +58,6 @@ export default function LibrarySelectPopup({
   }
 
   const handleSubmit = async (query: string) => {
-    console.log(query);
     const searchResult = await searchLibrary(query);
     setResults(searchResult);
   };

@@ -31,6 +31,8 @@ export async function GET(request: Request) {
       return NextResponse.json({ exists: false });
     }
 
+    console.log('ridi API 응답:', foundTitle, link);
+
     return NextResponse.json({
       exists: true,
       title: foundTitle,
