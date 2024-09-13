@@ -121,12 +121,12 @@ export default function FindBook({ selectedLibraries, onAddLibrary }: FindBookPr
             <React.Fragment key={store}>
               {data.link && (
                 <a href={data.link} target='_blank' rel='noopener noreferrer' className='h-12'>
-                  <BookStoreIcon imageUrl={`/Icon${store.charAt(0).toUpperCase() + store.slice(1)}.svg`} width={48} />
+                  <BookStoreIcon imageUrl={`/images/Icon${store.charAt(0).toUpperCase() + store.slice(1)}.svg`} width={48} />
                 </a>
               )}
               {store === 'aladdin' && (data as AladinResult).usedBook?.available && (
                 <a href={(data as AladinResult).usedBook?.link || "#"} target='_blank' rel='noopener noreferrer' className='h-12'>
-                  <BookStoreIcon imageUrl='/IconAladdinUsed.svg' width={48} />
+                  <BookStoreIcon imageUrl='/images/IconAladdinUsed.svg' width={48} />
                 </a>
               )}
             </React.Fragment>
@@ -135,7 +135,7 @@ export default function FindBook({ selectedLibraries, onAddLibrary }: FindBookPr
         
         {ridiQuery.data?.exists && ridiQuery.data.link && (
           <a href={ridiQuery.data.link} target='_blank' rel='noopener noreferrer' className='h-12'>
-            <BookStoreIcon imageUrl='/IconRidi.svg' width={48} />
+            <BookStoreIcon imageUrl='/images/IconRidi.svg' width={48} />
           </a>
         )}
 

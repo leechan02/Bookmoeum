@@ -77,7 +77,7 @@ export default function LoginSection() {
         <div className='flex flex-col justify-center items-center gap-6 sm:gap-10 w-full'>
           <Link href='/'>
             <img
-              src='/LogoIcon.svg'
+              src='/images/LogoIcon.svg'
               alt='logo'
               className='w-10 h-10 sm:w-12 sm:h-12'
             />

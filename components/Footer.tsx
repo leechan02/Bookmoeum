@@ -23,7 +23,7 @@ export default function Footer() {
         <div className='py-4 sm:py-6 md:py-8 flex flex-col sm:flex-row justify-between items-center sm:items-start gap-4 sm:gap-0'>
           <div className='w-full sm:w-[263px] flex flex-col justify-start items-center sm:items-start gap-4'>
             <img
-              src='/LogoIconDark.svg'
+              src='/images/LogoIconDark.svg'
               alt='logoIcon'
               className='w-6 h-6 fill-secondary'
             />
