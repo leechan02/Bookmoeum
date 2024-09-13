@@ -5,6 +5,7 @@ import SearchTabs from "./_components/SearchTabs";
 import { Suspense, useCallback, useEffect } from "react";
 import BookList from "@/components/Book/BookList";
 import { useInfiniteQuery } from "@tanstack/react-query";
+import SearchCat from "@/components/Loading/SearchCat";
 
 export interface SearchResult {
   title: string;
@@ -85,7 +86,7 @@ function SearchContent() {
       <div className='font-bold text-2xl sm:text-3xl text-primary'>{query}</div>
       <SearchTabs />
       {status === "pending" ? (
-        <div className='text-sm sm:text-base text-primary'>검색 중...</div>
+        <SearchCat />
       ) : status === "error" ? (
         <div className='text-sm sm:text-base text-primary'>
           에러: {(error as Error)?.message || "알 수 없는 오류"}
@@ -114,7 +115,7 @@ export default function SearchPage(): JSX.Element {
   return (
     <div className='w-full max-w-[1440px] mx-auto flex-grow'>
       <div className='px-6 md:px-8 lg:px-28 py-6 sm:py-8'>
-        <Suspense fallback={<div>로딩 중...</div>}>
+        <Suspense fallback={<SearchCat />}>
           <SearchContent />
         </Suspense>
       </div>
