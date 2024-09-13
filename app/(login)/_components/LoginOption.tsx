@@ -58,7 +58,7 @@ export default function LoginOption({
     <div className='flex-col justify-center items-center gap-4 sm:gap-5 inline-flex w-full'>
       <div className='flex-col justify-start items-center gap-3 sm:gap-4 inline-flex w-full'>
         <Button
-          icon='/IconGoogle.svg'
+          icon='/images/IconGoogle.svg'
           label='구글로 시작하기'
           variant='secondary'
           width={buttonWidth}

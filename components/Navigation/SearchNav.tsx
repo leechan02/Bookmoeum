@@ -45,7 +45,7 @@ export default function SearchNav() {
         <div className='md:h-[80px] flex px-6 md:px-8 lg:px-28 pt-4 justify-between items-center'>
           <Link href='/' className='flex-shrink-0'>
             <img
-              src={isMobile ? "/LogoIcon.svg" : "/Logo.svg"}
+              src={isMobile ? "/images/LogoIcon.svg" : "/images/Logo.svg"}
               alt='logo'
               className={isMobile ? "w-8 h-8" : ""}
             />

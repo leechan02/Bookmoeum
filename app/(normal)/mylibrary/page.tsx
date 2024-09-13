@@ -8,7 +8,7 @@ export default function MylibraryPage() {
     <div className='flex justify-center items-center flex-grow'>
       <CharacterMsg
         msg='앗! 지금 만들고 있는 중이에요!'
-        imageUrl='/FixCat.svg'
+        imageUrl='/images/FixCat.svg'
       />
     </div>
   );

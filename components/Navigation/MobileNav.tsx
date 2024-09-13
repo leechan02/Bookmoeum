@@ -35,7 +35,7 @@ export default function MobileNav() {
 
   return (
     <div className='flex fixed bottom-0 bg-primary w-full justify-center items-center gap-16 py-2 rounded-t-2xl'>
-      <NavButton icon='/LogoIconDark.svg' label='홈' link='/' />
+      <NavButton icon='/images/LogoIconDark.svg' label='홈' link='/' />
       <NavButton icon={FiBook} label='내 서재' link='/mylibrary' />
       {user ? (
         <NavButton icon={FiLogOut} label='로그아웃' onClick={handleLogout} />
