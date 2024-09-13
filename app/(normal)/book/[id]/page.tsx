@@ -6,7 +6,10 @@ import { RootState } from "@/store/store";
 import { BookData, setSelectedBook, updateBookData } from "@/store/bookSlice";
 import FirstSection from "./_components/FirstSection";
 import SecondSection from "./_components/SecondSection";
-import LibrarySelectPopup, { LibraryResult } from "@/components/Popup/LibrarySelectPopup";
+import LibrarySelectPopup, {
+  LibraryResult,
+} from "@/components/Popup/LibrarySelectPopup";
+import SearchCat from "@/components/Loading/SearchCat";
 
 interface BookDetailParams {
   params: { id: string };
@@ -21,12 +24,14 @@ const fetchBookData = async (id: string): Promise<any> => {
   return response.json();
 };
 
-const processTitle = (title: string): { processedTitle: string; subTitle: string } => {
+const processTitle = (
+  title: string
+): { processedTitle: string; subTitle: string } => {
   const match = title.match(/^(.+?)\s*(\(.+\))?$/);
   if (match && match[2]) {
     return {
       processedTitle: match[1].trim(),
-      subTitle: match[2].slice(1, -1).trim()
+      subTitle: match[2].slice(1, -1).trim(),
     };
   }
   return { processedTitle: title, subTitle: "" };
@@ -45,8 +50,8 @@ const processBookData = (data: any): BookData => {
     processedTitle,
     processedAuthor,
     subTitle,
-    translator: '',
-    category: '',
+    translator: "",
+    category: "",
     page: 0,
   };
 };
@@ -54,11 +59,19 @@ const processBookData = (data: any): BookData => {
 export default function BookDetail({ params }: BookDetailParams) {
   const dispatch = useDispatch();
   const [isPopupOpen, setIsPopupOpen] = useState(false);
-  const [selectedLibraries, setSelectedLibraries] = useState<LibraryResult[]>([]);
-  
-  const reduxBookData = useSelector((state: RootState) => state.book.selectedBook);
+  const [selectedLibraries, setSelectedLibraries] = useState<LibraryResult[]>(
+    []
+  );
 
-  const { data: queryBookData, isLoading, error } = useQuery<any>({
+  const reduxBookData = useSelector(
+    (state: RootState) => state.book.selectedBook
+  );
+
+  const {
+    data: queryBookData,
+    isLoading,
+    error,
+  } = useQuery<any>({
     queryKey: ["book", params.id],
     queryFn: () => fetchBookData(params.id),
     enabled: !reduxBookData,
@@ -72,7 +85,8 @@ export default function BookDetail({ params }: BookDetailParams) {
     }
   }, [queryBookData, reduxBookData, dispatch]);
 
-  const bookData = reduxBookData || (queryBookData ? processBookData(queryBookData) : null);
+  const bookData =
+    reduxBookData || (queryBookData ? processBookData(queryBookData) : null);
 
   useEffect(() => {
     const storedLibraries = localStorage.getItem("selectedLibraries");
@@ -95,7 +109,13 @@ export default function BookDetail({ params }: BookDetailParams) {
     localStorage.setItem("selectedLibraries", JSON.stringify(updatedLibraries));
   };
 
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading) {
+    return (
+      <div className="flex flex-grow justify-center items-center">
+        <SearchCat />
+      </div>
+    );
+  }
   if (error) return <div>Error loading book data</div>;
   if (!bookData) return <div>No book data found</div>;
 
