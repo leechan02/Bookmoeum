@@ -6,6 +6,7 @@ interface IconButtonProps {
   iconColor: string;
   bgColor: string;
   onClick?: () => void;
+  isFilled?: boolean;
 }
 
 export default function IconButton({
@@ -14,6 +15,7 @@ export default function IconButton({
   iconColor,
   bgColor,
   onClick,
+  isFilled = false,
 }: IconButtonProps) {
   const isString = typeof icon === 'string';
   const firstLetter = isString ? icon.charAt(0) : '';
@@ -36,17 +38,19 @@ export default function IconButton({
             width: '100%',
             height: '100%',
             lineHeight: 0,
-            paddingTop: `${iconSize * 0.05}px`, // 미세 조정
+            // paddingTop: `${iconSize * 0.05}px`,
           }}
         >
           {firstLetter}
         </span>
       ) : IconComponent && (
         <IconComponent
-          className={`text-${iconColor}`}
           style={{
             width: "70%",
-            height: "100%",
+            height: "70%",
+            fill: isFilled ? iconColor : 'none',
+            stroke: iconColor,
+            color: iconColor,
           }}
         />
       )}
