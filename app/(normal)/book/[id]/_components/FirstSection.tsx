@@ -1,8 +1,9 @@
-import React from "react";
+"use client";
+
+import React, { useState } from "react";
 import Book from "@/components/Book/Book";
 import Chip from "@/components/Chips/Chip";
-import BookStoreIcon from "@/components/Icon/BookStoreIcon";
-import { FiBook, FiHeart, FiHome, FiPlus } from "react-icons/fi";
+import { FiBook, FiHeart } from "react-icons/fi";
 import Button from "@/components/Button/Button";
 import { LibraryResult } from "@/components/Popup/LibrarySelectPopup";
 import IconButton from "@/components/Button/IconButton";
@@ -22,6 +23,12 @@ export default function FirstSection({
   selectedLibraries,
   onRemoveLibrary,
 }: FirstSectionProps) {
+  const [isLiked, setIsLiked] = useState(false);
+
+  const handleLikeClick = () => {
+    setIsLiked(!isLiked);
+  }
+
   return (
     <div className='flex flex-col justify-center items-center py-8 md:py-14 px-8'>
       <div className='flex flex-col md:flex-row justify-between items-center w-full max-w-[900px] gap-8'>
@@ -61,8 +68,10 @@ export default function FirstSection({
               <IconButton
                 icon={FiHeart}
                 iconSize={40}
-                iconColor='white'
+                iconColor={isLiked ? '#FF3D3D' : 'white'}
                 bgColor='secondary'
+                onClick={handleLikeClick}
+                isFilled={isLiked}
               />
               <Button icon={FiBook} label='내 서재에 담기' />
             </div>
