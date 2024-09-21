@@ -1,11 +1,12 @@
 "use client";
 
 import { useSearchParams } from "next/navigation";
-import SearchTabs from "./_components/SearchTabs";
 import { Suspense, useCallback, useEffect } from "react";
 import BookList from "@/components/Book/BookList";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import SearchCat from "@/components/Loading/SearchCat";
+import { FiBook } from "react-icons/fi";
+import TabItemsBar from "@/components/Tab/TabItemsBar";
 
 export interface SearchResult {
   title: string;
@@ -81,10 +82,14 @@ function SearchContent() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, [handleLoadMore]);
 
+  const tabs = [
+    { label: "도서", Icon: FiBook },
+  ];
+
   return (
     <div className='flex flex-col justify-start items-start gap-4 sm:gap-8 min-h-[calc(100vh-200px)]'>
       <div className='font-bold text-2xl sm:text-3xl text-primary'>{query}</div>
-      <SearchTabs />
+      <TabItemsBar tabs={tabs} firstActive="도서" />
       {status === "pending" ? (
         <div className='w-full flex-grow flex justify-center items-center'>
           <SearchCat />

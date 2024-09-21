@@ -1,13 +1,14 @@
 import TabItem from "@/components/Tab/TabItem";
 import { useState } from "react";
-import { FiBook, FiPenTool, FiUser } from "react-icons/fi";
 
-export default function SearchTabs() {
-  const [activeTab, setActiveTab] = useState<string>("도서");
+interface TabItemsBarProps {
+  tabs: { label: string; Icon: any }[];
+  firstActive: string;
+}
 
-  const tabs = [
-    { label: "도서", Icon: FiBook },
-  ];
+export default function TabItemsBar({tabs, firstActive}: TabItemsBarProps) {
+  const [activeTab, setActiveTab] = useState<string>(firstActive);
+
 
   const handleTabClick = (label: string) => {
     setActiveTab(label);
@@ -27,3 +28,4 @@ export default function SearchTabs() {
     </div>
   );
 }
+

@@ -17,6 +17,8 @@ import BookList from "@/components/Book/BookList";
 import SearchCat from "@/components/Loading/SearchCat";
 import { withAuth } from "@/contexts/WithAuth";
 import { SearchResult } from "../search/page";
+import TabItemsBar from "@/components/Tab/TabItemsBar";
+import { FiHeart } from "react-icons/fi";
 
 const PAGE_SIZE = 10;
 
@@ -30,7 +32,11 @@ function MyLibraryContent() {
     return () => unsubscribe();
   }, []);
 
-  const fetchLikedBooks = async ({ pageParam }: { pageParam?: QueryDocumentSnapshot<DocumentData> | null }) => {
+  const fetchLikedBooks = async ({
+    pageParam,
+  }: {
+    pageParam?: QueryDocumentSnapshot<DocumentData> | null;
+  }) => {
     if (!user) throw new Error("User not authenticated");
 
     const likesRef = collection(db, `users/${user.uid}/likes`);
@@ -41,15 +47,15 @@ function MyLibraryContent() {
     }
 
     const snapshot = await getDocs(q);
-    const books = snapshot.docs.map(doc => ({
+    const books = snapshot.docs.map((doc) => ({
       ...doc.data(),
-      isbn: doc.id
+      isbn: doc.id,
     })) as SearchResult[];
     console.log(books);
 
     return {
       books,
-      nextCursor: snapshot.docs[snapshot.docs.length - 1] || null
+      nextCursor: snapshot.docs[snapshot.docs.length - 1] || null,
     };
   };
 
@@ -87,13 +93,26 @@ function MyLibraryContent() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, [handleLoadMore]);
 
+  const tabs = [{ label: "위시리스트", Icon: FiHeart }];
+
   if (!user) {
-    return <div>Please log in to view your library.</div>;
+    return (
+      <div className='flex flex-col justify-start items-start gap-4 sm:gap-8 min-h-[calc(100vh-200px)]'>
+        <div className='font-bold text-2xl sm:text-3xl text-primary'>
+          내 서재
+        </div>
+        <TabItemsBar tabs={tabs} firstActive='위시리스트' />
+        <div className='w-full flex-grow flex justify-center items-center'>
+          <SearchCat />
+        </div>
+      </div>
+    );
   }
 
   return (
     <div className='flex flex-col justify-start items-start gap-4 sm:gap-8 min-h-[calc(100vh-200px)]'>
       <div className='font-bold text-2xl sm:text-3xl text-primary'>내 서재</div>
+      <TabItemsBar tabs={tabs} firstActive='위시리스트' />
       {status === "pending" ? (
         <div className='w-full flex-grow flex justify-center items-center'>
           <SearchCat />
@@ -113,16 +132,13 @@ function MyLibraryContent() {
           {isFetchingNextPage && (
             <div className='text-sm sm:text-base'>로딩 중...</div>
           )}
-          {!hasNextPage && (
-            <div className='text-sm sm:text-base'>더 이상 결과가 없습니다.</div>
-          )}
         </>
       )}
     </div>
   );
 }
 
-export default withAuth(function MyLibraryPage() {
+export default function MyLibraryPage() {
   return (
     <div className='w-full max-w-[1440px] mx-auto flex flex-col'>
       <div className='px-6 md:px-8 lg:px-28 py-6 sm:py-8 flex-grow'>
@@ -130,4 +146,4 @@ export default withAuth(function MyLibraryPage() {
       </div>
     </div>
   );
-});
+}
