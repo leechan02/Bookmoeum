@@ -46,8 +46,8 @@ export default function IconButton({
       ) : IconComponent && (
         <IconComponent
           style={{
-            width: "70%",
-            height: "70%",
+            width: "60%",
+            height: "60%",
             fill: isFilled ? iconColor : 'none',
             stroke: iconColor,
             color: iconColor,
