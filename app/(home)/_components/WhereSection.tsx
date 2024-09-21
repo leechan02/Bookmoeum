@@ -17,12 +17,20 @@ const ImageMotion: React.FC<{ image: CustomImage; index: number }> = ({ image, i
   return (
     <motion.img 
       src={image.src}
-      alt={`Icon ${index}`}
-      className="rounded-full drop-shadow-md"
+      alt={`아이콘 ${index + 1}`}
+      className="rounded-full drop-shadow-md select-none"
       style={{
         width: `${image.width}px`,
         height: `${image.height}px`,
+        userSelect: "none",
+        WebkitUserSelect: "none",
+        msUserSelect: "none",
+        MozUserSelect: "none",
+        WebkitTouchCallout: "none",
+        pointerEvents: "none",
       }}
+      draggable={false}
+      onContextMenu={(e: React.MouseEvent<HTMLImageElement>) => e.preventDefault()}
       initial={{ opacity: 0, y: -50 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, delay: index * 0.1 }}

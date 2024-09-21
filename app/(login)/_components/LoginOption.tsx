@@ -40,7 +40,6 @@ export default function LoginOption({
   const handleGoogleLogin = async () => {
     try {
       await loginWithGoogle();
-      console.log("Google login successful");
       router.push("/");
     } catch (error: any) {
       console.error("Google login error:", error);

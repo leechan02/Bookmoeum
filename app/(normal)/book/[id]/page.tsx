@@ -42,7 +42,6 @@ const processAuthor = (author: string): string => {
 };
 
 const processBookData = (data: any): BookData => {
-  console.log(data);
   const { processedTitle, subTitle } = processTitle(data.title);
   const processedAuthor = processAuthor(data.author);
   return {

@@ -82,11 +82,13 @@ function SearchContent() {
   }, [handleLoadMore]);
 
   return (
-    <div className='flex flex-col justify-center items-start gap-4 sm:gap-8'>
+    <div className='flex flex-col justify-start items-start gap-4 sm:gap-8 min-h-[calc(100vh-200px)]'>
       <div className='font-bold text-2xl sm:text-3xl text-primary'>{query}</div>
       <SearchTabs />
       {status === "pending" ? (
-        <SearchCat />
+        <div className='w-full flex-grow flex justify-center items-center'>
+          <SearchCat />
+        </div>
       ) : status === "error" ? (
         <div className='text-sm sm:text-base text-primary'>
           에러: {(error as Error)?.message || "알 수 없는 오류"}
@@ -113,8 +115,8 @@ function SearchContent() {
 
 export default function SearchPage(): JSX.Element {
   return (
-    <div className='w-full max-w-[1440px] mx-auto flex-grow'>
-      <div className='px-6 md:px-8 lg:px-28 py-6 sm:py-8'>
+    <div className='w-full max-w-[1440px] mx-auto flex flex-col'>
+      <div className='px-6 md:px-8 lg:px-28 py-6 sm:py-8 flex-grow'>
         <Suspense fallback={<SearchCat />}>
           <SearchContent />
         </Suspense>

@@ -39,7 +39,6 @@ export default function Input({
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log("Submitted value:", inputValue);
     onSubmit(inputValue);
   };
 

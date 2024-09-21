@@ -60,7 +60,6 @@ export default function SignInSection({
 
     try {
       await registerUser(email, password);
-      console.log("User registered successfully");
       router.push("/");
     } catch (error: any) {
       console.error(error);

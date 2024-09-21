@@ -7,8 +7,6 @@ export default function CategoryTabs() {
 
   const tabs = [
     { label: "책 소개", Icon: FiBook },
-    { label: "목차", Icon: FiClipboard },
-    { label: "출판사 서평", Icon: FiBox },
   ];
 
   const handleTabClick = (label: string) => {

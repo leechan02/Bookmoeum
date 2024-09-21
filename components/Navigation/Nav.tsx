@@ -27,7 +27,6 @@ export default function Nav() {
   const handleLogout = async () => {
     const result = await logoutUser();
     if (result.success) {
-      console.log("로그아웃 성공");
       router.push('/');
     } else {
       console.error("로그아웃 실패");
