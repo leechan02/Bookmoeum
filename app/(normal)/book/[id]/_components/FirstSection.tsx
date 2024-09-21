@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Book from "@/components/Book/Book";
 import Chip from "@/components/Chips/Chip";
 import { FiBook, FiHeart } from "react-icons/fi";
@@ -9,6 +9,9 @@ import { LibraryResult } from "@/components/Popup/LibrarySelectPopup";
 import IconButton from "@/components/Button/IconButton";
 import FindBook from "./FindBook";
 import { BookData } from "@/store/bookSlice";
+import { addDoc, collection, deleteDoc, doc, getDoc, setDoc } from "firebase/firestore";
+import { auth, db } from "@/libs/firebase/config";
+import { onAuthStateChanged, User } from "firebase/auth";
 
 interface FirstSectionProps {
   bookData: BookData;
@@ -24,10 +27,60 @@ export default function FirstSection({
   onRemoveLibrary,
 }: FirstSectionProps) {
   const [isLiked, setIsLiked] = useState(false);
+  const [user, setUser] = useState<User | null>(null);
 
-  const handleLikeClick = () => {
-    setIsLiked(!isLiked);
-  }
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser);
+      if (currentUser) {
+        checkIfLiked(currentUser.uid);
+      } else {
+        setIsLiked(false);
+      }
+    });
+
+    return () => unsubscribe();
+  }, [bookData.isbn]);
+
+  const checkIfLiked = async (userId: string) => {
+    try {
+      const likeRef = doc(db, `users/${userId}/likes/${bookData.isbn}`);
+      const likeSnap = await getDoc(likeRef);
+      setIsLiked(likeSnap.exists());
+    } catch (error) {
+      console.error("Error checking like status:", error);
+    }
+  };
+
+  const handleLikeClick = async () => {
+    if (!user) {
+      console.log("User not logged in");
+      // Here you might want to redirect to login page or show a login prompt
+      return;
+    }
+
+    const likeRef = doc(db, `users/${user.uid}/likes/${bookData.isbn}`);
+
+    try {
+      if (isLiked) {
+        await deleteDoc(likeRef);
+      } else {
+        await setDoc(likeRef, {
+          title: bookData.processedTitle,
+          author: bookData.processedAuthor,
+          image: bookData.image,
+          isbn: bookData.isbn,
+          publisher: bookData.publisher,
+          description: bookData.description,
+          pubdate: bookData.pubdate,
+          timestamp: new Date()
+        });
+      }
+      setIsLiked(!isLiked);
+    } catch (error) {
+      console.error("Error updating like status:", error);
+    }
+  };
 
   return (
     <div className='flex flex-col justify-center items-center py-8 md:py-14 px-8'>
