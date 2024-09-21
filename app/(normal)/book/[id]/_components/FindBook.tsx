@@ -59,6 +59,10 @@ const fetchLibraryData = async (isbn: string, libCode: string) => {
   return response.json();
 };
 
+const SkeletonIcon = () => (
+  <div className="w-12 h-12 bg-secondary rounded-full animate-pulse"></div>
+);
+
 export default function FindBook({ selectedLibraries, onAddLibrary }: FindBookProps) {
   const dispatch = useDispatch();
   const bookData = useSelector((state: RootState) => state.book.selectedBook as BookData);
@@ -105,79 +109,89 @@ export default function FindBook({ selectedLibraries, onAddLibrary }: FindBookPr
   const isLoading = bookstoreQueries.some(query => query.isLoading) || 
                     ridiQuery.isLoading ||
                     libraryQueries.some(query => query.isLoading);
-
-  if (isLoading) return <div>로딩 중...</div>;
-
+  
   return (
     <div className='flex-col justify-start items-center md:items-start gap-2 inline-flex w-full'>
       <div className='text-xs font-regular text-grey-200'>읽을 수 있는 곳</div>
       <div className='flex flex-wrap justify-center md:justify-start items-center gap-4 w-full'>
-        {bookstoreQueries.map((query, index) => {
-          const store = ['kyobo', 'yes24', 'aladdin'][index];
-          const data = query.data as ExistResult | AladinResult;
-          if (!data?.exists) return null;
+        {isLoading ? (
+          // Skeleton UI
+          <>
+            {[...Array(5)].map((_, index) => (
+              <SkeletonIcon key={index} />
+            ))}
+          </>
+        ) : (
+          // Actual content
+          <>
+            {bookstoreQueries.map((query, index) => {
+              const store = ['kyobo', 'yes24', 'aladdin'][index];
+              const data = query.data as ExistResult | AladinResult;
+              if (!data?.exists) return null;
 
-          return (
-            <React.Fragment key={store}>
-              {data.link && (
-                <a href={data.link} target='_blank' rel='noopener noreferrer' className='h-12'>
-                  <BookStoreIcon imageUrl={`/images/Icon${store.charAt(0).toUpperCase() + store.slice(1)}.svg`} width={48} />
-                </a>
-              )}
-              {store === 'aladdin' && (data as AladinResult).usedBook?.available && (
-                <a href={(data as AladinResult).usedBook?.link || "#"} target='_blank' rel='noopener noreferrer' className='h-12'>
-                  <BookStoreIcon imageUrl='/images/IconAladdinUsed.svg' width={48} />
-                </a>
-              )}
-            </React.Fragment>
-          );
-        })}
-        
-        {ridiQuery.data?.exists && ridiQuery.data.link && (
-          <a href={ridiQuery.data.link} target='_blank' rel='noopener noreferrer' className='h-12'>
-            <BookStoreIcon imageUrl='/images/IconRidi.svg' width={48} />
-          </a>
+              return (
+                <React.Fragment key={store}>
+                  {data.link && (
+                    <a href={data.link} target='_blank' rel='noopener noreferrer' className='h-12'>
+                      <BookStoreIcon imageUrl={`/images/Icon${store.charAt(0).toUpperCase() + store.slice(1)}.svg`} width={48} />
+                    </a>
+                  )}
+                  {store === 'aladdin' && (data as AladinResult).usedBook?.available && (
+                    <a href={(data as AladinResult).usedBook?.link || "#"} target='_blank' rel='noopener noreferrer' className='h-12'>
+                      <BookStoreIcon imageUrl='/images/IconAladdinUsed.svg' width={48} />
+                    </a>
+                  )}
+                </React.Fragment>
+              );
+            })}
+            
+            {ridiQuery.data?.exists && ridiQuery.data.link && (
+              <a href={ridiQuery.data.link} target='_blank' rel='noopener noreferrer' className='h-12'>
+                <BookStoreIcon imageUrl='/images/IconRidi.svg' width={48} />
+              </a>
+            )}
+
+            {libraryQueries.map((query, index) => {
+              const library = selectedLibraries[index];
+              const availability = query.data as LibraryAvailability;
+              return (
+                <div key={library.libraryCode} className='relative inline-flex flex-col items-center group'>
+                  {availability?.exists ? (
+                    <a href={library.homepage} target='_blank' rel='noopener noreferrer'>
+                      <IconButton
+                        icon={library.libraryName}
+                        iconSize={48}
+                        iconColor='white'
+                        bgColor={availability.exists ? "success" : "secondary"}
+                      />
+                    </a>
+                  ) : (
+                    <IconButton
+                      icon={library.libraryName}
+                      iconSize={48}
+                      iconColor='white'
+                      bgColor='secondary'
+                    />
+                  )}
+                  <div className='absolute -top-7 left-1/2 transform -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-300'>
+                    <Chip
+                      label={availability?.exists ? "보유" : "미보유"}
+                      textColor='text-white'
+                      backgroundColor={availability?.exists ? "bg-success" : "bg-secondary"}
+                    />
+                  </div>
+                </div>
+              );
+            })}
+            <IconButton
+              icon={FiPlus}
+              iconSize={48}
+              iconColor='white'
+              bgColor='primary'
+              onClick={onAddLibrary}
+            />
+          </>
         )}
-
-        {libraryQueries.map((query, index) => {
-          const library = selectedLibraries[index];
-          const availability = query.data as LibraryAvailability;
-          return (
-            <div key={library.libraryCode} className='relative inline-flex flex-col items-center group'>
-              {availability?.exists ? (
-                <a href={library.homepage} target='_blank' rel='noopener noreferrer'>
-                  <IconButton
-                    icon={library.libraryName}
-                    iconSize={48}
-                    iconColor='white'
-                    bgColor={availability.exists ? "success" : "secondary"}
-                  />
-                </a>
-              ) : (
-                <IconButton
-                  icon={library.libraryName}
-                  iconSize={48}
-                  iconColor='white'
-                  bgColor='secondary'
-                />
-              )}
-              <div className='absolute -top-7 left-1/2 transform -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-300'>
-                <Chip
-                  label={availability?.exists ? "보유" : "미보유"}
-                  textColor='text-white'
-                  backgroundColor={availability?.exists ? "bg-success" : "bg-secondary"}
-                />
-              </div>
-            </div>
-          );
-        })}
-        <IconButton
-          icon={FiPlus}
-          iconSize={48}
-          iconColor='white'
-          bgColor='primary'
-          onClick={onAddLibrary}
-        />
       </div>
     </div>
   );
