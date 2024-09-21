@@ -7,7 +7,7 @@ export default function Book({
   imageUrl: string;
   width: number;
 }): JSX.Element {
-  const [aspectRatio, setAspectRatio] = useState<number>(1.5); // 기본 종횡비 (예: 2:3)
+  const [aspectRatio, setAspectRatio] = useState<number>(1.5);
   const [isLoaded, setIsLoaded] = useState<boolean>(false);
   const [error, setError] = useState<boolean>(false);
 
@@ -22,6 +22,10 @@ export default function Book({
   }, [imageUrl]);
 
   const height = width * aspectRatio;
+
+  const preventDragHandler = (e: React.DragEvent<HTMLImageElement>) => {
+    e.preventDefault();
+  };
 
   return (
     <div
@@ -43,7 +47,16 @@ export default function Book({
         <img
           src={imageUrl}
           alt="Book Cover"
-          className="w-full h-full object-contain rounded-lg shadow-lg"
+          className="w-full h-full object-contain rounded-lg shadow-lg select-none"
+          onDragStart={preventDragHandler}
+          style={{
+            userSelect: 'none',
+            WebkitUserSelect: 'none',
+            msUserSelect: 'none',
+            MozUserSelect: 'none',
+            WebkitTouchCallout: 'none',
+          }}
+          draggable="false"
         />
       )}
     </div>
