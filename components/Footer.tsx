@@ -19,7 +19,7 @@ export default function Footer() {
 
   return (
     <div className='bg-primary py-4 sm:py-6'>
-      <div className='max-w-[1440px] mx-auto px-4 sm:px-6 md:px-8 lg:px-28'>
+      <div className='max-w-[1240px] mx-auto px-4 sm:px-6 md:px-8 lg:px-28'>
         <div className='py-4 sm:py-6 md:py-8 flex flex-col sm:flex-row justify-between items-center sm:items-start gap-4 sm:gap-0'>
           <div className='w-full sm:w-[263px] flex flex-col justify-start items-center sm:items-start gap-4'>
             <img
