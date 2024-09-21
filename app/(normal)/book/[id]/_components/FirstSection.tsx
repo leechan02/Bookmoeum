@@ -68,8 +68,11 @@ export default function FirstSection({
         await setDoc(likeRef, {
           title: bookData.processedTitle,
           author: bookData.processedAuthor,
-          imageUrl: bookData.image,
+          image: bookData.image,
           isbn: bookData.isbn,
+          publisher: bookData.publisher,
+          description: bookData.description,
+          pubdate: bookData.pubdate,
           timestamp: new Date()
         });
       }
