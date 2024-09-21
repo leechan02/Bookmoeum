@@ -70,6 +70,7 @@ export default function FirstSection({
           author: bookData.processedAuthor,
           imageUrl: bookData.image,
           isbn: bookData.isbn,
+          timestamp: new Date()
         });
       }
       setIsLiked(!isLiked);
