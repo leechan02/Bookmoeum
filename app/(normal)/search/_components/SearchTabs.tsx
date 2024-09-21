@@ -7,8 +7,6 @@ export default function SearchTabs() {
 
   const tabs = [
     { label: "도서", Icon: FiBook },
-    { label: "작가", Icon: FiUser },
-    { label: "출판사", Icon: FiPenTool },
   ];
 
   const handleTabClick = (label: string) => {
