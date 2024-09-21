@@ -117,7 +117,9 @@ export default function SearchPage(): JSX.Element {
   return (
     <div className='w-full max-w-[1440px] mx-auto flex flex-col'>
       <div className='px-6 md:px-8 lg:px-28 py-6 sm:py-8 flex-grow'>
-        <SearchContent />
+        <Suspense fallback={<SearchCat />}>
+          <SearchContent />
+        </Suspense>
       </div>
     </div>
   );
