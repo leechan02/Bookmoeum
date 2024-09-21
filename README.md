@@ -13,7 +13,7 @@
 
 Next.js로 구현하였고, 모든 디자인은 Tailwindcss로 반응형을 고려하여 작업되었습니다. 컴포넌트의 애니메이션은 Framer Motion을 통해 구현되었으며, Redux로 다크 모드와 상태 관리를 처리했습니다. React Query를 통해 데이터 페칭과 상태 관리를 최적화하였고, 무한 스크롤 기능은 `useInfinityScroll`을 사용해 구현하였습니다.
 
-로그인은 Firebase를 활용해 간단하게 구현하였고, 책 정보는 Naver API와 알라딘 API를 사용하여 다양한 정보를 제공합니다. 서점과 도서관의 API 외에도 웹 크롤링을 통해 추가 정보를 수집합니다.
+로그인과 데이터베이스는 Firebase를 활용해 구현하였고, 책 정보는 Naver API와 알라딘 API를 사용하여 다양한 정보를 제공합니다. 서점과 도서관의 API 외에도 웹 크롤링을 통해 추가 정보를 수집합니다.
 
 ## 🖥️ 기술 스택
 | 분류 | 기술스택 |
@@ -21,7 +21,7 @@ Next.js로 구현하였고, 모든 디자인은 Tailwindcss로 반응형을 고�
 | 🎨 **프론트엔드** | <img src="https://img.shields.io/badge/TypeScript-3178C6?logo=typescript&logoColor=ffffff"> <img src="https://img.shields.io/badge/Next.js-000000?logo=Next.js&logoColor=white"> <img src="https://img.shields.io/badge/React-000000?logo=React&logoColor=61DAFB"> <img src="https://img.shields.io/badge/tailwindcss-ffffff?logo=tailwindcss&logoColor=06B6D4"> ![Figma](https://img.shields.io/badge/Figma-F24E1E?logo=figma&logoColor=ffffff) ![Framer](https://img.shields.io/badge/Framer-0055FF?logo=framer&logoColor=ffffff) ![Redux](https://img.shields.io/badge/Redux-764ABC?logo=redux&logoColor=ffffff) ![React-query](https://img.shields.io/badge/React%20Query-FF4154?logo=react-query&logoColor=ffffff)|
 | 🛠️ **패키지 매니저** | ![Yarn](https://img.shields.io/badge/Yarn-2C8EBB?logo=yarn&logoColor=ffffff)|
 | 🌐 **배포** | <img src="https://img.shields.io/badge/Vercel-000000?logo=Vercel&logoColor=ffffff"> |
-| 🔥 **인증** | ![Firebase](https://img.shields.io/badge/Firebase-FFCA28?logo=firebase&logoColor=ffffff) |
+| 🔥 **인증 및 데이터베이스** | ![Firebase](https://img.shields.io/badge/Firebase-FFCA28?logo=firebase&logoColor=ffffff) |
 
 ## 🎯 프로젝트 하이라이트
 - **다양한 책 정보 제공**: Naver API, 알라딘 API, 교보문고, Yes24, 리디북스 데이터를 수집하여 책의 상세 정보를 제공합니다.
