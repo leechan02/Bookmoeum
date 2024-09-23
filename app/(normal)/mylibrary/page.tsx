@@ -19,7 +19,7 @@ import { SearchResult } from "../search/page";
 import TabItemsBar from "@/components/Tab/TabItemsBar";
 import { FiHeart } from "react-icons/fi";
 
-const PAGE_SIZE = 100;
+const PAGE_SIZE = 50;
 
 function MyLibraryContent() {
   const [user, setUser] = useState(auth.currentUser);
