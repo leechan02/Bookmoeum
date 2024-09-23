@@ -28,6 +28,7 @@ export default function FirstSection({
   selectedLibraries,
 }: FirstSectionProps) {
   const [isLiked, setIsLiked] = useState(false);
+  const [isBookAdd, setIsBookAdd] = useState(false);
   const [user, setUser] = useState<User | null>(null);
 
   useEffect(() => {
@@ -35,6 +36,7 @@ export default function FirstSection({
       setUser(currentUser);
       if (currentUser) {
         checkIfLiked(currentUser.uid);
+        checkIfBooked(currentUser.uid);
       } else {
         setIsLiked(false);
       }
@@ -52,6 +54,16 @@ export default function FirstSection({
       console.error("Error checking like status:", error);
     }
   };
+
+  const checkIfBooked = async (userId: string) => {
+    try {
+      const bookRef = doc(db, `users/${userId}/books/${bookData.isbn}`);
+      const bookSnap = await getDoc(bookRef);
+      setIsBookAdd(bookSnap.exists());
+    } catch (error) {
+      console.error("Error checking book status:", error);
+    }
+  }
 
   const handleLikeClick = async () => {
     if (!user) {
@@ -90,13 +102,15 @@ export default function FirstSection({
       return;
     }
 
-    const likeRef = doc(db, `users/${user.uid}/books/${bookData.isbn}`);
+    const bookRef = doc(db, `users/${user.uid}/books/${bookData.isbn}`);
 
     try {
-      if (isLiked) {
-        await deleteDoc(likeRef);
+      if (isBookAdd) {
+        console.log("deleting book");
+        await deleteDoc(bookRef);
       } else {
-        await setDoc(likeRef, {
+        console.log("adding book");
+        await setDoc(bookRef, {
           title: bookData.processedTitle,
           author: bookData.processedAuthor,
           image: bookData.image,
@@ -107,8 +121,9 @@ export default function FirstSection({
           timestamp: new Date()
         });
       }
+      setIsBookAdd(!isBookAdd);
     } catch (error) {
-      console.error("Error updating like status:", error);
+      console.error("Error updating book status:", error);
     }
   }
 

@@ -4,7 +4,6 @@ import { useInfiniteQuery } from "@tanstack/react-query";
 import {
   collection,
   query,
-  where,
   orderBy,
   limit,
   startAfter,
@@ -19,10 +18,11 @@ import { SearchResult } from "../search/page";
 import TabItemsBar from "@/components/Tab/TabItemsBar";
 import { FiBook, FiHeart } from "react-icons/fi";
 
-const PAGE_SIZE = 50;
+const PAGE_SIZE = 20;
 
 function MyLibraryContent() {
   const [user, setUser] = useState(auth.currentUser);
+  const [activeTab, setActiveTab] = useState("전체도서");
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
@@ -31,15 +31,16 @@ function MyLibraryContent() {
     return () => unsubscribe();
   }, []);
 
-  const fetchLikedBooks = async ({
+  const fetchBooks = async ({
     pageParam,
   }: {
     pageParam?: QueryDocumentSnapshot<DocumentData> | null;
   }) => {
     if (!user) throw new Error("User not authenticated");
 
-    const likesRef = collection(db, `users/${user.uid}/likes`);
-    let q = query(likesRef, orderBy("timestamp", "desc"), limit(PAGE_SIZE));
+    const collectionName = activeTab === "전체도서" ? "books" : "likes";
+    const booksRef = collection(db, `users/${user.uid}/${collectionName}`);
+    let q = query(booksRef, orderBy("timestamp", "desc"), limit(PAGE_SIZE));
 
     if (pageParam) {
       q = query(q, startAfter(pageParam));
@@ -66,8 +67,8 @@ function MyLibraryContent() {
     status,
     error,
   } = useInfiniteQuery({
-    queryKey: ["likedBooks", user?.uid],
-    queryFn: fetchLikedBooks,
+    queryKey: ["likedBooks", activeTab, user?.uid],
+    queryFn: fetchBooks,
     getNextPageParam: (lastPage) => lastPage.nextCursor,
     initialPageParam: null,
     enabled: !!user,
@@ -97,13 +98,17 @@ function MyLibraryContent() {
     { label: "위시리스트", Icon: FiHeart },
   ];
 
+  const handleTabChange = (label: string) => {
+    setActiveTab(label);
+  }
+
   if (!user) {
     return (
       <div className='flex flex-col justify-start items-start gap-4 sm:gap-8 min-h-[calc(100vh-200px)]'>
         <div className='font-bold text-2xl sm:text-3xl text-primary'>
           내 서재
         </div>
-        <TabItemsBar tabs={tabs} activeTab='전체도서' onTabChange={() => console.log("test")}/>
+        <TabItemsBar tabs={tabs} activeTab='전체도서' onTabChange={handleTabChange}/>
         <div className='w-full flex-grow flex justify-center items-center'>
           <SearchCat />
         </div>
@@ -114,7 +119,7 @@ function MyLibraryContent() {
   return (
     <div className='flex flex-col justify-start items-start gap-4 sm:gap-8 min-h-[calc(100vh-200px)]'>
       <div className='font-bold text-2xl sm:text-3xl text-primary'>내 서재</div>
-      <TabItemsBar tabs={tabs} activeTab='전체도서' onTabChange={() => console.log("test")}/>
+      <TabItemsBar tabs={tabs} activeTab='전체도서' onTabChange={handleTabChange}/>
       {status === "pending" ? (
         <div className='w-full flex-grow flex justify-center items-center'>
           <SearchCat />
