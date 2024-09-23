@@ -10,6 +10,7 @@ import LibrarySelectPopup, {
   LibraryResult,
 } from "@/components/Popup/LibrarySelectPopup";
 import SearchCat from "@/components/Loading/SearchCat";
+import BookAddPopup from "@/components/Popup/BookAddPopup";
 
 interface BookDetailParams {
   params: { id: string };
@@ -58,6 +59,7 @@ const processBookData = (data: any): BookData => {
 export default function BookDetail({ params }: BookDetailParams) {
   const dispatch = useDispatch();
   const [isPopupOpen, setIsPopupOpen] = useState(false);
+  const [isBookAdd, setIsBookAdd] = useState(false);
   const [selectedLibraries, setSelectedLibraries] = useState<LibraryResult[]>(
     []
   );
@@ -134,6 +136,7 @@ export default function BookDetail({ params }: BookDetailParams) {
         onLibraryRemove={handleRemoveLibrary}
         selectedLibraries={selectedLibraries}
       />
+      <BookAddPopup isOpen={isBookAdd} onClose={() => setIsBookAdd(false)} />
     </>
   );
 }

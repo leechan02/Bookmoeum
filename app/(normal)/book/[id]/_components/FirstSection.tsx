@@ -9,13 +9,21 @@ import { LibraryResult } from "@/components/Popup/LibrarySelectPopup";
 import IconButton from "@/components/Button/IconButton";
 import FindBook from "./FindBook";
 import { BookData } from "@/store/bookSlice";
-import { addDoc, collection, deleteDoc, doc, getDoc, setDoc } from "firebase/firestore";
+import {
+  addDoc,
+  collection,
+  deleteDoc,
+  doc,
+  getDoc,
+  setDoc,
+} from "firebase/firestore";
 import { auth, db } from "@/libs/firebase/config";
 import { onAuthStateChanged, User } from "firebase/auth";
 
 interface FirstSectionProps {
   bookData: BookData;
   onClick: () => void;
+  onClick2?: () => void;
   selectedLibraries: LibraryResult[];
   onRemoveLibrary?: (library: LibraryResult) => void;
 }
@@ -23,10 +31,11 @@ interface FirstSectionProps {
 export default function FirstSection({
   bookData,
   onClick,
+  onClick2,
   selectedLibraries,
-  onRemoveLibrary,
 }: FirstSectionProps) {
   const [isLiked, setIsLiked] = useState(false);
+  const [isBookAdd, setIsBookAdd] = useState(false);
   const [user, setUser] = useState<User | null>(null);
 
   useEffect(() => {
@@ -34,6 +43,7 @@ export default function FirstSection({
       setUser(currentUser);
       if (currentUser) {
         checkIfLiked(currentUser.uid);
+        checkIfBooked(currentUser.uid);
       } else {
         setIsLiked(false);
       }
@@ -49,6 +59,16 @@ export default function FirstSection({
       setIsLiked(likeSnap.exists());
     } catch (error) {
       console.error("Error checking like status:", error);
+    }
+  };
+
+  const checkIfBooked = async (userId: string) => {
+    try {
+      const bookRef = doc(db, `users/${userId}/books/${bookData.isbn}`);
+      const bookSnap = await getDoc(bookRef);
+      setIsBookAdd(bookSnap.exists());
+    } catch (error) {
+      console.error("Error checking book status:", error);
     }
   };
 
@@ -73,12 +93,42 @@ export default function FirstSection({
           publisher: bookData.publisher,
           description: bookData.description,
           pubdate: bookData.pubdate,
-          timestamp: new Date()
+          timestamp: new Date(),
         });
       }
       setIsLiked(!isLiked);
     } catch (error) {
       console.error("Error updating like status:", error);
+    }
+  };
+
+  const handleButtonClick = async () => {
+    if (!user) {
+      console.log("User not logged in");
+      // Here you might want to redirect to login page or show a login prompt
+      return;
+    }
+
+    const bookRef = doc(db, `users/${user.uid}/books/${bookData.isbn}`);
+
+    try {
+      if (isBookAdd) {
+        await deleteDoc(bookRef);
+      } else {
+        await setDoc(bookRef, {
+          title: bookData.processedTitle,
+          author: bookData.processedAuthor,
+          image: bookData.image,
+          isbn: bookData.isbn,
+          publisher: bookData.publisher,
+          description: bookData.description,
+          pubdate: bookData.pubdate,
+          timestamp: new Date(),
+        });
+      }
+      setIsBookAdd(!isBookAdd);
+    } catch (error) {
+      console.error("Error updating book status:", error);
     }
   };
 
@@ -116,17 +166,25 @@ export default function FirstSection({
             </div>
           </div>
           <div className='flex-col justify-start items-center md:items-start gap-4 md:gap-6 inline-flex w-full'>
-            <FindBook selectedLibraries={selectedLibraries} onAddLibrary={onClick} />
+            <FindBook
+              selectedLibraries={selectedLibraries}
+              onAddLibrary={onClick}
+            />
             <div className='flex justify-center md:justify-start items-center gap-2 w-full'>
               <IconButton
                 icon={FiHeart}
                 iconSize={40}
-                iconColor={isLiked ? '#FF3D3D' : 'white'}
+                iconColor={isLiked ? "#FF3D3D" : "white"}
                 bgColor='secondary'
                 onClick={handleLikeClick}
                 isFilled={isLiked}
               />
-              <Button icon={FiBook} label='내 서재에 담기' />
+              <Button
+                icon={FiBook}
+                variant={isBookAdd ? "secondary" : "primary"}
+                label={isBookAdd ? "내 서재에서 삭제" : "내 서재에 추가"}
+                onClick={handleButtonClick}
+              />
             </div>
           </div>
         </div>

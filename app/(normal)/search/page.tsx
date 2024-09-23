@@ -17,6 +17,7 @@ export interface SearchResult {
   description: string;
   link: string;
   pubdate: string;
+  timestamp: string;
 }
 
 interface SearchResponse {
@@ -89,7 +90,7 @@ function SearchContent() {
   return (
     <div className='flex flex-col justify-start items-start gap-4 sm:gap-8 min-h-[calc(100vh-200px)]'>
       <div className='font-bold text-2xl sm:text-3xl text-primary'>{query}</div>
-      <TabItemsBar tabs={tabs} firstActive="도서" />
+      <TabItemsBar tabs={tabs} activeTab="도서" onTabChange={() => console.log("test")} />
       {status === "pending" ? (
         <div className='w-full flex-grow flex justify-center items-center'>
           <SearchCat />
