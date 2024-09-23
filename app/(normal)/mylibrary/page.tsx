@@ -15,7 +15,6 @@ import {
 import { auth, db } from "@/libs/firebase/config";
 import BookList from "@/components/Book/BookList";
 import SearchCat from "@/components/Loading/SearchCat";
-import { withAuth } from "@/contexts/WithAuth";
 import { SearchResult } from "../search/page";
 import TabItemsBar from "@/components/Tab/TabItemsBar";
 import { FiHeart } from "react-icons/fi";
