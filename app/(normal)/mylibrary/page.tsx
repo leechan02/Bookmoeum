@@ -108,7 +108,7 @@ function MyLibraryContent() {
         <div className='font-bold text-2xl sm:text-3xl text-primary'>
           내 서재
         </div>
-        <TabItemsBar tabs={tabs} activeTab='전체도서' onTabChange={handleTabChange}/>
+        <TabItemsBar tabs={tabs} activeTab={activeTab} onTabChange={handleTabChange}/>
         <div className='w-full flex-grow flex justify-center items-center'>
           <SearchCat />
         </div>
@@ -119,7 +119,7 @@ function MyLibraryContent() {
   return (
     <div className='flex flex-col justify-start items-start gap-4 sm:gap-8 min-h-[calc(100vh-200px)]'>
       <div className='font-bold text-2xl sm:text-3xl text-primary'>내 서재</div>
-      <TabItemsBar tabs={tabs} activeTab='전체도서' onTabChange={handleTabChange}/>
+      <TabItemsBar tabs={tabs} activeTab={activeTab} onTabChange={handleTabChange}/>
       {status === "pending" ? (
         <div className='w-full flex-grow flex justify-center items-center'>
           <SearchCat />
