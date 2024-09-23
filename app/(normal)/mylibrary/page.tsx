@@ -17,7 +17,7 @@ import BookList from "@/components/Book/BookList";
 import SearchCat from "@/components/Loading/SearchCat";
 import { SearchResult } from "../search/page";
 import TabItemsBar from "@/components/Tab/TabItemsBar";
-import { FiHeart } from "react-icons/fi";
+import { FiBook, FiHeart } from "react-icons/fi";
 
 const PAGE_SIZE = 50;
 
@@ -92,7 +92,10 @@ function MyLibraryContent() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, [handleLoadMore]);
 
-  const tabs = [{ label: "위시리스트", Icon: FiHeart }];
+  const tabs = [
+    { label: "전체도서", Icon: FiBook },
+    { label: "위시리스트", Icon: FiHeart },
+  ];
 
   if (!user) {
     return (
@@ -100,7 +103,7 @@ function MyLibraryContent() {
         <div className='font-bold text-2xl sm:text-3xl text-primary'>
           내 서재
         </div>
-        <TabItemsBar tabs={tabs} firstActive='위시리스트' />
+        <TabItemsBar tabs={tabs} firstActive='전체도서' />
         <div className='w-full flex-grow flex justify-center items-center'>
           <SearchCat />
         </div>
@@ -111,7 +114,7 @@ function MyLibraryContent() {
   return (
     <div className='flex flex-col justify-start items-start gap-4 sm:gap-8 min-h-[calc(100vh-200px)]'>
       <div className='font-bold text-2xl sm:text-3xl text-primary'>내 서재</div>
-      <TabItemsBar tabs={tabs} firstActive='위시리스트' />
+      <TabItemsBar tabs={tabs} firstActive='전체도서' />
       {status === "pending" ? (
         <div className='w-full flex-grow flex justify-center items-center'>
           <SearchCat />
