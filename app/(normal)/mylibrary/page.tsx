@@ -22,7 +22,7 @@ const PAGE_SIZE = 20;
 
 function MyLibraryContent() {
   const [user, setUser] = useState(auth.currentUser);
-  const [activeTab, setActiveTab] = useState("전체도서");
+  const [activeTab, setActiveTab] = useState("읽은책");
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
@@ -38,7 +38,7 @@ function MyLibraryContent() {
   }) => {
     if (!user) throw new Error("User not authenticated");
 
-    const collectionName = activeTab === "전체도서" ? "books" : "likes";
+    const collectionName = activeTab === "읽은책" ? "books" : "likes";
     const booksRef = collection(db, `users/${user.uid}/${collectionName}`);
     let q = query(booksRef, orderBy("timestamp", "desc"), limit(PAGE_SIZE));
 
@@ -73,7 +73,6 @@ function MyLibraryContent() {
     getNextPageParam: (lastPage) => lastPage.nextCursor,
     initialPageParam: null,
     enabled: !!user,
-    staleTime: 1000 * 60 * 1, 
   });
 
   const handleLoadMore = useCallback(() => {
@@ -96,7 +95,7 @@ function MyLibraryContent() {
   }, [handleLoadMore]);
 
   const tabs = [
-    { label: "전체도서", Icon: FiBook },
+    { label: "읽은책", Icon: FiBook },
     { label: "위시리스트", Icon: FiHeart },
   ];
 

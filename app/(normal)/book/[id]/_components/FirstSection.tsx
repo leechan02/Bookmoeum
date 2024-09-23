@@ -9,7 +9,14 @@ import { LibraryResult } from "@/components/Popup/LibrarySelectPopup";
 import IconButton from "@/components/Button/IconButton";
 import FindBook from "./FindBook";
 import { BookData } from "@/store/bookSlice";
-import { addDoc, collection, deleteDoc, doc, getDoc, setDoc } from "firebase/firestore";
+import {
+  addDoc,
+  collection,
+  deleteDoc,
+  doc,
+  getDoc,
+  setDoc,
+} from "firebase/firestore";
 import { auth, db } from "@/libs/firebase/config";
 import { onAuthStateChanged, User } from "firebase/auth";
 
@@ -63,7 +70,7 @@ export default function FirstSection({
     } catch (error) {
       console.error("Error checking book status:", error);
     }
-  }
+  };
 
   const handleLikeClick = async () => {
     if (!user) {
@@ -86,7 +93,7 @@ export default function FirstSection({
           publisher: bookData.publisher,
           description: bookData.description,
           pubdate: bookData.pubdate,
-          timestamp: new Date()
+          timestamp: new Date(),
         });
       }
       setIsLiked(!isLiked);
@@ -106,10 +113,8 @@ export default function FirstSection({
 
     try {
       if (isBookAdd) {
-        console.log("deleting book");
         await deleteDoc(bookRef);
       } else {
-        console.log("adding book");
         await setDoc(bookRef, {
           title: bookData.processedTitle,
           author: bookData.processedAuthor,
@@ -118,14 +123,14 @@ export default function FirstSection({
           publisher: bookData.publisher,
           description: bookData.description,
           pubdate: bookData.pubdate,
-          timestamp: new Date()
+          timestamp: new Date(),
         });
       }
       setIsBookAdd(!isBookAdd);
     } catch (error) {
       console.error("Error updating book status:", error);
     }
-  }
+  };
 
   return (
     <div className='flex flex-col justify-center items-center py-8 md:py-14 px-8'>
@@ -161,17 +166,25 @@ export default function FirstSection({
             </div>
           </div>
           <div className='flex-col justify-start items-center md:items-start gap-4 md:gap-6 inline-flex w-full'>
-            <FindBook selectedLibraries={selectedLibraries} onAddLibrary={onClick} />
+            <FindBook
+              selectedLibraries={selectedLibraries}
+              onAddLibrary={onClick}
+            />
             <div className='flex justify-center md:justify-start items-center gap-2 w-full'>
               <IconButton
                 icon={FiHeart}
                 iconSize={40}
-                iconColor={isLiked ? '#FF3D3D' : 'white'}
+                iconColor={isLiked ? "#FF3D3D" : "white"}
                 bgColor='secondary'
                 onClick={handleLikeClick}
                 isFilled={isLiked}
               />
-              <Button icon={FiBook} label='내 서재에 담기' onClick={handleButtonClick} />
+              <Button
+                icon={FiBook}
+                variant={isBookAdd ? "secondary" : "primary"}
+                label={isBookAdd ? "내 서재에서 삭제" : "내 서재에 추가"}
+                onClick={handleButtonClick}
+              />
             </div>
           </div>
         </div>
