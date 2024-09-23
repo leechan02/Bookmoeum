@@ -50,6 +50,7 @@ function MyLibraryContent() {
     const books = snapshot.docs.map((doc) => ({
       ...doc.data(),
       isbn: doc.id,
+      timestamp: doc.data().timestamp?.toDate().toISOString(),
     })) as SearchResult[];
     console.log(books);
 
@@ -72,6 +73,7 @@ function MyLibraryContent() {
     getNextPageParam: (lastPage) => lastPage.nextCursor,
     initialPageParam: null,
     enabled: !!user,
+    staleTime: 1000 * 60 * 1, 
   });
 
   const handleLoadMore = useCallback(() => {

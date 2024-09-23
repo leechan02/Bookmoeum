@@ -17,7 +17,7 @@ export interface SearchResult {
   description: string;
   link: string;
   pubdate: string;
-  timeStamp: Date;
+  timestamp: string;
 }
 
 interface SearchResponse {
