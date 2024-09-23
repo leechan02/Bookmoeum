@@ -16,7 +16,7 @@ import { onAuthStateChanged, User } from "firebase/auth";
 interface FirstSectionProps {
   bookData: BookData;
   onClick: () => void;
-  onClick2: () => void;
+  onClick2?: () => void;
   selectedLibraries: LibraryResult[];
   onRemoveLibrary?: (library: LibraryResult) => void;
 }
@@ -26,7 +26,6 @@ export default function FirstSection({
   onClick,
   onClick2,
   selectedLibraries,
-  onRemoveLibrary,
 }: FirstSectionProps) {
   const [isLiked, setIsLiked] = useState(false);
   const [user, setUser] = useState<User | null>(null);
@@ -84,6 +83,35 @@ export default function FirstSection({
     }
   };
 
+  const handleButtonClick = async () => {
+    if (!user) {
+      console.log("User not logged in");
+      // Here you might want to redirect to login page or show a login prompt
+      return;
+    }
+
+    const likeRef = doc(db, `users/${user.uid}/books/${bookData.isbn}`);
+
+    try {
+      if (isLiked) {
+        await deleteDoc(likeRef);
+      } else {
+        await setDoc(likeRef, {
+          title: bookData.processedTitle,
+          author: bookData.processedAuthor,
+          image: bookData.image,
+          isbn: bookData.isbn,
+          publisher: bookData.publisher,
+          description: bookData.description,
+          pubdate: bookData.pubdate,
+          timestamp: new Date()
+        });
+      }
+    } catch (error) {
+      console.error("Error updating like status:", error);
+    }
+  }
+
   return (
     <div className='flex flex-col justify-center items-center py-8 md:py-14 px-8'>
       <div className='flex flex-col md:flex-row justify-between items-center w-full max-w-[900px] gap-8'>
@@ -128,7 +156,7 @@ export default function FirstSection({
                 onClick={handleLikeClick}
                 isFilled={isLiked}
               />
-              <Button icon={FiBook} label='내 서재에 담기' onClick={onClick2} />
+              <Button icon={FiBook} label='내 서재에 담기' onClick={handleButtonClick} />
             </div>
           </div>
         </div>

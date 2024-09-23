@@ -125,7 +125,6 @@ export default function BookDetail({ params }: BookDetailParams) {
       <FirstSection
         bookData={bookData}
         onClick={() => setIsPopupOpen(true)}
-        onClick2={() => setIsBookAdd(true)}
         selectedLibraries={selectedLibraries}
         onRemoveLibrary={handleRemoveLibrary}
       />
