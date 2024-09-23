@@ -1,19 +1,12 @@
 import TabItem from "@/components/Tab/TabItem";
-import { useState } from "react";
 
 interface TabItemsBarProps {
   tabs: { label: string; Icon: any }[];
-  firstActive: string;
+  activeTab: string;
+  onTabChange: (label: string) => void;
 }
 
-export default function TabItemsBar({tabs, firstActive}: TabItemsBarProps) {
-  const [activeTab, setActiveTab] = useState<string>(firstActive);
-
-
-  const handleTabClick = (label: string) => {
-    setActiveTab(label);
-  };
-
+export default function TabItemsBar({ tabs, activeTab, onTabChange }: TabItemsBarProps) {
   return (
     <div className='flex justify-start items-start gap-4'>
       {tabs.map((tab) => (
@@ -22,10 +15,9 @@ export default function TabItemsBar({tabs, firstActive}: TabItemsBarProps) {
           label={tab.label}
           Icon={tab.Icon}
           isActive={activeTab === tab.label}
-          onClick={() => handleTabClick(tab.label)}
+          onClick={() => onTabChange(tab.label)}
         />
       ))}
     </div>
   );
 }
-
