@@ -16,6 +16,7 @@ import { onAuthStateChanged, User } from "firebase/auth";
 interface FirstSectionProps {
   bookData: BookData;
   onClick: () => void;
+  onClick2: () => void;
   selectedLibraries: LibraryResult[];
   onRemoveLibrary?: (library: LibraryResult) => void;
 }
@@ -23,6 +24,7 @@ interface FirstSectionProps {
 export default function FirstSection({
   bookData,
   onClick,
+  onClick2,
   selectedLibraries,
   onRemoveLibrary,
 }: FirstSectionProps) {
@@ -126,7 +128,7 @@ export default function FirstSection({
                 onClick={handleLikeClick}
                 isFilled={isLiked}
               />
-              <Button icon={FiBook} label='내 서재에 담기' />
+              <Button icon={FiBook} label='내 서재에 담기' onClick={onClick2} />
             </div>
           </div>
         </div>
