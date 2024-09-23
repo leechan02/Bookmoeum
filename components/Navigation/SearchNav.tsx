@@ -27,14 +27,10 @@ export default function SearchNav() {
     return () => window.removeEventListener("resize", checkMobile);
   }, []);
 
-
   const handleLogout = async () => {
     const result = await logoutUser();
-    if (result.success) {
-      router.push('/');
-    } else {
+    if (!result.success) {
       console.error("로그아웃 실패");
-      // 사용자에게 오류 메시지 표시
     }
   };
 
@@ -60,12 +56,13 @@ export default function SearchNav() {
               내 서재
             </Link>
             {user ? (
-              <button
+              <Link
+                href='/'
                 className='font-medium text-primary whitespace-nowrap'
                 onClick={handleLogout}
               >
                 로그아웃
-              </button>
+              </Link>
             ) : (
               <Link
                 href='/login'
@@ -90,12 +87,13 @@ export default function SearchNav() {
               내 서재
             </Link>
             {user ? (
-              <button
+              <Link
+                href='/'
                 className='block w-full text-center py-2 font-medium text-primary'
                 onClick={handleLogout}
               >
                 로그아웃
-              </button>
+              </Link>
             ) : (
               <Link
                 href='/login'
