@@ -56,8 +56,8 @@ function SearchContent() {
     queryKey: ["search", query],
     queryFn: fetchSearchResults,
     getNextPageParam: (lastPage) => {
-      const nextStart = lastPage.start + 1;
-      return nextStart * 100 <= lastPage.total ? nextStart : undefined;
+      const nextStart = lastPage.start + 100;
+      return nextStart <= lastPage.total ? nextStart : undefined;
     },
     initialPageParam: 1,
     staleTime: 1000 * 60 * 30, // 10 minutes
