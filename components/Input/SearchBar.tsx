@@ -31,6 +31,7 @@ export default function SearchBar({
     } else {
       onSubmit && onSubmit(query);
     }
+    setQuery("");
   };
 
   const formClasses = `
