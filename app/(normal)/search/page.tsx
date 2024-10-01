@@ -7,6 +7,7 @@ import { useInfiniteQuery } from "@tanstack/react-query";
 import SearchCat from "@/components/Loading/SearchCat";
 import { FiBook } from "react-icons/fi";
 import TabItemsBar from "@/components/Tab/TabItemsBar";
+import BookSkeleton from "@/components/Book/BookSkeleton";
 
 export interface SearchResult {
   title: string;
@@ -83,27 +84,27 @@ function SearchContent() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, [handleLoadMore]);
 
-  const tabs = [
-    { label: "도서", Icon: FiBook },
-  ];
+  const tabs = [{ label: "도서", Icon: FiBook }];
 
   return (
     <div className='flex flex-col justify-start items-start gap-4 sm:gap-8 min-h-[calc(100vh-200px)]'>
       <div className='font-bold text-2xl sm:text-3xl text-primary'>{query}</div>
-      <TabItemsBar tabs={tabs} activeTab="도서" onTabChange={() => console.log("test")} />
+      <TabItemsBar
+        tabs={tabs}
+        activeTab='도서'
+        onTabChange={() => console.log("test")}
+      />
+      <div className='text-sm sm:text-base text-primary'>
+        검색결과 {data?.pages[0]?.total || 0}
+      </div>
       {status === "pending" ? (
-        <div className='w-full flex-grow flex justify-center items-center'>
-          <SearchCat />
-        </div>
+        <BookSkeleton count={20} />
       ) : status === "error" ? (
         <div className='text-sm sm:text-base text-primary'>
           에러: {(error as Error)?.message || "알 수 없는 오류"}
         </div>
       ) : (
         <>
-          <div className='text-sm sm:text-base text-primary'>
-            검색결과 {data?.pages[0]?.total || 0}
-          </div>
           <BookList
             searchResults={data?.pages.flatMap((page) => page.items) || []}
           />
