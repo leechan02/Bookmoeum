@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "@/styles/globals.css";
 import { AuthProvider } from "@/contexts/AuthContext";
+import QueryProviders from "@/contexts/QueryProviders";
 
 export const metadata = {
   title: "로그인",
@@ -12,7 +13,7 @@ export const viewport = {
   initialScale: 1,
   maximumScale: 1,
   userScalable: false,
-}
+};
 
 export default function RootLayout({
   children,
@@ -22,7 +23,9 @@ export default function RootLayout({
   return (
     <html lang='en'>
       <AuthProvider>
-        <body>{children}</body>
+        <QueryProviders>
+          <body>{children}</body>
+        </QueryProviders>
       </AuthProvider>
     </html>
   );
