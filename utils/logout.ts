@@ -1,6 +1,5 @@
-import { signOut, getAuth } from "firebase/auth";
-
-const auth = getAuth();
+import { auth } from "@/libs/firebase/config";
+import { signOut } from "firebase/auth";
 
 export async function logoutUser() {
   try {
