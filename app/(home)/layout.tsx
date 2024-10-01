@@ -3,6 +3,7 @@ import "@/styles/globals.css";
 import Nav from "@/components/Navigation/Nav";
 import Footer from "@/components/Footer";
 import { AuthProvider } from "@/contexts/AuthContext";
+import QueryProviders from "@/contexts/QueryProviders";
 
 export const metadata: Metadata = {
   title: "책모음",
@@ -14,7 +15,7 @@ export const viewport = {
   initialScale: 1,
   maximumScale: 1,
   userScalable: false,
-}
+};
 
 export default function RootLayout({
   children,
@@ -26,7 +27,7 @@ export default function RootLayout({
       <body>
         <AuthProvider>
           <Nav />
-          {children}
+          <QueryProviders>{children}</QueryProviders>
           <Footer />
         </AuthProvider>
       </body>

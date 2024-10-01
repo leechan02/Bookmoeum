@@ -1,5 +1,6 @@
 import Book from "@/components/Book/Book";
 import BookSlider from "@/components/Book/BookSlider";
+import { useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 
 interface Book {
@@ -13,8 +14,8 @@ interface BestsellerResponse {
 }
 
 async function getBestseller(): Promise<BestsellerResponse> {
-  // const response = await fetch('/api/getBestseller');
-  const response = await fetch("/data/bestseller.json");
+  const response = await fetch('/api/getBestseller');
+  // const response = await fetch("/data/bestseller.json");
 
   if (!response.ok) {
     throw new Error("서버에서 데이터를 가져오지 못했습니다.");
@@ -25,20 +26,13 @@ async function getBestseller(): Promise<BestsellerResponse> {
 }
 
 export default function MoveBooks() {
-  const [bookCover, setBookCover] = useState<string[]>([]);
+  const {data} = useQuery<BestsellerResponse>({
+    queryKey: ['bestseller'],
+    queryFn: getBestseller,
+    staleTime: 7 * 24 * 60 * 60 * 1000,
+  })
 
-  useEffect(() => {
-    async function fetchBestseller() {
-      try {
-        const { item } = await getBestseller();
-        setBookCover(item.map((book) => book.cover));
-      } catch (error) {
-        console.error(error);
-      }
-    }
-
-    fetchBestseller();
-  }, []);
+  const bookCover = data?.item.map((book) => book.cover) ?? [];
 
   return (
     <section className='py-4 md:py-14 flex flex-col gap-6 overflow-hidden'>

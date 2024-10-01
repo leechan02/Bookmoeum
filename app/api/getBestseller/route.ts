@@ -4,7 +4,7 @@ const API_KEY = process.env.ALADDIN_API_KEY;
 const BASE_URL = "http://www.aladin.co.kr/ttb/api/ItemList.aspx";
 
 export async function GET(request: Request): Promise<NextResponse> {
-  const url = `${BASE_URL}?ttbkey=${API_KEY}&QueryType=Bestseller&SearchTarget=Book&MaxResults=20&Cover=Big&Version=20131101&output=js`;
+  const url = `${BASE_URL}?ttbkey=${API_KEY}&QueryType=Bestseller&SearchTarget=Book&MaxResults=100&Cover=Big&Version=20131101&output=js`;
 
   try {
     const response = await fetch(url);
