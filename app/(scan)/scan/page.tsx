@@ -50,8 +50,6 @@ export default function ScanPage() {
           video: {
             deviceId: { exact: selectedDeviceId },
             facingMode: { ideal: "environment" }, // 후면 카메라 선호
-            width: { ideal: window.innerWidth },
-            height: { ideal: window.innerHeight },
           },
         };
         let newVideoStream: MediaStream | null = null;
@@ -89,30 +87,29 @@ export default function ScanPage() {
     setSelectedDeviceId((prev) => updateNewData(prev, e.target.value));
 
   return (
-    <div className='relative w-full h-screen overflow-hidden'>
+    <div className='flex flex-col items-center justify-center min-h-screen bg-gray-100'>
+      <h1 className='text-2xl font-bold mb-4'>ISBN 스캐너</h1>
       <video
         ref={videoRef}
-        className='absolute top-0 left-0 min-w-full min-h-full object-cover'
+        className='w-full max-w-md h-64 bg-black'
         playsInline
         autoPlay
         muted
       />
-      <div className='absolute top-0 left-0 w-full h-full flex flex-col items-center justify-between p-4 bg-black bg-opacity-50 text-white'>
-        <h1 className='text-2xl font-bold mb-4'>ISBN 스캐너</h1>
-        <p className='text-sm'>책의 ISBN 바코드를 카메라에 비춰주세요.</p>
-        <select
-          id='sourceSelect'
-          onChange={handleSelectedIdChange}
-          value={selectedDeviceId}
-          className='mt-4 p-2 bg-white text-black rounded'
-        >
-          {(videoDeviceList ?? []).map((device) => (
-            <option key={device.deviceId} value={device.deviceId}>
-              {device.label}
-            </option>
-          ))}
-        </select>
-      </div>
+      <p className='mt-4 text-sm text-gray-600'>
+        책의 ISBN 바코드를 카메라에 비춰주세요.
+      </p>
+      <select
+        id='sourceSelect'
+        onChange={handleSelectedIdChange}
+        value={selectedDeviceId}
+      >
+        {(videoDeviceList ?? []).map((device) => (
+          <option key={device.deviceId} value={device.deviceId}>
+            {device.label}
+          </option>
+        ))}
+      </select>
     </div>
   );
 }
