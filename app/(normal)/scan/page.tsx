@@ -76,6 +76,9 @@ export default function ScanPage() {
     }
   }, [selectedDeviceId]);
 
+  const handleSelectedIdChange: ChangeEventHandler<HTMLSelectElement> = (e) =>
+    setSelectedDeviceId((prev) => updateNewData(prev, e.target.value));
+
   return (
     <div className='flex flex-col items-center justify-center min-h-screen bg-gray-100'>
       <h1 className='text-2xl font-bold mb-4'>ISBN 스캐너</h1>
@@ -89,6 +92,17 @@ export default function ScanPage() {
       <p className='mt-4 text-sm text-gray-600'>
         책의 ISBN 바코드를 카메라에 비춰주세요.
       </p>
+      <select
+        id="sourceSelect"
+        onChange={handleSelectedIdChange}
+        value={selectedDeviceId}
+      >
+        {(videoDeviceList ?? []).map((device) => (
+          <option key={device.deviceId} value={device.deviceId}>
+            {device.label}
+          </option>
+        ))}
+      </select>
     </div>
   );
 }
