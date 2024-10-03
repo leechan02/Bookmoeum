@@ -86,14 +86,6 @@ export default function ScanPage() {
   const handleSelectedIdChange: ChangeEventHandler<HTMLSelectElement> = (e) =>
     setSelectedDeviceId((prev) => updateNewData(prev, e.target.value));
 
-  const toggleCamera = () => {
-    const currentIndex = videoDeviceList.findIndex(
-      (device) => device.deviceId === selectedDeviceId
-    );
-    const nextIndex = (currentIndex + 1) % videoDeviceList.length;
-    setSelectedDeviceId(videoDeviceList[nextIndex].deviceId);
-  };
-
   return (
     <div className='flex flex-col items-center justify-center min-h-screen bg-gray-100'>
       <h1 className='text-2xl font-bold mb-4'>ISBN 스캐너</h1>
@@ -118,12 +110,6 @@ export default function ScanPage() {
           </option>
         ))}
       </select>
-      <button
-        onClick={toggleCamera}
-        className='mt-4 px-4 py-2 bg-primary text-white rounded'
-      >
-        카메라 전환
-      </button>
     </div>
   );
 }
