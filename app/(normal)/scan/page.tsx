@@ -47,7 +47,10 @@ export default function ScanPage() {
       const setMedia = async (htmlVideoElement: HTMLVideoElement) => {
         codeReader.reset(); /* 기존 연결 해제 */
         const constraints = {
-          video: { deviceId: { exact: selectedDeviceId } },
+          video: { 
+            deviceId: { exact: selectedDeviceId },
+            facingMode: { ideal: "environment" }, // 후면 카메라 선호
+          },
         };
         let newVideoStream: MediaStream | null = null;
         try {
