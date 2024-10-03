@@ -33,7 +33,7 @@ export default function ScanPage() {
     /** 바코드리더 초기 로드시 & 목록 변화시, 사용가능한 카메라 목록중 하나를 디폴트로 선택합니다. */
     if (videoDeviceList.length) {
       // 후면 카메라를 찾아 우선적으로 선택
-      const rearCamera = videoDeviceList.find(device => 
+      const rearCamera = videoDeviceList.find((device) =>
         /(back|rear)/i.test(device.label)
       );
       const deviceToUse = rearCamera || videoDeviceList[0];
@@ -47,7 +47,7 @@ export default function ScanPage() {
       const setMedia = async (htmlVideoElement: HTMLVideoElement) => {
         codeReader.reset(); /* 기존 연결 해제 */
         const constraints = {
-          video: { 
+          video: {
             deviceId: { exact: selectedDeviceId },
             facingMode: { ideal: "environment" }, // 후면 카메라 선호
           },
@@ -86,6 +86,14 @@ export default function ScanPage() {
   const handleSelectedIdChange: ChangeEventHandler<HTMLSelectElement> = (e) =>
     setSelectedDeviceId((prev) => updateNewData(prev, e.target.value));
 
+  const toggleCamera = () => {
+    const currentIndex = videoDeviceList.findIndex(
+      (device) => device.deviceId === selectedDeviceId
+    );
+    const nextIndex = (currentIndex + 1) % videoDeviceList.length;
+    setSelectedDeviceId(videoDeviceList[nextIndex].deviceId);
+  };
+
   return (
     <div className='flex flex-col items-center justify-center min-h-screen bg-gray-100'>
       <h1 className='text-2xl font-bold mb-4'>ISBN 스캐너</h1>
@@ -100,7 +108,7 @@ export default function ScanPage() {
         책의 ISBN 바코드를 카메라에 비춰주세요.
       </p>
       <select
-        id="sourceSelect"
+        id='sourceSelect'
         onChange={handleSelectedIdChange}
         value={selectedDeviceId}
       >
@@ -110,6 +118,12 @@ export default function ScanPage() {
           </option>
         ))}
       </select>
+      <button
+        onClick={toggleCamera}
+        className='mt-4 px-4 py-2 bg-primary text-white rounded'
+      >
+        카메라 전환
+      </button>
     </div>
   );
 }
