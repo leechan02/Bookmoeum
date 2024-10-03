@@ -32,8 +32,12 @@ export default function ScanPage() {
   useEffect(() => {
     /** 바코드리더 초기 로드시 & 목록 변화시, 사용가능한 카메라 목록중 하나를 디폴트로 선택합니다. */
     if (videoDeviceList.length) {
-      const firstVideoDeviceId = videoDeviceList[0].deviceId;
-      setSelectedDeviceId((prev) => updateNewData(prev, firstVideoDeviceId));
+      // 후면 카메라를 찾아 우선적으로 선택
+      const rearCamera = videoDeviceList.find(device => 
+        /(back|rear)/i.test(device.label)
+      );
+      const deviceToUse = rearCamera || videoDeviceList[0];
+      setSelectedDeviceId((prev) => updateNewData(prev, deviceToUse.deviceId));
     }
   }, [videoDeviceList]);
 
