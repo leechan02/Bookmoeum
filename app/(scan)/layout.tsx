@@ -28,7 +28,6 @@ export default function RootLayout({
         <AuthProvider>
           <QueryProviders>
             <Providers>{children}</Providers>
-            <MobileNav />
           </QueryProviders>
         </AuthProvider>
       </body>
