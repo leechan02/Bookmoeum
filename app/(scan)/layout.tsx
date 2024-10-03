@@ -1,7 +1,5 @@
 import type { Metadata } from "next";
 import "@/styles/globals.css";
-import Footer from "@/components/Footer";
-import SearchNav from "@/components/Navigation/SearchNav";
 import { AuthProvider } from "@/contexts/AuthContext";
 import MobileNav from "@/components/Navigation/MobileNav";
 import { Providers } from "@/contexts/Providers";
