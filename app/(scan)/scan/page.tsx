@@ -1,7 +1,9 @@
 "use client";
-import React, { ChangeEventHandler, useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { BrowserMultiFormatReader, Result } from "@zxing/library";
+import SearchNav from "@/components/Navigation/SearchNav";
+import { FiX } from "react-icons/fi";
 
 const updateNewData = <T,>(prevData: T, newData: T) =>
   prevData === newData ? prevData : newData;
@@ -83,36 +85,33 @@ export default function ScanPage() {
     }
   }, [selectedDeviceId]);
 
-  const handleSelectedIdChange: ChangeEventHandler<HTMLSelectElement> = (e) =>
-    setSelectedDeviceId((prev) => updateNewData(prev, e.target.value));
+  const handleClose = () => {
+    router.back();
+  };
 
   return (
-    <div className='flex flex-col items-center justify-center min-h-screen bg-gray-100 w-full'>
-      <h1 className='text-2xl font-bold mb-4'>ISBN 스캐너</h1>
-      <div className='w-full max-w-screen-md'>
+    <div className='flex flex-col items-center justify-center min-h-screen w-full relative p-4'>
+      <button
+        className='absolute top-4 right-4 sm:top-6 sm:right-6 md:top-8 md:right-8 z-10'
+        onClick={handleClose}
+      >
+        <FiX className='text-2xl sm:text-3xl text-primary' />
+      </button>
+      <h1 className='text-2xl sm:text-3xl md:text-4xl font-bold text-primary mb-4 sm:mb-6 md:mb-8'>
+        ISBN 스캐너
+      </h1>
+      <div className='w-full max-w-screen-lg'>
         <video
           ref={videoRef}
-          className='w-full bg-black object-cover'
+          className='w-full h-full object-cover rounded-3xl shadow-lg'
           playsInline
           autoPlay
           muted
         />
       </div>
-      <p className='mt-4 text-sm text-gray-600'>
+      <p className='text-sm sm:text-base md:text-lg text-primary mt-4 sm:mt-6 md:mt-8 text-center'>
         책의 ISBN 바코드를 카메라에 비춰주세요.
       </p>
-      <select
-        id='sourceSelect'
-        onChange={handleSelectedIdChange}
-        value={selectedDeviceId}
-        className='mt-2 p-2 border rounded'
-      >
-        {(videoDeviceList ?? []).map((device) => (
-          <option key={device.deviceId} value={device.deviceId}>
-            {device.label}
-          </option>
-        ))}
-      </select>
     </div>
   );
 }
