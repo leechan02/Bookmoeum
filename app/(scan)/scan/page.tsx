@@ -87,15 +87,17 @@ export default function ScanPage() {
     setSelectedDeviceId((prev) => updateNewData(prev, e.target.value));
 
   return (
-    <div className='flex flex-col items-center justify-center min-h-screen bg-gray-100'>
+    <div className='flex flex-col items-center justify-center min-h-screen bg-gray-100 w-full'>
       <h1 className='text-2xl font-bold mb-4'>ISBN 스캐너</h1>
-      <video
-        ref={videoRef}
-        className='w-full max-w-md h-64 bg-black'
-        playsInline
-        autoPlay
-        muted
-      />
+      <div className='w-full max-w-screen-md'>
+        <video
+          ref={videoRef}
+          className='w-full bg-black object-cover'
+          playsInline
+          autoPlay
+          muted
+        />
+      </div>
       <p className='mt-4 text-sm text-gray-600'>
         책의 ISBN 바코드를 카메라에 비춰주세요.
       </p>
@@ -103,6 +105,7 @@ export default function ScanPage() {
         id='sourceSelect'
         onChange={handleSelectedIdChange}
         value={selectedDeviceId}
+        className='mt-2 p-2 border rounded'
       >
         {(videoDeviceList ?? []).map((device) => (
           <option key={device.deviceId} value={device.deviceId}>
