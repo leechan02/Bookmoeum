@@ -2,7 +2,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { BrowserMultiFormatReader, Result } from "@zxing/library";
-import SearchNav from "@/components/Navigation/SearchNav";
 import { FiX } from "react-icons/fi";
 
 const updateNewData = <T,>(prevData: T, newData: T) =>
