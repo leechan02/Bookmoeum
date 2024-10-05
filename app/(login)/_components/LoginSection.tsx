@@ -31,7 +31,7 @@ export default function LoginSection() {
   const handlePasswordSubmit = async (password: string) => {
     try {
       await loginWithEmailAndPassword(email, password);
-      router.push("/");
+      router.back();
     } catch (error: any) {
       console.error("Login error:", error.code);
       if (error.code === "auth/wrong-password") {

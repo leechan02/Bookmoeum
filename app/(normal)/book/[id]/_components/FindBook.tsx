@@ -50,26 +50,35 @@ const fetchBookstoreData = async (store: string, isbn: string) => {
 };
 
 const fetchRidiData = async (title: string) => {
-  const response = await fetch(`/api/bookDetail/ridi?title=${encodeURIComponent(title)}`);
+  const response = await fetch(
+    `/api/bookDetail/ridi?title=${encodeURIComponent(title)}`
+  );
   return response.json();
 };
 
 const fetchLibraryData = async (isbn: string, libCode: string) => {
-  const response = await fetch(`/api/bookDetail/library?isbn=${isbn}&libCode=${libCode}`);
+  const response = await fetch(
+    `/api/bookDetail/library?isbn=${isbn}&libCode=${libCode}`
+  );
   return response.json();
 };
 
 const SkeletonIcon = () => (
-  <div className="w-12 h-12 bg-secondary rounded-full animate-pulse"></div>
+  <div className='w-12 h-12 bg-secondary rounded-full animate-pulse'></div>
 );
 
-export default function FindBook({ selectedLibraries, onAddLibrary }: FindBookProps) {
+export default function FindBook({
+  selectedLibraries,
+  onAddLibrary,
+}: FindBookProps) {
   const dispatch = useDispatch();
-  const bookData = useSelector((state: RootState) => state.book.selectedBook as BookData);
+  const bookData = useSelector(
+    (state: RootState) => state.book.selectedBook as BookData
+  );
 
   const bookstoreQueries = useQueries({
-    queries: ['kyobo', 'yes24', 'aladdin'].map(store => ({
-      queryKey: ['bookstore', store, bookData?.isbn],
+    queries: ["kyobo", "yes24", "aladdin"].map((store) => ({
+      queryKey: ["bookstore", store, bookData?.isbn],
       queryFn: () => fetchBookstoreData(store, bookData?.isbn),
       enabled: !!bookData?.isbn,
       staleTime: 1000 * 60 * 30, // 10 minutes
@@ -77,15 +86,15 @@ export default function FindBook({ selectedLibraries, onAddLibrary }: FindBookPr
   });
 
   const ridiQuery = useQuery({
-    queryKey: ['bookstore', 'ridi', bookData?.processedTitle],
-    queryFn: () => fetchRidiData(bookData?.processedTitle || ''),
+    queryKey: ["bookstore", "ridi", bookData?.processedTitle],
+    queryFn: () => fetchRidiData(bookData?.processedTitle || ""),
     enabled: !!bookData?.processedTitle,
-      staleTime: 1000 * 60 * 30, // 10 minutes
+    staleTime: 1000 * 60 * 30, // 10 minutes
   });
 
   const libraryQueries = useQueries({
-    queries: selectedLibraries.map(library => ({
-      queryKey: ['library', library.libraryCode, bookData?.isbn],
+    queries: selectedLibraries.map((library) => ({
+      queryKey: ["library", library.libraryCode, bookData?.isbn],
       queryFn: () => fetchLibraryData(bookData?.isbn, library.libraryCode),
       enabled: !!bookData?.isbn,
       staleTime: 1000 * 60 * 30, // 10 minutes
@@ -97,19 +106,24 @@ export default function FindBook({ selectedLibraries, onAddLibrary }: FindBookPr
   React.useEffect(() => {
     if (aladinQuery.data?.exists) {
       const translator = processTranslator(aladinQuery.data.author || "");
-      const processedCategory = processCategory(aladinQuery.data.category || "");
-      dispatch(updateBookData({
-        translator,
-        category: processedCategory,
-        page: aladinQuery.data.page,
-      }));
+      const processedCategory = processCategory(
+        aladinQuery.data.category || ""
+      );
+      dispatch(
+        updateBookData({
+          translator,
+          category: processedCategory,
+          page: aladinQuery.data.page,
+        })
+      );
     }
   }, [aladinQuery.data, dispatch]);
 
-  const isLoading = bookstoreQueries.some(query => query.isLoading) || 
-                    ridiQuery.isLoading ||
-                    libraryQueries.some(query => query.isLoading);
-  
+  const isLoading =
+    bookstoreQueries.some((query) => query.isLoading) ||
+    ridiQuery.isLoading ||
+    libraryQueries.some((query) => query.isLoading);
+
   return (
     <div className='flex-col justify-start items-center md:items-start gap-2 inline-flex w-full'>
       <div className='text-xs font-regular text-grey-200'>읽을 수 있는 곳</div>
@@ -125,28 +139,52 @@ export default function FindBook({ selectedLibraries, onAddLibrary }: FindBookPr
           // Actual content
           <>
             {bookstoreQueries.map((query, index) => {
-              const store = ['kyobo', 'yes24', 'aladdin'][index];
+              const store = ["kyobo", "yes24", "aladdin"][index];
               const data = query.data as ExistResult | AladinResult;
               if (!data?.exists) return null;
 
               return (
                 <React.Fragment key={store}>
                   {data.link && (
-                    <a href={data.link} target='_blank' rel='noopener noreferrer' className='h-12'>
-                      <BookStoreIcon imageUrl={`/images/Icon${store.charAt(0).toUpperCase() + store.slice(1)}.svg`} width={48} />
+                    <a
+                      href={data.link}
+                      target='_blank'
+                      rel='noopener noreferrer'
+                      className='h-12'
+                    >
+                      <BookStoreIcon
+                        imageUrl={`/images/Icon${
+                          store.charAt(0).toUpperCase() + store.slice(1)
+                        }.svg`}
+                        width={48}
+                      />
                     </a>
                   )}
-                  {store === 'aladdin' && (data as AladinResult).usedBook?.available && (
-                    <a href={(data as AladinResult).usedBook?.link || "#"} target='_blank' rel='noopener noreferrer' className='h-12'>
-                      <BookStoreIcon imageUrl='/images/IconAladdinUsed.svg' width={48} />
-                    </a>
-                  )}
+                  {store === "aladdin" &&
+                    (data as AladinResult).usedBook?.available && (
+                      <a
+                        href={(data as AladinResult).usedBook?.link || "#"}
+                        target='_blank'
+                        rel='noopener noreferrer'
+                        className='h-12'
+                      >
+                        <BookStoreIcon
+                          imageUrl='/images/IconAladdinUsed.svg'
+                          width={48}
+                        />
+                      </a>
+                    )}
                 </React.Fragment>
               );
             })}
-            
+
             {ridiQuery.data?.exists && ridiQuery.data.link && (
-              <a href={ridiQuery.data.link} target='_blank' rel='noopener noreferrer' className='h-12'>
+              <a
+                href={ridiQuery.data.link}
+                target='_blank'
+                rel='noopener noreferrer'
+                className='h-12'
+              >
                 <BookStoreIcon imageUrl='/images/IconRidi.svg' width={48} />
               </a>
             )}
@@ -155,9 +193,16 @@ export default function FindBook({ selectedLibraries, onAddLibrary }: FindBookPr
               const library = selectedLibraries[index];
               const availability = query.data as LibraryAvailability;
               return (
-                <div key={library.libraryCode} className='relative inline-flex flex-col items-center group'>
+                <div
+                  key={library.libraryCode}
+                  className='relative inline-flex flex-col items-center group'
+                >
                   {availability?.exists ? (
-                    <a href={library.homepage} target='_blank' rel='noopener noreferrer'>
+                    <a
+                      href={library.homepage}
+                      target='_blank'
+                      rel='noopener noreferrer'
+                    >
                       <IconButton
                         icon={library.libraryName}
                         iconSize={48}
@@ -166,18 +211,26 @@ export default function FindBook({ selectedLibraries, onAddLibrary }: FindBookPr
                       />
                     </a>
                   ) : (
-                    <IconButton
-                      icon={library.libraryName}
-                      iconSize={48}
-                      iconColor='white'
-                      bgColor='secondary'
-                    />
+                    <a
+                      href={library.homepage}
+                      target='_blank'
+                      rel='noopener noreferrer'
+                    >
+                      <IconButton
+                        icon={library.libraryName}
+                        iconSize={48}
+                        iconColor='white'
+                        bgColor='secondary'
+                      />
+                    </a>
                   )}
                   <div className='absolute -top-7 left-1/2 transform -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-300'>
                     <Chip
                       label={availability?.exists ? "보유" : "미보유"}
                       textColor='text-white'
-                      backgroundColor={availability?.exists ? "bg-success" : "bg-secondary"}
+                      backgroundColor={
+                        availability?.exists ? "bg-success" : "bg-secondary"
+                      }
                     />
                   </div>
                 </div>

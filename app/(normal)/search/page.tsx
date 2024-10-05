@@ -1,5 +1,4 @@
 "use client";
-
 import { useSearchParams } from "next/navigation";
 import { Suspense, useCallback, useEffect } from "react";
 import BookList from "@/components/Book/BookList";
@@ -8,6 +7,7 @@ import SearchCat from "@/components/Loading/SearchCat";
 import { FiBook } from "react-icons/fi";
 import TabItemsBar from "@/components/Tab/TabItemsBar";
 import BookSkeleton from "@/components/Book/BookSkeleton";
+import Image from "next/image";
 
 export interface SearchResult {
   title: string;
@@ -62,7 +62,7 @@ function SearchContent() {
       return nextStart <= lastPage.total ? nextStart : undefined;
     },
     initialPageParam: 1,
-    staleTime: 1000 * 60 * 30, // 10 minutes
+    staleTime: 1000 * 60 * 30, // 30 minutes
   });
 
   const handleLoadMore = useCallback(() => {
@@ -86,6 +86,9 @@ function SearchContent() {
 
   const tabs = [{ label: "도서", Icon: FiBook }];
 
+  const searchResults = data?.pages.flatMap((page) => page.items) || [];
+  const totalResults = data?.pages[0]?.total || 0;
+
   return (
     <div className='flex flex-col justify-start items-start gap-4 sm:gap-8 min-h-[calc(100vh-200px)]'>
       <div className='font-bold text-2xl sm:text-3xl text-primary'>{query}</div>
@@ -95,7 +98,7 @@ function SearchContent() {
         onTabChange={() => console.log("test")}
       />
       <div className='text-sm sm:text-base text-primary'>
-        검색결과 {data?.pages[0]?.total || 0}
+        검색결과 {totalResults}
       </div>
       {status === "pending" ? (
         <BookSkeleton count={20} />
@@ -103,11 +106,21 @@ function SearchContent() {
         <div className='text-sm sm:text-base text-primary'>
           에러: {(error as Error)?.message || "알 수 없는 오류"}
         </div>
+      ) : searchResults.length === 0 ? (
+        <div className="w-full flex-grow flex justify-center items-center">
+          <div className='w-full flex flex-col items-center justify-center gap-2'>
+            <Image src='/images/SearchCat.svg' alt="character" width={400} height={300} />
+            <p className='text-2xl sm:text-3xl text-primary font-bold'>
+              이런! 책을 찾을 수가 없어요.
+            </p>
+            <p className='text-lg sm:text-xl text-primary'>
+              제목을 다시 확인해주세요.
+            </p>
+          </div>
+        </div>
       ) : (
         <>
-          <BookList
-            searchResults={data?.pages.flatMap((page) => page.items) || []}
-          />
+          <BookList searchResults={searchResults} />
           {isFetchingNextPage && (
             <div className='text-sm sm:text-base'>로딩 중...</div>
           )}
@@ -124,7 +137,7 @@ export default function SearchPage(): JSX.Element {
   return (
     <div className='w-full max-w-[1440px] mx-auto flex flex-col'>
       <div className='px-6 md:px-8 lg:px-28 py-6 sm:py-8 pb-20 flex-grow'>
-        <Suspense fallback={<SearchCat />}>
+        <Suspense>
           <SearchContent />
         </Suspense>
       </div>

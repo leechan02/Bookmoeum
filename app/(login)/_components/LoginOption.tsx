@@ -40,7 +40,7 @@ export default function LoginOption({
   const handleGoogleLogin = async () => {
     try {
       await loginWithGoogle();
-      router.push("/");
+      router.back();
     } catch (error: any) {
       console.error("Google login error:", error);
       if (error.code === "auth/popup-closed-by-user") {
