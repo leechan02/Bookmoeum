@@ -19,7 +19,7 @@ export default function EmailLinkHandler() {
           try {
             await signInWithEmailLink(auth, email, window.location.href);
             window.localStorage.removeItem("emailForSignIn");
-            router.push("/"); // 로그인 성공 후 홈페이지로 이동
+            router.back(); // 로그인 성공 후 홈페이지로 이동
           } catch (error) {
             console.error("Error signing in with email link:", error);
             setError("로그인에 실패했습니다. 다시 시도해 주세요.");
