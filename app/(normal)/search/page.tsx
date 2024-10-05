@@ -7,6 +7,7 @@ import SearchCat from "@/components/Loading/SearchCat";
 import { FiBook } from "react-icons/fi";
 import TabItemsBar from "@/components/Tab/TabItemsBar";
 import BookSkeleton from "@/components/Book/BookSkeleton";
+import Image from "next/image";
 
 export interface SearchResult {
   title: string;
@@ -108,6 +109,7 @@ function SearchContent() {
       ) : searchResults.length === 0 ? (
         <div className="w-full flex-grow flex justify-center items-center">
           <div className='w-full flex flex-col items-center justify-center gap-2'>
+            <Image src='/images/SearchCat.svg' alt="character" width={400} height={300} />
             <p className='text-2xl sm:text-3xl text-primary font-bold'>
               이런! 책을 찾을 수가 없어요.
             </p>
