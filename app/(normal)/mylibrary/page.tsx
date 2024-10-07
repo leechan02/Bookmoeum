@@ -16,7 +16,8 @@ import BookList from "@/components/Book/BookList";
 import SearchCat from "@/components/Loading/SearchCat";
 import { SearchResult } from "../search/page";
 import TabItemsBar from "@/components/Tab/TabItemsBar";
-import { FiBook, FiHeart } from "react-icons/fi";
+import { FiBook, FiHeart, FiPlus } from "react-icons/fi";
+import Button from "@/components/Button/Button";
 
 const PAGE_SIZE = 20;
 
@@ -101,27 +102,25 @@ function MyLibraryContent() {
 
   const handleTabChange = (label: string) => {
     setActiveTab(label);
-  }
-
-  if (!user) {
-    return (
-      <div className='flex flex-col justify-start items-start gap-4 sm:gap-8 min-h-[calc(100vh-200px)]'>
-        <div className='font-bold text-2xl sm:text-3xl text-primary'>
-          내 서재
-        </div>
-        <TabItemsBar tabs={tabs} activeTab={activeTab} onTabChange={handleTabChange}/>
-        <div className='w-full flex-grow flex justify-center items-center'>
-          <SearchCat />
-        </div>
-      </div>
-    );
-  }
+  };
 
   return (
     <div className='flex flex-col justify-start items-start gap-4 sm:gap-8 min-h-[calc(100vh-200px)]'>
       <div className='font-bold text-2xl sm:text-3xl text-primary'>내 서재</div>
-      <TabItemsBar tabs={tabs} activeTab={activeTab} onTabChange={handleTabChange}/>
-      {status === "pending" ? (
+      <div className='flex justify-between w-full'>
+        <TabItemsBar
+          tabs={tabs}
+          activeTab={activeTab}
+          onTabChange={handleTabChange}
+        />
+        <Button
+          icon={FiPlus}
+          variant='secondary'
+          label='불러오기'
+          small={true}
+        />
+      </div>
+      {!user || status === "pending" ? (
         <div className='w-full flex-grow flex justify-center items-center'>
           <SearchCat />
         </div>
