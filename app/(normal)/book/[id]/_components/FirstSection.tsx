@@ -19,7 +19,7 @@ import {
 } from "firebase/firestore";
 import { auth, db } from "@/libs/firebase/config";
 import { onAuthStateChanged, User } from "firebase/auth";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 
 interface FirstSectionProps {
   bookData: BookData;
