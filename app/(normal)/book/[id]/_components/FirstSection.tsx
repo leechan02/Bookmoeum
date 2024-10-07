@@ -19,6 +19,7 @@ import {
 } from "firebase/firestore";
 import { auth, db } from "@/libs/firebase/config";
 import { onAuthStateChanged, User } from "firebase/auth";
+import { useRouter } from "next/router";
 
 interface FirstSectionProps {
   bookData: BookData;
@@ -37,6 +38,7 @@ export default function FirstSection({
   const [isLiked, setIsLiked] = useState(false);
   const [isBookAdd, setIsBookAdd] = useState(false);
   const [user, setUser] = useState<User | null>(null);
+  const router = useRouter();
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
@@ -74,8 +76,7 @@ export default function FirstSection({
 
   const handleLikeClick = async () => {
     if (!user) {
-      console.log("User not logged in");
-      // Here you might want to redirect to login page or show a login prompt
+      router.push("/login");
       return;
     }
 
@@ -104,8 +105,7 @@ export default function FirstSection({
 
   const handleButtonClick = async () => {
     if (!user) {
-      console.log("User not logged in");
-      // Here you might want to redirect to login page or show a login prompt
+      router.push("/login");
       return;
     }
 
