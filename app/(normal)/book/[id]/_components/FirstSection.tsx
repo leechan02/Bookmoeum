@@ -182,7 +182,7 @@ export default function FirstSection({
               <Button
                 icon={FiBook}
                 variant={isBookAdd ? "secondary" : "primary"}
-                label={isBookAdd ? "내 서재에서 삭제" : "내 서재에 추가"}
+                label={isBookAdd ? "읽은책에서 삭제" : "읽은책에 추가"}
                 onClick={handleButtonClick}
               />
             </div>
