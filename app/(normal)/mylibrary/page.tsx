@@ -18,12 +18,14 @@ import { SearchResult } from "../search/page";
 import TabItemsBar from "@/components/Tab/TabItemsBar";
 import { FiBook, FiHeart, FiPlus } from "react-icons/fi";
 import Button from "@/components/Button/Button";
+import { useRouter } from "next/navigation";
 
 const PAGE_SIZE = 20;
 
 function MyLibraryContent() {
   const [user, setUser] = useState(auth.currentUser);
   const [activeTab, setActiveTab] = useState("읽은책");
+  const router = useRouter();
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
@@ -53,7 +55,6 @@ function MyLibraryContent() {
       isbn: doc.id,
       timestamp: doc.data().timestamp?.toDate().toISOString(),
     })) as SearchResult[];
-    console.log(books);
 
     return {
       books,
@@ -104,6 +105,10 @@ function MyLibraryContent() {
     setActiveTab(label);
   };
 
+  const handleImportClick = () => {
+    router.push("/addbooks");
+  };
+
   return (
     <div className='flex flex-col justify-start items-start gap-4 sm:gap-8 min-h-[calc(100vh-200px)]'>
       <div className='font-bold text-2xl sm:text-3xl text-primary'>내 서재</div>
@@ -118,6 +123,7 @@ function MyLibraryContent() {
           variant='secondary'
           label='불러오기'
           small={true}
+          onClick={handleImportClick}
         />
       </div>
       {!user || status === "pending" ? (
