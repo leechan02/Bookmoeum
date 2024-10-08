@@ -19,6 +19,7 @@ import { SearchResult } from "../search/page";
 import TabItemsBar from "@/components/Tab/TabItemsBar";
 import { FiBook, FiHeart, FiPlus } from "react-icons/fi";
 import Button from "@/components/Button/Button";
+import { useRouter } from "next/navigation";
 
 const PAGE_SIZE = 20;
 
@@ -33,6 +34,7 @@ function MyLibraryContent() {
     failure: string[];
   }>({ success: [], failure: [] });
   const [showConfirmation, setShowConfirmation] = useState(false);
+  const router = useRouter();
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
@@ -234,7 +236,8 @@ function MyLibraryContent() {
   };
 
   const handleImportClick = () => {
-    fileInputRef.current?.click();
+    // fileInputRef.current?.click();
+    router.push("/addbooks");
   };
 
   return (
