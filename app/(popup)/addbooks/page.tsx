@@ -49,13 +49,22 @@ export default function AddBooksPage() {
     }).filter(book => book.title && book.author); // 빈 항목 제거
   };
 
-  const searchBook = async (title: string) => {
+  const searchBook = async (title: string, author: string) => {
     const response = await fetch(`/api/search/aladdin?query=${encodeURIComponent(title)}`);
     if (!response.ok) {
       throw new Error("API 요청 실패");
     }
     const data = await response.json();
-    return data.item[0]; // 첫 번째 검색 결과 반환
+    // 제목과 저자가 일치하는 항목 찾기
+    const matchingItem = data.item.find((item: { title: string; author: string }) => 
+      item.title.toLowerCase().includes(title.toLowerCase()) &&
+      item.author.toLowerCase().includes(author.toLowerCase())
+    );
+
+    // 일치하는 항목이 없으면 제목만 일치하는 첫 번째 항목 반환
+    return matchingItem || data.item.find((item: { title: string }) => 
+      item.title.toLowerCase().includes(title.toLowerCase())
+    ) || null;
   };
 
   const processBooks = async (books: any[]) => {
@@ -67,7 +76,7 @@ export default function AddBooksPage() {
     for (let i = 0; i < books.length; i++) {
       const book = books[i];
       try {
-        const searchResult = await searchBook(book.title);
+        const searchResult = await searchBook(book.title, book.author);
         if (searchResult) {
           successResults.push(searchResult);
         } else {
