@@ -55,7 +55,6 @@ function MyLibraryContent() {
       isbn: doc.id,
       timestamp: doc.data().timestamp?.toDate().toISOString(),
     })) as SearchResult[];
-    
     console.log(books);
 
     return {
@@ -71,7 +70,6 @@ function MyLibraryContent() {
     isFetchingNextPage,
     status,
     error,
-    refetch,
   } = useInfiniteQuery({
     queryKey: ["likedBooks", activeTab, user?.uid],
     queryFn: fetchBooks,
@@ -79,12 +77,6 @@ function MyLibraryContent() {
     initialPageParam: null,
     enabled: !!user,
   });
-
-  useEffect(() => {
-    if (user) {
-      refetch();
-    }
-  }, [activeTab, user]);
 
   const handleLoadMore = useCallback(() => {
     if (hasNextPage && !isFetchingNextPage) {
@@ -146,13 +138,11 @@ function MyLibraryContent() {
       ) : (
         <>
           <div className='text-sm sm:text-base text-primary'>
-            총 {data?.pages.reduce((acc, page) => acc + page.books.length, 0) || 0}권의 책
+            총 {data?.pages[0]?.books.length || 0}권의 책
           </div>
-          {data?.pages && data.pages.length > 0 && (
-            <BookList
-              searchResults={data.pages.flatMap((page) => page.books)}
-            />
-          )}
+          <BookList
+            searchResults={data?.pages.flatMap((page) => page.books) || []}
+          />
           {isFetchingNextPage && (
             <div className='text-sm sm:text-base'>로딩 중...</div>
           )}
