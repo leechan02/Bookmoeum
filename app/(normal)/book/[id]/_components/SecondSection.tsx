@@ -16,12 +16,12 @@ export default function SecondSection({ bookData }: SecondSectionProps) {
           <DetailSection
             category={bookData.category}
             page={bookData.page}
-            isbn={bookData.isbn}
+            isbn={bookData.isbn || ""}
             publisher={bookData.publisher}
-            pubDate={bookData.pubdate}
+            pubDate={bookData.pubdate || ""}
           />
         </div>
-        <DescriptionSection description={bookData.description} />
+        <DescriptionSection description={bookData.description || ""} />
       </div>
     </div>
   );
