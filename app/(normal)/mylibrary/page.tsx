@@ -55,6 +55,8 @@ function MyLibraryContent() {
       isbn: doc.id,
       timestamp: doc.data().timestamp?.toDate().toISOString(),
     })) as SearchResult[];
+    
+    console.log(books);
 
     return {
       books,
