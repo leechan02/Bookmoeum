@@ -14,7 +14,7 @@ export interface SearchResult {
   isbn13: string;
   description: string;
   link: string;
-  pubdate: string;
+  pubDate: string;
   timestamp: string;
 }
 
@@ -87,33 +87,39 @@ export default function AddBooksPage() {
 
   const addBooksToFirebase = async () => {
     const user = auth.currentUser;
-    if (!user) return;
-  
+    if (!user) {
+      alert("로그인이 필요합니다.");
+      return;
+    }
+
     setIsLoading(true);
     setProgress(0);
-  
+
     for (let i = 0; i < searchResults.success.length; i++) {
       const book = searchResults.success[i];
+      console.log('book: ', book);
       try {
         const bookRef = doc(db, `users/${user.uid}/books/${book.isbn13}`);
         await setDoc(bookRef, {
           title: book.title,
           author: book.author,
           publisher: book.publisher,
-          pubdate: book.pubdate,
+          pubdate: book.pubDate,
           isbn: book.isbn13,
           image: book.cover,
           description: book.description,
           timestamp: new Date(),
         });
+        console.log(`책 "${book.title}" 추가 성공`);
         setProgress(((i + 1) / searchResults.success.length) * 100);
       } catch (error) {
         console.error("책 추가 중 오류 발생:", error);
       }
     }
-  
+
     setIsLoading(false);
     setShowConfirmation(false);
+    alert("책 추가가 완료되었습니다.");
     router.push("/mylibrary");
   };
 
