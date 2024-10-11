@@ -136,7 +136,7 @@ export default function FirstSection({
     <div className='flex flex-col justify-center items-center py-8 md:py-14 px-8'>
       <div className='flex flex-col md:flex-row justify-between items-center w-full max-w-[900px] gap-8'>
         <div className='flex justify-center'>
-          <Book imageUrl={bookData.image} width={240} />
+          <Book imageUrl={bookData.image || bookData.cover || ""} width={240} />
         </div>
         <div className='flex-col justify-start items-start gap-10 md:gap-20 inline-flex w-full md:w-auto'>
           <div className='flex-col justify-center items-start gap-4 md:gap-6 inline-flex w-full'>
@@ -161,7 +161,7 @@ export default function FirstSection({
             </div>
             <div className='inline-flex flex-wrap justify-center md:justify-start items-center gap-1 w-full'>
               <Chip label={bookData.publisher} />
-              <Chip label={bookData.pubdate} />
+              <Chip label={bookData.pubdate || bookData.pubDate || ""} />
               {bookData.category && <Chip label={bookData.category} />}
             </div>
           </div>
