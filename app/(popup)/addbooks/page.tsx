@@ -110,7 +110,6 @@ export default function AddBooksPage() {
           description: book.description,
           timestamp: new Date(),
         });
-        console.log(`책 "${book.title}" 추가 성공`);
         setProgress(((i + 1) / searchResults.success.length) * 100);
       } catch (error) {
         console.error("책 추가 중 오류 발생:", error);
@@ -119,7 +118,6 @@ export default function AddBooksPage() {
 
     setIsLoading(false);
     setShowConfirmation(false);
-    alert("책 추가가 완료되었습니다.");
     router.push("/mylibrary");
   };
 
