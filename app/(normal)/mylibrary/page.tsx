@@ -34,7 +34,7 @@ function MyLibraryContent() {
     return () => unsubscribe();
   }, []);
 
-  const fetchBooks = async ({
+  const fetchBooks = useCallback(async ({
     pageParam,
   }: {
     pageParam?: QueryDocumentSnapshot<DocumentData> | null;
@@ -60,7 +60,7 @@ function MyLibraryContent() {
       books,
       nextCursor: snapshot.docs[snapshot.docs.length - 1] || null,
     };
-  };
+  }, [user, activeTab]);
 
   const {
     data,
@@ -69,7 +69,7 @@ function MyLibraryContent() {
     isFetchingNextPage,
     status,
     error,
-    refetch, // refetch 함수 추가
+    refetch,
   } = useInfiniteQuery({
     queryKey: ["likedBooks", activeTab, user?.uid],
     queryFn: fetchBooks,
@@ -78,10 +78,8 @@ function MyLibraryContent() {
     enabled: !!user,
   });
 
-  // activeTab이 변경될 때 데이터를 다시 불러오는 useEffect 추가
   useEffect(() => {
     if (user) {
-      console.log("refetching");
       refetch();
     }
   }, [activeTab, user, refetch]);
