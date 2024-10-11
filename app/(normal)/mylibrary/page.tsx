@@ -81,6 +81,7 @@ function MyLibraryContent() {
   // activeTab이 변경될 때 데이터를 다시 불러오는 useEffect 추가
   useEffect(() => {
     if (user) {
+      console.log("refetching");
       refetch();
     }
   }, [activeTab, user, refetch]);
