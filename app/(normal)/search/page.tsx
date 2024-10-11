@@ -12,13 +12,16 @@ import Image from "next/image";
 export interface SearchResult {
   title: string;
   author: string;
-  image: string;
+  image?: string;
+  cover?: string;
   publisher: string;
-  isbn: string;
-  description: string;
-  link: string;
-  pubdate: string;
-  timestamp: string;
+  isbn?: string;
+  isbn13?: string;
+  description?: string;
+  link?: string;
+  pubdate?: string;
+  pubDate?: string;
+  timestamp?: string;
 }
 
 interface SearchResponse {

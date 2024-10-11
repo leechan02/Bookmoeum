@@ -79,7 +79,7 @@ export default function FindBook({
   const bookstoreQueries = useQueries({
     queries: ["kyobo", "yes24", "aladdin"].map((store) => ({
       queryKey: ["bookstore", store, bookData?.isbn],
-      queryFn: () => fetchBookstoreData(store, bookData?.isbn),
+      queryFn: () => fetchBookstoreData(store, bookData?.isbn || ""),
       enabled: !!bookData?.isbn,
       staleTime: 1000 * 60 * 30, // 10 minutes
     })),
@@ -94,8 +94,8 @@ export default function FindBook({
 
   const libraryQueries = useQueries({
     queries: selectedLibraries.map((library) => ({
-      queryKey: ["library", library.libraryCode, bookData?.isbn],
-      queryFn: () => fetchLibraryData(bookData?.isbn, library.libraryCode),
+      queryKey: ["library", library.libraryCode, bookData?.isbn || ""],
+      queryFn: () => fetchLibraryData(bookData?.isbn || "", library.libraryCode),
       enabled: !!bookData?.isbn,
       staleTime: 1000 * 60 * 30, // 10 minutes
     })),
