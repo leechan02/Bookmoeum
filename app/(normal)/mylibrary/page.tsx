@@ -69,6 +69,7 @@ function MyLibraryContent() {
     isFetchingNextPage,
     status,
     error,
+    refetch, // refetch 함수 추가
   } = useInfiniteQuery({
     queryKey: ["likedBooks", activeTab, user?.uid],
     queryFn: fetchBooks,
@@ -76,6 +77,13 @@ function MyLibraryContent() {
     initialPageParam: null,
     enabled: !!user,
   });
+
+  // activeTab이 변경될 때 데이터를 다시 불러오는 useEffect 추가
+  useEffect(() => {
+    if (user) {
+      refetch();
+    }
+  }, [activeTab, user, refetch]);
 
   const handleLoadMore = useCallback(() => {
     if (hasNextPage && !isFetchingNextPage) {
