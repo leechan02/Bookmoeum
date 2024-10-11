@@ -34,7 +34,7 @@ function MyLibraryContent() {
     return () => unsubscribe();
   }, []);
 
-  const fetchBooks = useCallback(async ({
+  const fetchBooks = async ({
     pageParam,
   }: {
     pageParam?: QueryDocumentSnapshot<DocumentData> | null;
@@ -60,7 +60,7 @@ function MyLibraryContent() {
       books,
       nextCursor: snapshot.docs[snapshot.docs.length - 1] || null,
     };
-  }, [user, activeTab]);
+  };
 
   const {
     data,
