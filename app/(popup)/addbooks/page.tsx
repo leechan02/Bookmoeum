@@ -3,9 +3,20 @@ import { useState, useRef } from "react";
 import { useRouter } from "next/navigation";
 import { FiArrowLeft, FiUpload } from "react-icons/fi";
 import Button from "@/components/Button/Button";
-import { collection, addDoc } from "firebase/firestore";
+import { collection, addDoc, doc, setDoc } from "firebase/firestore";
 import { auth, db } from "@/libs/firebase/config";
-import { SearchResult } from "@/app/(normal)/search/page";
+
+export interface SearchResult {
+  title: string;
+  author: string;
+  cover: string;
+  publisher: string;
+  isbn13: string;
+  description: string;
+  link: string;
+  pubdate: string;
+  timestamp: string;
+}
 
 export default function AddBooksPage() {
   const router = useRouter();
@@ -77,31 +88,30 @@ export default function AddBooksPage() {
   const addBooksToFirebase = async () => {
     const user = auth.currentUser;
     if (!user) return;
-
-    const booksRef = collection(db, `users/${user.uid}/books`);
-
+  
     setIsLoading(true);
     setProgress(0);
-
+  
     for (let i = 0; i < searchResults.success.length; i++) {
       const book = searchResults.success[i];
       try {
-        await addDoc(booksRef, {
+        const bookRef = doc(db, `users/${user.uid}/books/${book.isbn13}`);
+        await setDoc(bookRef, {
           title: book.title,
           author: book.author,
           publisher: book.publisher,
           pubdate: book.pubdate,
-          isbn: book.isbn,
-          image: book.image,
+          isbn: book.isbn13,
+          image: book.cover,
           description: book.description,
           timestamp: new Date(),
         });
         setProgress(((i + 1) / searchResults.success.length) * 100);
       } catch (error) {
-        console.error("Error adding book:", error);
+        console.error("책 추가 중 오류 발생:", error);
       }
     }
-
+  
     setIsLoading(false);
     setShowConfirmation(false);
     router.push("/mylibrary");
