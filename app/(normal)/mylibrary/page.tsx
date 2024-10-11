@@ -84,7 +84,7 @@ function MyLibraryContent() {
     if (user) {
       refetch();
     }
-  }, [activeTab, user, refetch]);
+  }, [activeTab, user]);
 
   const handleLoadMore = useCallback(() => {
     if (hasNextPage && !isFetchingNextPage) {
@@ -146,11 +146,13 @@ function MyLibraryContent() {
       ) : (
         <>
           <div className='text-sm sm:text-base text-primary'>
-            총 {data?.pages[0]?.books.length || 0}권의 책
+            총 {data?.pages.reduce((acc, page) => acc + page.books.length, 0) || 0}권의 책
           </div>
-          <BookList
-            searchResults={data?.pages.flatMap((page) => page.books) || []}
-          />
+          {data?.pages && data.pages.length > 0 && (
+            <BookList
+              searchResults={data.pages.flatMap((page) => page.books)}
+            />
+          )}
           {isFetchingNextPage && (
             <div className='text-sm sm:text-base'>로딩 중...</div>
           )}
