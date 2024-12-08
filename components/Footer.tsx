@@ -28,7 +28,7 @@ export default function Footer() {
               className='w-6 h-6 fill-secondary'
             />
             <div className='font-light text-secondary text-sm text-center sm:text-left'>
-              모든 독서생활은 이제 책모음과 함께하세요.
+              누구나 책을 쉽고 즐겁게 읽을 수 있는 세상을 만들겠습니다.
             </div>
           </div>
           <FiInstagram className='w-6 h-6 text-secondary' />
